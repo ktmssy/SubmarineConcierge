@@ -106,12 +106,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5054847332903176}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dbbc16606fe1f043b92a1247da47755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeIntervalMin: 0
-  TimeIntervalMax: 0
-  A: {r: 0, g: 0, b: 0, a: 0}
-  B: {r: 0, g: 0, b: 0, a: 0}
+  TimeIntervalMin: 1
+  TimeIntervalMax: 2
+  A: {r: 0.46339473, g: 1, b: 0.2688679, a: 0.9490196}
+  B: {r: 1, g: 0.3735838, b: 0.2216981, a: 0.8509804}
