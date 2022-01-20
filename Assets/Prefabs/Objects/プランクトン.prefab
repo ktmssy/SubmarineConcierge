@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5054847332903183}
   - component: {fileID: 5054847332903182}
   - component: {fileID: 5054847332903177}
+  - component: {fileID: 9123597268466765661}
   - component: {fileID: 5054847332903180}
   m_Layer: 0
   m_Name: "\u30D7\u30E9\u30F3\u30AF\u30C8\u30F3"
@@ -99,6 +100,24 @@ MonoBehaviour:
   Speed: 3
   Data: {fileID: 0}
   Distance: 0
+--- !u!114 &9123597268466765661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5054847332903176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86474e6a407c9cd4087acc33dc03f2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeIntervalMin: 1
+  TimeIntervalMax: 2
+  A: {x: 0.4, y: 0.4, z: 1}
+  B: {x: 0.2, y: 0.2, z: 1}
+  RemainTimeMin: 0.5
+  RemainTimeMax: 2
 --- !u!114 &5054847332903180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,4 +133,4 @@ MonoBehaviour:
   TimeIntervalMin: 1
   TimeIntervalMax: 2
   A: {r: 0.46339473, g: 1, b: 0.2688679, a: 0.9490196}
-  B: {r: 1, g: 0.3735838, b: 0.2216981, a: 0.8509804}
+  B: {r: 0.2235294, g: 0.82404536, b: 1, a: 0.8509804}
