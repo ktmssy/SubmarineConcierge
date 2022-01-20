@@ -16,20 +16,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YoShiSho
+namespace SubmarineConcierge.Plankton
 {
+    /// <summary>
+    /// スプライトの色調整
+    /// </summary>
+    [System.Obsolete]
     public class ColorControl : MonoBehaviour
     {
-        public float timeIntervalMin;
-        public float timeIntervalMax;
-        public Color a, b;
+        public float TimeIntervalMin;
+        public float TimeIntervalMax;
+        public Color A, B;
         private float timeInterval;
         private float timer = 0f;
         private SpriteRenderer sr;
 
         private void Start()
         {
-            timeInterval = Random.Range(timeIntervalMin, timeIntervalMax);
+            timeInterval = Random.Range(TimeIntervalMin, TimeIntervalMax);
             timer = Random.Range(0f, timeInterval);
             sr = GetComponent<SpriteRenderer>();
         }
@@ -37,10 +41,10 @@ namespace YoShiSho
         private void Update()
         {
             timer += Time.deltaTime;
-            sr.color = timer / timeInterval <= 0.5f ? Color32.Lerp(a, b, timer / timeInterval * 2f) : Color32.Lerp(b, a, timer / timeInterval * 2f - 1f);
+            sr.color = timer / timeInterval <= 0.5f ? Color32.Lerp(A, B, timer / timeInterval * 2f) : Color32.Lerp(B, A, timer / timeInterval * 2f - 1f);
             if (timer > timeInterval)
             {
-                timeInterval = Random.Range(timeIntervalMin, timeIntervalMax);
+                timeInterval = Random.Range(TimeIntervalMin, TimeIntervalMax);
                 timer = 0f;
             }
         }

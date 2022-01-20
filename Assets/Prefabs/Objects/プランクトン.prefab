@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e930b3ce74186348bf2fa3e44e8a065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  data: {fileID: 0}
-  distance: 0
+  Speed: 3
+  Data: {fileID: 0}
+  Distance: 0
 --- !u!114 &5054847332903180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbbc16606fe1f043b92a1247da47755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeIntervalMin: 2
-  timeIntervalMax: 4
-  a: {r: 0.3278927, g: 0.8490566, b: 0.1802243, a: 1}
-  b: {r: 0.06309676, g: 0.16299999, b: 0.034552988, a: 1}
+  TimeIntervalMin: 0
+  TimeIntervalMax: 0
+  A: {r: 0, g: 0, b: 0, a: 0}
+  B: {r: 0, g: 0, b: 0, a: 0}

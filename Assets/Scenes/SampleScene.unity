@@ -616,9 +616,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0792ea5010591f408538142350d893b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5054847332903176, guid: 092601bf695854245bd2951b072555b3, type: 3}
-  data: {fileID: 11400000, guid: 92324750e0836a249bfb4138627043cb, type: 2}
-  count: 30
+  Prefab: {fileID: 5054847332903176, guid: 092601bf695854245bd2951b072555b3, type: 3}
+  Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
+  Count: 30
+  Speed: 1
 --- !u!114 &1716644639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,7 +632,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e69724e6e70ae41b183167fc6aeb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 92324750e0836a249bfb4138627043cb, type: 2}
+  DoDraw: 1
+  Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
+  PointRadius: 0.1
 --- !u!4 &1716644640
 Transform:
   m_ObjectHideFlags: 0
@@ -640,8 +643,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716644637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.35127, y: 4.921965, z: -21.017576}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.34, y: -6.7, z: 0}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3

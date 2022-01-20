@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace YoShiSho
+namespace SubmarineConcierge.Plankton
 {
     [CustomEditor(typeof(RouteData))]
     public class RouteDataEditor : Editor
@@ -31,30 +31,25 @@ namespace YoShiSho
 
         public override void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
+            if(DrawDefaultInspector())
+            {
+                data.OnEnable();
+            }
+
             if (GUILayout.Button("Smooth"))
             {
-                if (data.smoothCount <= data.edges.Length)
+                if (data.SmoothCount <= data.Edges.Length)
                     return;
-                Vector2[] newPoints = new Vector2[data.smoothCount];
+                Vector2[] newPoints = new Vector2[data.SmoothCount];
                 float value = 0f;
-                float delta = data.totalDistance / data.smoothCount;
-                for (int i = 0; i < data.smoothCount; ++i)
+                float delta = data.TotalDistance / data.SmoothCount;
+                for (int i = 0; i < data.SmoothCount; ++i)
                 {
                     newPoints[i] = data.Lerp(value);
                     value += delta;
                 }
-                data.points = newPoints;
+                data.Points = newPoints;
                 data.OnEnable();
-                /*RouteEdge[] newEdges = new RouteEdge[data.smoothCount];
-                float value = 0f;
-                float delta = data.totalDistance / data.smoothCount;
-                for (int i = 0; i < data.smoothCount; ++i)
-                {
-                    newEdges[i] = new RouteEdge(data.Lerp(value), data.Lerp(value + delta));
-                    value += delta;
-                }
-                data.edges = newEdges;*/
             }
         }
     }
