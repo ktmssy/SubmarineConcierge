@@ -37,11 +37,11 @@ namespace SubmarineConcierge.Utilities
         }
 
         /// <summary>
-        /// のtransformの影響を受けた座標の算出
+        /// 親のtransformの影響を受けた座標の算出
         /// </summary>
         /// <param name="pos">ローカル座標</param>
         /// <param name="localToWorldMatrix">親のlocalToWorldMatrix</param>
-        /// <returns>ワールド</returns>
+        /// <returns>ワールド座標</returns>
         public static Vector2 CalcPos(Vector2 pos, Matrix4x4 localToWorldMatrix)
         {
             Vector4 local = new Vector4(pos.x, pos.y, 0f, 1f);
