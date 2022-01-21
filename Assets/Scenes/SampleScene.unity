@@ -868,7 +868,7 @@ MonoBehaviour:
   Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
   Count: 2
   Speed: 1
-  distance: 1
+  distance: 0.8
 --- !u!114 &1716644639
 MonoBehaviour:
   m_ObjectHideFlags: 0

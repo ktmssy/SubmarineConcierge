@@ -1,13 +1,13 @@
 /******************************
  *
- *　作成者：
- *　作成日：
- *　更新日：
+ *　作成者：楊志庄
+ *　作成日：2022年01月17日
+ *　更新日：2022年01月21日
  *
  ******************************
  *
  *　更新履歴...編集者
- *　1.
+ *　1.クラス名を変更...楊志庄
  *　2.
  *　3.
  *
@@ -39,7 +39,7 @@ namespace SubmarineConcierge.Plankton
         private void Clear()
         {
             if (Application.isPlaying && generator.gameObject)
-                foreach (var c in generator.gameObject.GetComponentsInChildren<MoveAlongRoute>())
+                foreach (var c in generator.gameObject.GetComponentsInChildren<Plankton>())
                     Destroy(c.gameObject);
         }
 

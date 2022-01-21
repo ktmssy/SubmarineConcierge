@@ -19,14 +19,14 @@ using UnityEngine;
 
 namespace SubmarineConcierge.Plankton
 {
-    [CustomEditor(typeof(RouteData))]
+    [CustomEditor(typeof(LinearRouteData))]
     public class RouteDataEditor : Editor
     {
-        RouteData data;
+        LinearRouteData data;
 
         private void OnEnable()
         {
-            data = target as RouteData;
+            data = target as LinearRouteData;
         }
 
         public override void OnInspectorGUI()
