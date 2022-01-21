@@ -64,8 +64,7 @@ namespace SubmarineConcierge.Plankton
         private float timeInterval;
 
         /// <summary>
-        /// タイマー
-        /// </summary>
+        /// タイマ2020202020221111        /// </summary>
         private float timer = 0f;
 
         private void Start()
