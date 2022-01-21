@@ -20,76 +20,80 @@ using SubmarineConcierge.Utilities;
 
 namespace SubmarineConcierge.Plankton
 {
-    /// <summary>
-    /// プランクトン生成マネージャー
-    /// </summary>
-    public class PlanktonGenerator : MonoBehaviour
-    {
-        /// <summary>
-        /// プランクトンのプレハブ
-        /// </summary>
-        [Tooltip("プランクトンのプレハブ")]
-        public GameObject Prefab;
+	/// <summary>
+	/// プランクトン生成マネージャー
+	/// </summary>
+	public class PlanktonGenerator : MonoBehaviour
+	{
+		/// <summary>
+		/// プランクトンのプレハブ
+		/// </summary>
+		[Tooltip("プランクトンのプレハブ")]
+		public GameObject Prefab;
 
-        /// <summary>
-        /// ルートデータ
-        /// </summary>
-        [Tooltip("ルートデータ")]
-        public RouteData Data;
+		/// <summary>
+		/// ルートデータ
+		/// </summary>
+		[Tooltip("ルートデータ")]
+		public RouteData Data;
 
-        /// <summary>
-        /// 生成する数
-        /// </summary>
-        [Tooltip("生成する数")]
-        public int Count;
+		/// <summary>
+		/// 生成する数
+		/// </summary>
+		[Tooltip("生成する数")]
+		public int Count;
 
-        /// <summary>
-        /// プランクトンたちのスピード
-        /// </summary>
-        [Tooltip("プランクトンたちのスピード")]
-        public float Speed;
+		/// <summary>
+		/// プランクトンたちのスピード
+		/// </summary>
+		[Tooltip("プランクトンたちのスピード")]
+		public float Speed;
 
-        /// <summary>
-        /// プランクトンを生成する
-        /// </summary>
-        public void Generate()
-        {
-            //生成する場所を決める位相
-            float value = 0f;
+		public float distance = 0f;
 
-            //二匹のプランクトンの位相差
-            float delta = Data.TotalDistance / Count;
+		/// <summary>
+		/// プランクトンを生成する
+		/// </summary>
+		public void Generate()
+		{
+			//生成する場所を決める位相
+			float value = 0f;
 
-            for (int i = 0; i < Count; ++i)
-            {
-                //プランクトンを生成する。場所はルートデータのLerp関数で算出
-                GameObject go = Instantiate(Prefab, CoordinateUtility.CalcPos(Data.Lerp(value), transform.localToWorldMatrix), Quaternion.identity);
+			float delta = distance;
+			if (distance == 0f)
+				//二匹のプランクトンの位相差
+				delta = Data.TotalDistance / Count;
 
-                //プランクトンの親を自分にする
-                go.transform.parent = transform;
+			for (int i = 0; i < Count; ++i)
+			{
+				//プランクトンを生成する。場所はルートデータのLerp関数で算出
+				GameObject go = Instantiate(Prefab, CoordinateUtility.CalcPos(Data.Lerp(value), transform.localToWorldMatrix), Quaternion.identity);
 
-                //プランクトンの制御スクリプトを取得
-                MoveAlongRoute mar = go.GetComponent<MoveAlongRoute>();
+				//プランクトンの親を自分にする
+				go.transform.parent = transform;
 
-                //位相の値を付与する
-                mar.Distance = value;
+				//プランクトンの制御スクリプトを取得
+				MoveAlongRoute mar = go.GetComponent<MoveAlongRoute>();
 
-                //ルートデータを付与する
-                mar.Data = Data;
+				//位相の値を付与する
+				mar.Distance = value;
 
-                //スピードを付与する
-                mar.Speed = Speed;
+				//ルートデータを付与する
+				mar.Data = Data;
 
-                //mar.localToWorldMatrix = transform.localToWorldMatrix;
+				//スピードを付与する
+				mar.Speed = Speed;
 
-                //次のプランクトンの位相を準備
-                value += delta;
-            }
-        }
+				//mar.localToWorldMatrix = transform.localToWorldMatrix;
 
-        private void Start()
-        {
-            Generate();
-        }
-    }
+				//次のプランクトンの位相を準備
+				value += delta;
+			}
+		}
+
+		private void Start()
+		{
+			Generate();
+		}
+	}
 }

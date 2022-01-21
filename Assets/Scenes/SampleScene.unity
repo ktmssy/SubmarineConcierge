@@ -784,8 +784,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5054847332903176, guid: 092601bf695854245bd2951b072555b3, type: 3}
   Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
-  Count: 30
+  Count: 2
   Speed: 1
+  distance: 1
 --- !u!114 &1716644639
 MonoBehaviour:
   m_ObjectHideFlags: 0
