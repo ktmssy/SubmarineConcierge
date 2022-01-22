@@ -22,7 +22,7 @@ namespace SubmarineConcierge.Plankton
     /// <summary>
     /// プランクトンのルートデータ
     /// </summary>
-    [CreateAssetMenu(menuName = "SubmarineConcierge/Plankton/RouteData")]
+    [CreateAssetMenu(fileName = "LinearRouteData", menuName = "SubmarineConcierge/Plankton/LinearRouteData")]
     public class LinearRouteData : RouteData
     {
         /// <summary>
