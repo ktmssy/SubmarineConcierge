@@ -19,6 +19,8 @@ using UnityEngine;
 
 namespace SubmarineConcierge.Plankton
 {
+
+    [AddComponentMenu("_SubmarineConcierge/Plankton/TouchManager")]
     public class TouchManager : MonoBehaviour
     {
         public Transform target;

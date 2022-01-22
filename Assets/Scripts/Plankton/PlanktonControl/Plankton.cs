@@ -22,6 +22,7 @@ namespace SubmarineConcierge.Plankton
     /// <summary>
     /// プランクトンのコントローラー
     /// </summary>
+    [AddComponentMenu("_SubmarineConcierge/Plankton/Plankton")]
     public class Plankton : MonoBehaviour
     {
         /// <summary>

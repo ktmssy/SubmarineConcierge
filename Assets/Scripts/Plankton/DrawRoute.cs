@@ -24,6 +24,7 @@ namespace SubmarineConcierge.Plankton
     /// <summary>
     /// ルートデータの可視化
     /// </summary>
+    [AddComponentMenu("_SubmarineConcierge/Plankton/Route/DrawRoute")]
     public class DrawRoute : MonoBehaviour
     {
         /// <summary>

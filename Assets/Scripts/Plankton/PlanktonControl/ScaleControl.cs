@@ -21,6 +21,7 @@ namespace SubmarineConcierge.Plankton
     /// <summary>
     /// スプライトのスケール調整
     /// </summary>
+    [AddComponentMenu("_SubmarineConcierge/Plankton/ScaleControl")]
     public class ScaleControl : MonoBehaviour
     {
         /// <summary>

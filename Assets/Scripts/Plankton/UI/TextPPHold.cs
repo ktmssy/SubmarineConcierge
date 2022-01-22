@@ -21,6 +21,8 @@ using UnityEngine.UI;
 
 namespace SubmarineConcierge
 {
+
+    [AddComponentMenu("_SubmarineConcierge/UI/Text/PPHold")]
     public class TextPPHold : MonoBehaviour
     {
         Text text;

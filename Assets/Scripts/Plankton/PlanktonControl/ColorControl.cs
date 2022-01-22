@@ -21,7 +21,7 @@ namespace SubmarineConcierge.Plankton
     /// <summary>
     /// スプライトの色調整
     /// </summary>
-    [System.Obsolete]
+    [AddComponentMenu("_SubmarineConcierge/Plankton/ColorControl")]
     public class ColorControl : MonoBehaviour
     {
         public float TimeIntervalMin;
