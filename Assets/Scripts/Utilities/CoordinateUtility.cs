@@ -31,7 +31,7 @@ namespace SubmarineConcierge.Utilities
         /// <param name="offset">親のワールド座標</param>
         /// <param name="scale">親のスケール</param>
         /// <returns>ワールド座標</returns>
-        public static Vector2 CalcPos(Vector2 pos, Vector2 offset, Vector3 scale)
+        public static Vector2 CalcWorldPosFromLocalPos(Vector2 pos, Vector2 offset, Vector3 scale)
         {
             return (pos + offset) * scale;
         }
@@ -42,7 +42,7 @@ namespace SubmarineConcierge.Utilities
         /// <param name="pos">ローカル座標</param>
         /// <param name="localToWorldMatrix">親のlocalToWorldMatrix</param>
         /// <returns>ワールド座標</returns>
-        public static Vector2 CalcPos(Vector2 pos, Matrix4x4 localToWorldMatrix)
+        public static Vector2 CalcWorldPosFromLocalPos(Vector2 pos, Matrix4x4 localToWorldMatrix)
         {
             Vector4 local = new Vector4(pos.x, pos.y, 0f, 1f);
             Vector4 world = localToWorldMatrix * local;

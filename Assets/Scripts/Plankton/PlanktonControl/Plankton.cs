@@ -29,6 +29,8 @@ namespace SubmarineConcierge.Plankton
         /// </summary>
         public float Speed;
 
+        public float CollectSpeed;
+
         /// <summary>
         /// ルートデータ
         /// </summary>
@@ -38,6 +40,14 @@ namespace SubmarineConcierge.Plankton
         /// 位相
         /// </summary>
         public float Phase = 0f;
+
+        public PlanktonManager manager;
+
+        private Vector2 startPoint;
+
+        private Vector2 endPoint;
+
+        private bool clicked;
 
         /// <summary>
         /// 位相の更新
@@ -54,16 +64,52 @@ namespace SubmarineConcierge.Plankton
                 Phase += Data.TotalDistance;
         }
 
-        /// <summary>
-        /// 座標の更新
-        /// </summary>
-        public virtual void UpdatePosition()
+        protected virtual void UpdatePositionUncollected()
         {
             //移動
             if (transform.parent)
                 transform.position = Data.Lerp(Phase, transform.parent.localToWorldMatrix);
             else
                 transform.position = Data.Lerp(Phase);
+        }
+
+        protected virtual void UpdatePositionCollected()
+        {
+            transform.position = Vector2.MoveTowards(transform.position, endPoint, CollectSpeed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, endPoint) < 0.00001f)
+            {
+                GainPoint();
+                Destroy(gameObject);
+            }
+        }
+
+        protected virtual void GainPoint()
+        {
+            manager.GainPP();
+        }
+
+        /// <summary>
+        /// 座標の更新
+        /// </summary>
+        protected virtual void UpdatePosition()
+        {
+            if (!clicked)
+            {
+                UpdatePositionUncollected();
+            }
+            else
+            {
+                UpdatePositionCollected();
+            }
+        }
+
+        public virtual void Collect(Vector2 target)
+        {
+            if (clicked)
+                return;
+            startPoint = transform.position;
+            endPoint = target;
+            clicked = true;
         }
 
         protected void Update()

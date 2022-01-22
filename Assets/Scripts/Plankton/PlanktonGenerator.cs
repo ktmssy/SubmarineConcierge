@@ -23,6 +23,7 @@ namespace SubmarineConcierge.Plankton
     /// <summary>
     /// プランクトン生成マネージャー
     /// </summary>
+    [System.Obsolete]
     public class PlanktonGenerator : MonoBehaviour
     {
         /// <summary>
@@ -74,7 +75,7 @@ namespace SubmarineConcierge.Plankton
             for (int i = 0; i < Count; ++i)
             {
                 //プランクトンを生成する。場所はルートデータのLerp関数で算出
-                GameObject go = Instantiate(Prefab, CoordinateUtility.CalcPos(Data.Lerp(phase), transform.localToWorldMatrix), Quaternion.identity);
+                GameObject go = Instantiate(Prefab, CoordinateUtility.CalcWorldPosFromLocalPos(Data.Lerp(phase), transform.localToWorldMatrix), Quaternion.identity);
 
                 //プランクトンの親を自分にする
                 go.transform.parent = transform;

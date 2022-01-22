@@ -113,7 +113,7 @@ namespace SubmarineConcierge.Plankton
         /// <returns>ルート上の座標</returns>
         public override Vector2 Lerp(float value, Matrix4x4 localToWorldMatrix)
         {
-            return Utilities.CoordinateUtility.CalcPos(Lerp(value), localToWorldMatrix);
+            return Utilities.CoordinateUtility.CalcWorldPosFromLocalPos(Lerp(value), localToWorldMatrix);
         }
 
         /// <summary>

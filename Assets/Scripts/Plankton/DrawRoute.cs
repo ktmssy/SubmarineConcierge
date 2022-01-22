@@ -54,12 +54,12 @@ namespace SubmarineConcierge.Plankton
                 //辺の描画
                 Gizmos.color = Color.white;
                 foreach (var edge in ((LinearRouteData)Data).Edges)
-                    Gizmos.DrawLine(CoordinateUtility.CalcPos(edge.Start, transform.localToWorldMatrix), CoordinateUtility.CalcPos(edge.End, transform.localToWorldMatrix));
+                    Gizmos.DrawLine(CoordinateUtility.CalcWorldPosFromLocalPos(edge.Start, transform.localToWorldMatrix), CoordinateUtility.CalcWorldPosFromLocalPos(edge.End, transform.localToWorldMatrix));
 
                 //頂点の描画
                 Gizmos.color = Color.red;
                 foreach (Vector2 pos in ((LinearRouteData)Data).Points)
-                    Gizmos.DrawSphere(CoordinateUtility.CalcPos(pos, transform.localToWorldMatrix), PointRadius);
+                    Gizmos.DrawSphere(CoordinateUtility.CalcWorldPosFromLocalPos(pos, transform.localToWorldMatrix), PointRadius);
             }
 
         }

@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8434194526371070302}
   - component: {fileID: 9123597268466765661}
   - component: {fileID: 5054847332903180}
-  m_Layer: 0
+  - component: {fileID: 4859621637042346875}
+  m_Layer: 10
   m_Name: Plankton
   m_TagString: Plankton
   m_Icon: {fileID: 0}
@@ -98,8 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
+  CollectSpeed: 5
   Data: {fileID: 0}
   Phase: 0
+  manager: {fileID: 0}
 --- !u!114 &9123597268466765661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,5 +135,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeIntervalMin: 1
   TimeIntervalMax: 2
-  A: {r: 0.46339473, g: 1, b: 0.2688679, a: 0.9490196}
-  B: {r: 0.2235294, g: 0.82404536, b: 1, a: 0.8509804}
+  A: {r: 0.46339473, g: 1, b: 0.2688679, a: 1}
+  B: {r: 0.2235294, g: 0.82404536, b: 1, a: 1}
+--- !u!58 &4859621637042346875
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5054847332903176}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49999997
