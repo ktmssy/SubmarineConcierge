@@ -30,6 +30,8 @@ namespace SubmarineConcierge.Plankton
         /// </summary>
         public Vector2[] Points;
 
+        public bool Loop;
+
         /// <summary>
         /// 円滑化するときの頂点数
         /// </summary>
@@ -50,12 +52,25 @@ namespace SubmarineConcierge.Plankton
             TotalDistance = 0f;
 
             //辺のArrayを用意
-            Edges = new RouteEdge[Points.Length];
+            if (Loop)
+            {
+                Edges = new RouteEdge[Points.Length];
 
-            for (int i = 0; i < Points.Length; ++i)
+                //辺
+                Edges[Points.Length - 1] = new RouteEdge(Points[Points.Length - 1], Points[0]);
+
+                //周長
+                TotalDistance += Edges[Points.Length - 1].Distance;
+            }
+            else
+            {
+                Edges = new RouteEdge[Points.Length - 1];
+            }
+
+            for (int i = 0; i < Points.Length - 1; ++i)
             {
                 //辺
-                Edges[i] = new RouteEdge(Points[i], Points[i + 1 == Points.Length ? 0 : i + 1]);
+                Edges[i] = new RouteEdge(Points[i], Points[i + 1]);
 
                 //周長
                 TotalDistance += Edges[i].Distance;

@@ -21,4 +21,5 @@ MonoBehaviour:
   - {x: 4, y: -4}
   - {x: 6, y: 0}
   - {x: 4, y: 4}
+  Loop: 1
   SmoothCount: 0
