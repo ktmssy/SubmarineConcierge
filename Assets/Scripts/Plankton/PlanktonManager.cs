@@ -2,12 +2,12 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月22日
- *　更新日：
+ *　更新日：2022年01月25日
  *
  ******************************
  *
  *　更新履歴...編集者
- *　1.
+ *　1.PP産出アルゴリズムの変更
  *　2.
  *　3.
  *
@@ -51,6 +51,8 @@ namespace SubmarineConcierge.Plankton
         [Tooltip("プランクトンたちのスピード")]
         public float Speed;
 
+        public int MaxPlanktonAmount;
+
         /// <summary>
         /// プランクトンの間隔距離。0の場合は等間隔。
         /// </summary>
@@ -58,6 +60,10 @@ namespace SubmarineConcierge.Plankton
         public float distance = 0f;
 
         private int count = 0;
+
+        private List<Plankton> planktons;
+
+        private float delta;
 
         private int CalcPP()
         {
@@ -72,19 +78,22 @@ namespace SubmarineConcierge.Plankton
             LevelData fireLevelData = FireLevelDatabase.GetLevelData(FireLevelSaveData.Level);
             Debug.Log("FireLevel: " + FireLevelSaveData.Level);
 
-            int delta = (int)(fireLevelData.PlanktonAmount * fireLevelData.PlanktonPointPerSecond * seconds);
+            int delta = (int)(fireLevelData.PlanktonPointPerSecond * seconds);
             Debug.Log("CalcPP: " + delta);
             Debug.Log("GainedPP: " + PPSaveData.Gained);
+
+            if (delta <= 0)
+                return PPSaveData.Gained;
 
             PPTimeSaveData.Time = now;
             return PPSaveData.AddGained(delta);
         }
 
-        public void GainPP()
+        public void GainPP(Plankton p)
         {
-            CalcPP();
             Debug.Log("PlanktonCount: " + count);
             int pp = PPSaveData.Gained / count--;
+            planktons.Remove(p);
             PPSaveData.AddHold(pp);
             PPSaveData.AddGained(-pp);
             Debug.Log("GainPP: " + pp);
@@ -112,6 +121,26 @@ namespace SubmarineConcierge.Plankton
 
             plankton.manager = this;
 
+            planktons.Add(plankton);
+
+        }
+
+        public void Generate()
+        {
+            float phase = 0f;
+            if (planktons.Count > 0)
+                phase = planktons[planktons.Count - 1].Phase - delta;
+            Generate(phase);
+
+        }
+
+        private int CalcPlanktonCount()
+        {
+            CalcPP();
+            LevelData fireLevelData = FireLevelDatabase.GetLevelData(FireLevelSaveData.Level);
+            int ret = Mathf.CeilToInt(PPSaveData.Gained / fireLevelData.PlanktonPointPerPlankton);
+            ret = Mathf.Min(ret, MaxPlanktonAmount);
+            return ret;
         }
 
         /// <summary>
@@ -120,33 +149,53 @@ namespace SubmarineConcierge.Plankton
         public void GenerateAll()
         {
             //生成する数を算出
-            LevelData fireLevelData = FireLevelDatabase.GetLevelData(FireLevelSaveData.Level);
-            count = fireLevelData.PlanktonAmount;
-
-
-            //生成する場所を決める位相
-            float phase = 0f;
-
-
-            //二匹のプランクトンの位相差
-            float delta = distance;
-
-            //0の場合は等間隔
-            if (distance == 0f)
-                delta = Data.TotalDistance / count;
+            count = CalcPlanktonCount();
+            Debug.Log("count: " + count);
 
             for (int i = 0; i < count; ++i)
             {
-                Generate(phase);
-
-                //次のプランクトンの位相を準備
-                phase += delta;
+                Generate();
             }
         }
 
         private void Start()
         {
+            //二匹のプランクトンの位相差
+            delta = distance;
+
+            //0の場合は等間隔
+            if (distance == 0f)
+                delta = Data.TotalDistance / count;
+
+            planktons = new List<Plankton>();
+
             GenerateAll();
+        }
+
+        private void FixedUpdate()
+        {
+            int nCount = CalcPlanktonCount();
+            Debug.Log(nCount + " > " + count + " ?");
+            if (nCount > count)
+            {
+                for (int i = 0; i < nCount - count; ++i)
+                {
+                    Generate();
+                }
+                count = nCount;
+            }
+            else if (nCount < count)
+            {
+                int start = nCount;
+                int num = planktons.Count - nCount;
+                Debug.Log("start: " + start + " ,num: " + num + " ,planktons.Count: " + planktons.Count);
+                for (int i = nCount; i < planktons.Count; ++i)
+                {
+                    Destroy(planktons[i].gameObject);
+                }
+                planktons.RemoveRange(start, num);
+                count = nCount;
+            }
         }
     }
 }

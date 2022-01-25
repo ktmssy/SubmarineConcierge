@@ -44,6 +44,8 @@ namespace SubmarineConcierge.Plankton
 
         public PlanktonManager manager;
 
+        public Plankton LastPlankton;
+
         private Vector2 startPoint;
 
         private Vector2 endPoint;
@@ -86,7 +88,7 @@ namespace SubmarineConcierge.Plankton
 
         protected virtual void GainPoint()
         {
-            manager.GainPP();
+            manager.GainPP(this);
         }
 
         /// <summary>

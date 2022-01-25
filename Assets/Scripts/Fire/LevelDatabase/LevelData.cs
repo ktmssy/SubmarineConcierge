@@ -2,12 +2,12 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月22日
- *　更新日：
+ *　更新日：2022年01月25日
  *
  ******************************
  *
  *　更新履歴...編集者
- *　1.
+ *　1.PP産出アルゴリズムの変更に伴うデータストラクチャーの変更
  *　2.
  *　3.
  *
@@ -32,13 +32,13 @@ namespace SubmarineConcierge.Fire
         public int Level;
 
         /// <summary>
-        /// プランクトンの数
-        /// </summary>
-        public int PlanktonAmount;
-
-        /// <summary>
-        /// 1匹のプランクトンが1秒間産出するプランクトンポイント数
+        /// 1秒間産出するプランクトンポイント数
         /// </summary>
         public float PlanktonPointPerSecond;
+
+        /// <summary>
+        /// 1匹のプランクトンが持つPPの上限値
+        /// </summary>
+        public float PlanktonPointPerPlankton;
     }
 }

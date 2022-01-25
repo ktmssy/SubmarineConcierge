@@ -1280,7 +1280,6 @@ GameObject:
   - component: {fileID: 1716644639}
   - component: {fileID: 1716644641}
   - component: {fileID: 1716644642}
-  - component: {fileID: 1716644638}
   m_Layer: 0
   m_Name: Plankton Generator
   m_TagString: Untagged
@@ -1288,23 +1287,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1716644638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716644637}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0792ea5010591f408538142350d893b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 5054847332903176, guid: 092601bf695854245bd2951b072555b3, type: 3}
-  Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
-  Count: 2
-  Speed: 1
-  distance: 0.8
 --- !u!114 &1716644639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,6 +1332,7 @@ MonoBehaviour:
   Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
   FireLevelDatabase: {fileID: 11400000, guid: 84cb29e275768d94182a39b26103ba6d, type: 2}
   Speed: 1
+  MaxPlanktonAmount: 100
   distance: 0.8
 --- !u!114 &1716644642
 MonoBehaviour:
@@ -1528,3 +1511,63 @@ Transform:
   m_Father: {fileID: 1254421357}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2135022735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2135022737}
+  - component: {fileID: 2135022736}
+  - component: {fileID: 2135022738}
+  m_Layer: 0
+  m_Name: Debug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2135022736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135022735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9965510a812cdef488723a79a9c83cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2135022737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135022735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2135022738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135022735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e953d9b324c494ab83875ff9f40ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireLevel: 0
+  GainedPP: 0
+  HoldPP: 0
+  LastTime: 

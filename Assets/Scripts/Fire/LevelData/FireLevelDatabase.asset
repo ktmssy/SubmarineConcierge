@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelDatas:
   - Level: 1
-    PlanktonAmount: 10
     PlanktonPointPerSecond: 1
+    PlanktonPointPerPlankton: 1
   - Level: 2
-    PlanktonAmount: 20
-    PlanktonPointPerSecond: 1
+    PlanktonPointPerSecond: 2
+    PlanktonPointPerPlankton: 10
   - Level: 3
-    PlanktonAmount: 30
-    PlanktonPointPerSecond: 1
+    PlanktonPointPerSecond: 3
+    PlanktonPointPerPlankton: 10
