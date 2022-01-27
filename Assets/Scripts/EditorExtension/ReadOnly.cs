@@ -20,6 +20,7 @@ using UnityEngine;
 
 namespace SubmarineConcierge
 {
+#if UNITY_EDITOR
     public class ReadOnly : PropertyAttribute
     {
 
@@ -41,5 +42,5 @@ namespace SubmarineConcierge
             GUI.enabled = true;
         }
     }
-
+#endif
 }
