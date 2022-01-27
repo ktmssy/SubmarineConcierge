@@ -1189,6 +1189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e28bf68dfe14942a3cac5586a2145a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FishPrefab: {fileID: 5811555893457147060, guid: 446fd30a7a934e747b46c4ade1b363cc, type: 3}
+  database: {fileID: 11400000, guid: ba52190b204854742be45abbbb2dc0b0, type: 2}
+  DoMove: 1
+  Speed: 3
+  WaitTimeMin: 1
+  WaitTimeMax: 2
+  Margin: {x: -2, y: -2}
 --- !u!1 &1283881029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,7 +1542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2005055991
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1613,10 +1620,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b35a94a67877b4c95264bd3eb7b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 0}
-  Friendship: 0
-  Name: 
-  IsTamed: 0
+  fish:
+    Type: 0
+    Friendship: 0
+    Name: 
+    IsTamed: 0
 --- !u!1 &2135022735
 GameObject:
   m_ObjectHideFlags: 0

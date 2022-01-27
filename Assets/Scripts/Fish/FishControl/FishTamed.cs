@@ -49,16 +49,16 @@ namespace SubmarineConcierge.Fish
             return targetPos;
         }
 
-        protected override void Init(FishData data, int friendship, string name, bool isTamed)
+        public override void Init(FishIndividualData fish, FishData data)
         {
-			base.Init(data,friendship,name,isTamed);
+            base.Init(fish, data);
             PosMax = (Vector2)Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 1f)) + Margin;
             PosMin = (Vector2)Camera.main.ViewportToWorldPoint(Vector3.zero) - Margin;
             NewWaitTime();
             NewTargetPos();
         }
 
-		private void FixedUpdate()
+        private void FixedUpdate()
         {
             if (!DoMove)
                 return;

@@ -19,28 +19,28 @@ using UnityEngine;
 
 namespace SubmarineConcierge.Fish
 {
-	[CreateAssetMenu(fileName = "FishDatabase", menuName = "SubmarineConcierge/Fish/FishDatabase")]
-	public class FishDatabase : ScriptableObject
+    [CreateAssetMenu(fileName = "FishDatabase", menuName = "SubmarineConcierge/Fish/FishDatabase")]
+    public class FishDatabase : ScriptableObject
     {
         public FishData[] FishDatas;
         private Dictionary<FishType, FishData> dataMap;
 
-		public void OnEnable()
-		{
-			dataMap = new Dictionary<FishType, FishData>();
-			foreach(var fish in FishDatas)
-			{
-				dataMap.Add(fish.Type, fish);
-			}
-		}
-
-		public FishData GetFishData(FishType type)
+        public void OnEnable()
         {
-			if (dataMap == null)
-				return null;
-			if (!dataMap.ContainsKey(type))
-				return null;
-			return dataMap[type];
-		}
+            dataMap = new Dictionary<FishType, FishData>();
+            foreach (var fish in FishDatas)
+            {
+                dataMap.Add(fish.Type, fish);
+            }
+        }
+
+        public FishData GetFishData(FishType type)
+        {
+            if (dataMap == null)
+                return null;
+            if (!dataMap.ContainsKey(type))
+                return null;
+            return dataMap[type];
+        }
     }
 }

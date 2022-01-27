@@ -13,49 +13,30 @@
  *
  ******************************/
 
+using Newtonsoft.Json;
+using SubmarineConcierge.Fish;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace SubmarineConcierge.SaveData
 {
+
+    [System.Serializable]
     public class FishSaveData : SaveData
     {
+        public List<FishIndividualData> Fishes = new List<FishIndividualData>();
 
-        private List<Fish.Fish> fishes = null;
-
-        public List<Fish.Fish> Fishes
-        {
-            get
-            {
-                if (fishes == null)
-                    Load();
-                return fishes;
-            }
-        }
-
-        public void Add(Fish.Fish fish)
+        public void Add(FishIndividualData fish)
         {
             Fishes.Add(fish);
-            //Save();
         }
 
-        public void Remove(Fish.Fish fish)
+        public void Remove(FishIndividualData fish)
         {
             Fishes.Remove(fish);
-            //Save();
-        }
-
-        public override void Load()
-        {
-            // todo
-            fishes = new List<Fish.Fish>();
-        }
-
-        public override void Save()
-        {
-            Debug.Log(JsonUtility.ToJson(this));
-            // todo
         }
     }
 }

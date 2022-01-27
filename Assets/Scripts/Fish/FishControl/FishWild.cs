@@ -17,12 +17,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SubmarineConcierge.SaveData
+namespace SubmarineConcierge.Fish
 {
-    public interface ISaveData 
+    public class FishWild : Fish
     {
-        public void Save();
 
-        public void Load();
     }
 }

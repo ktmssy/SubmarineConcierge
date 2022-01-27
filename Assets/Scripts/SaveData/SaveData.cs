@@ -19,10 +19,9 @@ using UnityEngine;
 
 namespace SubmarineConcierge.SaveData
 {
-    public class SaveData : ISaveData
+    [System.Serializable]
+    public class SaveData
     {
-        public string FileName;
-
         public virtual void Load()
         {
 

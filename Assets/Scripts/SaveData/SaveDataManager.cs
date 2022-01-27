@@ -13,24 +13,55 @@
  *
  ******************************/
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace SubmarineConcierge.SaveData
 {
-    public class SaveDataManager : ISaveData
+    public class SaveDataManager
     {
         public static FishSaveData fishSaveData = new FishSaveData();
+        public const string FishSaveDataFilename = "FishSaveData.bin";
 
-        public void Load()
+        private static T Load<T>(string filename) where T : new()
         {
-            fishSaveData.Load();
+            try
+            {
+                string path = Application.persistentDataPath + "/" + filename;
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream fs = File.Open(path, FileMode.OpenOrCreate);
+                T ret = (T)bf.Deserialize(fs);
+                fs.Close();
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                return new T();
+            }
         }
 
-        public void Save()
+        public static void Load()
         {
-            fishSaveData.Save();
+            fishSaveData = Load<FishSaveData>(FishSaveDataFilename);
+        }
+
+        private static void Save(string filename, object obj)
+        {
+            string path = Application.persistentDataPath + "/" + filename;
+            Debug.Log("Save " + path);
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fs = File.Create(path);
+            bf.Serialize(fs, obj);
+            fs.Close();
+        }
+
+        public static void Save()
+        {
+            Save(FishSaveDataFilename, fishSaveData);
         }
     }
 }
