@@ -17,19 +17,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SubmarineConcierge.Fish
+namespace SubmarineConcierge.SaveData
 {
-    public class FishTamedManager : MonoBehaviour
+    public interface ISaveData 
     {
+        public void Save();
 
-        private void Start()
-        {
-    
-        }
-    
-        private void Update()
-        {
-    
-        }
+        public void Load();
     }
 }

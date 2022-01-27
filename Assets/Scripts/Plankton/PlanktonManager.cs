@@ -73,14 +73,14 @@ namespace SubmarineConcierge.Plankton
             TimeSpan nowSpan = new TimeSpan(now.Ticks);
             TimeSpan deltaSpan = nowSpan.Subtract(lastSpan).Duration();
             double seconds = deltaSpan.TotalSeconds;
-            Debug.Log("deltaSeconds: " + seconds);
+            //Debug.Log("deltaSeconds: " + seconds);
 
             LevelData fireLevelData = FireLevelDatabase.GetLevelData(FireLevelSaveData.Level);
-            Debug.Log("FireLevel: " + FireLevelSaveData.Level);
+            //Debug.Log("FireLevel: " + FireLevelSaveData.Level);
 
             int delta = (int)(fireLevelData.PlanktonPointPerSecond * seconds);
-            Debug.Log("CalcPP: " + delta);
-            Debug.Log("GainedPP: " + PPSaveData.Gained);
+            //Debug.Log("CalcPP: " + delta);
+            //Debug.Log("GainedPP: " + PPSaveData.Gained);
 
             if (delta <= 0)
                 return PPSaveData.Gained;
@@ -91,12 +91,12 @@ namespace SubmarineConcierge.Plankton
 
         public void GainPP(Plankton p)
         {
-            Debug.Log("PlanktonCount: " + count);
+            //Debug.Log("PlanktonCount: " + count);
             int pp = PPSaveData.Gained / count--;
             planktons.Remove(p);
             PPSaveData.AddHold(pp);
             PPSaveData.AddGained(-pp);
-            Debug.Log("GainPP: " + pp);
+            //Debug.Log("GainPP: " + pp);
         }
 
         public void Generate(float phase)
@@ -150,7 +150,7 @@ namespace SubmarineConcierge.Plankton
         {
             //生成する数を算出
             count = CalcPlanktonCount();
-            Debug.Log("count: " + count);
+            //Debug.Log("count: " + count);
 
             for (int i = 0; i < count; ++i)
             {
@@ -175,7 +175,7 @@ namespace SubmarineConcierge.Plankton
         private void FixedUpdate()
         {
             int nCount = CalcPlanktonCount();
-            Debug.Log(nCount + " > " + count + " ?");
+            //Debug.Log(nCount + " > " + count + " ?");
             if (nCount > count)
             {
                 for (int i = 0; i < nCount - count; ++i)
@@ -188,7 +188,7 @@ namespace SubmarineConcierge.Plankton
             {
                 int start = nCount;
                 int num = planktons.Count - nCount;
-                Debug.Log("start: " + start + " ,num: " + num + " ,planktons.Count: " + planktons.Count);
+                //Debug.Log("start: " + start + " ,num: " + num + " ,planktons.Count: " + planktons.Count);
                 for (int i = nCount; i < planktons.Count; ++i)
                 {
                     Destroy(planktons[i].gameObject);

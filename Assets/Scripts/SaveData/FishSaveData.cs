@@ -19,42 +19,43 @@ using UnityEngine;
 
 namespace SubmarineConcierge.SaveData
 {
-	public class FishSaveData
-	{
-		private List<Fish.Fish> fishes = null;
+    public class FishSaveData : SaveData
+    {
 
-		public List<Fish.Fish> Fishes
-		{
-			get
-			{
-				if (fishes == null)
-					return Load();
-				return fishes;
-			}
-		}
+        private List<Fish.Fish> fishes = null;
 
-		public void Add(Fish.Fish fish)
-		{
-			fishes.Add(fish);
-			Save();
-		}
+        public List<Fish.Fish> Fishes
+        {
+            get
+            {
+                if (fishes == null)
+                    Load();
+                return fishes;
+            }
+        }
 
-		public void Remove(Fish.Fish fish)
-		{
-			fishes.Remove(fish);
-			Save();
-		}
+        public void Add(Fish.Fish fish)
+        {
+            Fishes.Add(fish);
+            //Save();
+        }
 
-		private List<Fish.Fish> Load()
-		{
-			// todo
-			fishes = new List<Fish.Fish>();
-			return fishes;
-		}
+        public void Remove(Fish.Fish fish)
+        {
+            Fishes.Remove(fish);
+            //Save();
+        }
 
-		private void Save()
-		{
-			// todo
-		}
-	}
+        public override void Load()
+        {
+            // todo
+            fishes = new List<Fish.Fish>();
+        }
+
+        public override void Save()
+        {
+            Debug.Log(JsonUtility.ToJson(this));
+            // todo
+        }
+    }
 }

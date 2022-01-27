@@ -91,7 +91,7 @@ namespace SubmarineConcierge.SaveData
         public static int AddGained(int value)
         {
             Gained = MathUtility.SafeAdd(Gained, value);
-            Debug.Log("AddGained: " + value + " , " + Gained);
+            //Debug.Log("AddGained: " + value + " , " + Gained);
             return Gained;
         }
     }
