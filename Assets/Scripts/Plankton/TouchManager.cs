@@ -51,7 +51,7 @@ namespace SubmarineConcierge.Plankton
                 Touch touch = Input.GetTouch(0);
                 if (touch.phase == TouchPhase.Moved)
                 {
-                    CheckPlankton touch.position);
+                    CheckPlankton (touch.position);
                 }
             }
 #endif
