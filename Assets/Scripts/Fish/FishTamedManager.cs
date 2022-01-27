@@ -17,10 +17,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SubmarineConcierge
+namespace SubmarineConcierge.Fish
 {
     public class FishTamedManager : MonoBehaviour
     {
+
         private void Start()
         {
     
