@@ -851,7 +851,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.4
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -976,6 +976,10 @@ PrefabInstance:
     - target: {fileID: 8741312630482034581, guid: 8d72b8af964cdb24b90cc5a8a73a0a51, type: 3}
       propertyPath: m_Name
       value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741312630482034581, guid: 8d72b8af964cdb24b90cc5a8a73a0a51, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8741312630482034603, guid: 8d72b8af964cdb24b90cc5a8a73a0a51, type: 3}
       propertyPath: m_RootOrder
@@ -1669,7 +1673,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254421356}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9e28bf68dfe14942a3cac5586a2145a, type: 3}
   m_Name: 
@@ -2142,7 +2146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1826398700
 Transform:
   m_ObjectHideFlags: 0
