@@ -19,23 +19,31 @@ using UnityEngine;
 
 namespace SubmarineConcierge.Fish
 {
-    public class Fish : MonoBehaviour
-    {
-        public FishIndividualData fish;
-        private FishData data;
-        //public Dictionary<ClothesType, ClothesData> Clothes;
+	public class Fish : MonoBehaviour
+	{
+		public FishIndividualData fish;
+		//public Material WildMaterial;
+		private FishData data;
+		//public Dictionary<ClothesType, ClothesData> Clothes;
 
-        private bool inited = false;
+		private bool inited = false;
 
-        public virtual void Init(FishIndividualData fish,FishData data)
-        {
-            this.fish = fish;
-            this.data = data;
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            sr.sprite = data.Sprite;
-            sr.material = fish.IsTamed ? data.TamedMaterial : data.WildMaterial;
-            inited = true;
-        }
+		public virtual void Init(FishIndividualData fish, FishData data)
+		{
+			this.fish = fish;
+			this.data = data;
+			/*if (!fish.IsTamed)
+			{
+				foreach (var sr in GetComponentsInChildren<SpriteRenderer>())
+				{
+					sr.material = WildMaterial;
+				}
+			}*/
+			/*SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.sprite = data.Sprite;*/
 
-    }
+			inited = true;
+		}
+
+	}
 }

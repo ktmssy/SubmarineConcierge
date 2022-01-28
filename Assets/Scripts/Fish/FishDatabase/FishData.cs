@@ -19,17 +19,20 @@ using UnityEngine;
 
 namespace SubmarineConcierge.Fish
 {
-    [CreateAssetMenu(fileName = "FishData", menuName = "SubmarineConcierge/Fish/FishData")]
-    public class FishData : ScriptableObject
-    {
-        public FishType Type;
-        public InstrumentType Instrument;
-        public bool AppearAtShoal;
-        public bool AppearAtMiddleSea;
-        public bool AppearAtDeapSea;
-        public Sprite Sprite;
-        public Material TamedMaterial;
-        public Material WildMaterial;
-        public int TamePP;
-    }
+	[CreateAssetMenu(fileName = "FishData", menuName = "SubmarineConcierge/Fish/FishData")]
+	public class FishData : ScriptableObject
+	{
+		public FishType Type;
+		public InstrumentType Instrument;
+		public GameObject Prefab;
+		public bool AppearAtShoal;
+		public bool AppearAtMiddleSea;
+		public bool AppearAtDeapSea;
+		public Sprite Sprite;
+		public GameObject PrefabWild;
+		public GameObject PrefabTamed;
+		/* public Material TamedMaterial;
+		 public Material WildMaterial;*/
+		public int TamePP;
+	}
 }
