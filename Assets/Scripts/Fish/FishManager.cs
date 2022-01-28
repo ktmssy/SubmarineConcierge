@@ -31,6 +31,10 @@ namespace SubmarineConcierge.Fish
 		public int WildFishCount;
 		private List<FishType> fishTypes = new List<FishType>();
 
+		public void RemoveWildFish(GameObject fish)
+		{
+			wildFishes.Remove(fish);
+		}
 
 		private void GenerateTamed(FishIndividualData data)
 		{
@@ -44,12 +48,19 @@ namespace SubmarineConcierge.Fish
 		{
 			FishIndividualData fish = new FishIndividualData(type, SaveDataManager.fishTameProgressSaveData.GetProgress(type), "", false);
 			FishData data = Database.GetFishData(type);
-			Debug.Log(type);
-			/*if (data == null)
-				return;*/
-			GameObject obj = Instantiate(data.PrefabWild, Vector3.zero, Quaternion.identity);
+			//todo 魚の生成場所をランダムに、向きの初期化
+			// 魚の向きを決定
+			int direction = UnityEngine.Random.Range(-1, 2);
+			while(direction == 0)
+				direction = UnityEngine.Random.Range(-1, 2);
+			// 魚の生成位置を決定
+			Vector3 GeneratePos = new Vector3(18.0f * direction, UnityEngine.Random.Range(-3.0f, 9.0f));
+			// 魚を生成
+			GameObject obj = Instantiate(data.PrefabWild, GeneratePos, Quaternion.identity);
 			obj.transform.parent = transform;
 			obj.GetComponent<Fish>().Init(fish, data);
+			obj.GetComponent<FishWild>().moveSpeed = UnityEngine.Random.Range(2.0f, 3.5f);
+			obj.GetComponent<FishWild>().moveSpeed *= -direction;
 			wildFishes.Add(obj);
 		}
 
@@ -67,7 +78,7 @@ namespace SubmarineConcierge.Fish
 			SaveDataManager.Save();*/
 			SaveDataManager.LoadOnce();
 
-			foreach(var fish in Database.FishDatas)
+			foreach (var fish in Database.FishDatas)
 			{
 				fishTypes.Add(fish.Type);
 			}

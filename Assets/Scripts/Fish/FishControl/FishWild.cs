@@ -21,21 +21,11 @@ namespace SubmarineConcierge.Fish
 {
     public class FishWild : Fish
     {
-        [SerializeField]float moveSpeed;    // 魚の移動速度
-
-		// 魚の向き
-		enum Direction
-		{
-			Left = -1,
-			Right = 1
-		}
-		[SerializeField] Direction direction;
+        public float moveSpeed;    // 魚の移動速度
 		private void Start()
 		{
-			// 向きに応じてスピード値の正負を変える
-			moveSpeed *= (float)direction;
 			// 右向きならスプライトを逆転させる
-			if (direction == Direction.Right)
+			if (moveSpeed > 0)
 			{
 				this.GetComponent<SpriteRenderer>().flipX = true;
 			}
@@ -48,6 +38,7 @@ namespace SubmarineConcierge.Fish
 			// 画面外に出たら消滅
 			if (this.transform.position.x >= 20 || this.transform.position.x <= -20) 
 			{
+				FindObjectOfType<FishManager>().RemoveWildFish(gameObject);
 				Destroy(this.gameObject);
 			}
 		}

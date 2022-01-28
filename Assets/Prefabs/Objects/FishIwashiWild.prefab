@@ -102,7 +102,6 @@ MonoBehaviour:
     Name: 
     IsTamed: 0
   moveSpeed: 3.5
-  direction: -1
 --- !u!61 &7726760392945038223
 BoxCollider2D:
   m_ObjectHideFlags: 0
