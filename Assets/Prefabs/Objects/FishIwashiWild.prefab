@@ -101,3 +101,4 @@ MonoBehaviour:
     Name: 
     IsTamed: 0
   moveSpeed: 3.5
+  direction: 0

@@ -1342,8 +1342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e28bf68dfe14942a3cac5586a2145a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FishPrefab: {fileID: 5811555893457147060, guid: 446fd30a7a934e747b46c4ade1b363cc, type: 3}
-  database: {fileID: 11400000, guid: ba52190b204854742be45abbbb2dc0b0, type: 2}
+  Database: {fileID: 11400000, guid: ba52190b204854742be45abbbb2dc0b0, type: 2}
+  WildFishCount: 5
 --- !u!1 &1283881029
 GameObject:
   m_ObjectHideFlags: 0
