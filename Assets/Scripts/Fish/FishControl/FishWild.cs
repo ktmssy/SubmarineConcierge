@@ -34,6 +34,11 @@ namespace SubmarineConcierge.Fish
 		{
 			// 向きに応じてスピード値の正負を変える
 			moveSpeed *= (float)direction;
+			// 右向きならスプライトを逆転させる
+			if (direction == Direction.Right)
+			{
+				this.GetComponent<SpriteRenderer>().flipX = true;
+			}
 		}
 		private void Update()
 		{
