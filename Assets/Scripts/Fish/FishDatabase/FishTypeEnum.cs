@@ -22,6 +22,6 @@ namespace SubmarineConcierge.Fish
     public enum FishType
     {
         Iwashi,
-
+        Urumeiwashi,
     }
 }

@@ -24,11 +24,10 @@ namespace SubmarineConcierge.Fish
 	{
 		public FishType Type;
 		public InstrumentType Instrument;
-		public GameObject Prefab;
 		public bool AppearAtShoal;
 		public bool AppearAtMiddleSea;
 		public bool AppearAtDeapSea;
-		public Sprite Sprite;
+		//public Sprite Sprite;
 		public GameObject PrefabWild;
 		public GameObject PrefabTamed;
 		/* public Material TamedMaterial;

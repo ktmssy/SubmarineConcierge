@@ -14,11 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Instrument: 1
-  Prefab: {fileID: 0}
   AppearAtShoal: 0
   AppearAtMiddleSea: 0
   AppearAtDeapSea: 0
-  Sprite: {fileID: 21300000, guid: e6cbf91435d91e74db96cf0ca6327d98, type: 3}
   PrefabWild: {fileID: 5811555893457147060, guid: 446fd30a7a934e747b46c4ade1b363cc, type: 3}
   PrefabTamed: {fileID: 5811555893457147060, guid: 446fd30a7a934e747b46c4ade1b363cc, type: 3}
   TamePP: 10

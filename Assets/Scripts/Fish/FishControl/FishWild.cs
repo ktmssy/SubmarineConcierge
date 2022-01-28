@@ -21,6 +21,6 @@ namespace SubmarineConcierge.Fish
 {
     public class FishWild : Fish
     {
-
+        
     }
 }
