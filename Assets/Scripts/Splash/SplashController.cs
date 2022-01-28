@@ -2,7 +2,7 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月27日
- *　更新日：
+ *　更新日：2022年01月28日
  *
  ******************************
  *
@@ -37,6 +37,7 @@ namespace SubmarineConcierge
 
         private void Start()
         {
+            SaveData.SaveDataManager.Load();
             image = GetComponent<Image>();
             timer = 0f;
             flag1 = FadeInTime;
