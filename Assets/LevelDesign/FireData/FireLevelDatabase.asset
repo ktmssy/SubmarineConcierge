@@ -15,7 +15,7 @@ MonoBehaviour:
   LevelDatas:
   - Level: 1
     PlanktonPointPerSecond: 1
-    PlanktonPointPerPlankton: 1
+    PlanktonPointPerPlankton: 3
   - Level: 2
     PlanktonPointPerSecond: 2
     PlanktonPointPerPlankton: 10
