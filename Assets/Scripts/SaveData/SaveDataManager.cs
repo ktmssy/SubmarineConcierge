@@ -34,7 +34,7 @@ namespace SubmarineConcierge.SaveData
 		{
 			try
 			{
-				string filename = fishTameProgressSaveData.GetType().Name + Postfix;
+				string filename = typeof(T).Name + Postfix;
 				string path = Application.persistentDataPath + "/" + filename;
 				Debug.Log("Load " + path);
 				BinaryFormatter bf = new BinaryFormatter();

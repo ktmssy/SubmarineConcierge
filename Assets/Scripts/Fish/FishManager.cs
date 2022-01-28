@@ -50,10 +50,10 @@ namespace SubmarineConcierge.Fish
 
 		private void Start()
 		{
-			/*SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
 			SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
 			SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
-			SaveDataManager.Save();*/
+			SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
+			SaveDataManager.Save();
 
 			SaveDataManager.Load();
 			//セーブデータを使って、テイムされた魚を生成する
