@@ -37,7 +37,7 @@ namespace SubmarineConcierge
 
 		private void Start()
 		{
-			SaveData.SaveDataManager.Load();
+			SaveData.SaveDataManager.LoadOnce();
 			image = GetComponent<Image>();
 			timer = 0f;
 			flag1 = FadeInTime;

@@ -26,6 +26,8 @@ namespace SubmarineConcierge.SaveData
 	{
 		public const string Postfix = ".bin";
 
+		private static bool inited = false;
+
 		public static FishSaveData fishSaveData = new FishSaveData();
 
 		public static FishTameProgressSaveData fishTameProgressSaveData = new FishTameProgressSaveData();
@@ -50,10 +52,17 @@ namespace SubmarineConcierge.SaveData
 			}
 		}
 
+		public static void LoadOnce()
+        {
+			if (!inited)
+				Load();
+        }
+
 		public static void Load()
 		{
 			fishSaveData = Load<FishSaveData>();
 			fishTameProgressSaveData = Load<FishTameProgressSaveData>();
+			inited = true;
 		}
 
 		private static void Save(object obj)
