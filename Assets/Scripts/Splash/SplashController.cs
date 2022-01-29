@@ -38,7 +38,7 @@ namespace SubmarineConcierge
         private void Start()
         {
 #if UNITY_STANDALONE
-            Screen.SetResolution(2360 / 2, 1640 / 2, false);
+            Screen.SetResolution(2778 / 2, 1284 / 2, false);
 #endif
             SaveData.SaveDataManager.LoadOnce();
             image = GetComponent<Image>();
