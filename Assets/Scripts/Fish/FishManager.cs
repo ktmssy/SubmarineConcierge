@@ -32,6 +32,14 @@ namespace SubmarineConcierge.Fish
         private List<FishType> fishTypes = new List<FishType>();
         private Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
 
+        [Header("Sound")]
+        public AudioSource TameSound;
+        public AudioSource TameSuccessSound;
+        public AudioSource TameChargeSound;
+
+        [Header("Effect")]
+        public GameObject TameEffectPrefab;
+
         public void RemoveWildFish(GameObject fish)
         {
             wildFishes.Remove(fish);

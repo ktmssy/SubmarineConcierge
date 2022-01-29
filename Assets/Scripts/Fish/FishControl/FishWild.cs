@@ -29,13 +29,13 @@ namespace SubmarineConcierge.Fish
         private FishManager manager;
         private bool isTaming = false;
         private bool isAnimating = false;
-        private GameObject tameEffectPrefab;
+        //private GameObject tameEffectPrefab;
 
         public void Init(FishIndividualData fish, FishData data, FishManager manager)
         {
             base.Init(fish, data);
             this.manager = manager;
-            tameEffectPrefab = Resources.Load<GameObject>("Effects/ParticleHeart");
+            //tameEffectPrefab = Resources.Load<GameObject>("Effects/ParticleHeart");
         }
 
         private void Start()
@@ -83,12 +83,14 @@ namespace SubmarineConcierge.Fish
 
         private IEnumerator Tame()
         {
-            GameObject effect = Instantiate(tameEffectPrefab, transform);
+            GameObject effect = Instantiate(manager.TameEffectPrefab, transform);
+            manager.TameSound.Play();
             while (fish.Friendship < data.TamePP)
             {
                 if (!isTaming)
                 {
                     Destroy(effect);
+                    manager.TameSound.Stop();
                     yield break;
                 }
                 Debug.Log("Taming " + fish.Friendship + " / " + data.TamePP);
@@ -100,11 +102,13 @@ namespace SubmarineConcierge.Fish
                 else
                 {
                     Destroy(effect);
+                    manager.TameSound.Stop();
                     EndTame();
                     yield break;
                 }
             }
             Destroy(effect);
+            manager.TameSound.Stop();
             TameSucceeded();
             yield break;
         }
@@ -133,12 +137,16 @@ namespace SubmarineConcierge.Fish
             Material material = new Material(maskShader);
             sr.material = material;
             float progress = 1f;
+            manager.TameChargeSound.Play();
             while (progress > 0f)
             {
                 progress -= 0.01f;
                 sr.material.SetFloat("Progress", progress);
                 yield return new WaitForSeconds(0.02f);
             }
+            manager.TameChargeSound.Stop();
+            manager.TameSuccessSound.Play();
+            yield return new WaitForSeconds(0.5f);
             GameObject obj = Instantiate(data.PrefabTamed, transform.position, Quaternion.identity);
             obj.transform.parent = transform.parent;
             obj.transform.localScale = new Vector3(moveSpeed > 0 ? -1f : 1f, 1f, 1f);
