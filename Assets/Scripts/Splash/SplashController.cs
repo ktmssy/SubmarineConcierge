@@ -21,55 +21,58 @@ using UnityEngine.UI;
 
 namespace SubmarineConcierge
 {
-	public class SplashController : MonoBehaviour
-	{
-		public float FadeInTime;
-		public float ShowTime;
-		public float FadeOutTime;
+    public class SplashController : MonoBehaviour
+    {
+        public float FadeInTime;
+        public float ShowTime;
+        public float FadeOutTime;
 
-		private Image image;
-		private float timer;
-		private float flag1;
-		private float flag2;
-		private float flag3;
+        private Image image;
+        private float timer;
+        private float flag1;
+        private float flag2;
+        private float flag3;
 
-		private AsyncOperation ao;
+        private AsyncOperation ao;
 
-		private void Start()
-		{
-			SaveData.SaveDataManager.LoadOnce();
-			image = GetComponent<Image>();
-			timer = 0f;
-			flag1 = FadeInTime;
-			flag2 = flag1 + ShowTime;
-			flag3 = flag2 + FadeOutTime;
-			ao = SceneManager.LoadSceneAsync("MainScene");
-			ao.allowSceneActivation = false;
-		}
+        private void Start()
+        {
+#if UNITY_STANDALONE
+            Screen.SetResolution(2360 / 2, 1640 / 2, false);
+#endif
+            SaveData.SaveDataManager.LoadOnce();
+            image = GetComponent<Image>();
+            timer = 0f;
+            flag1 = FadeInTime;
+            flag2 = flag1 + ShowTime;
+            flag3 = flag2 + FadeOutTime;
+            ao = SceneManager.LoadSceneAsync("MainScene");
+            ao.allowSceneActivation = false;
+        }
 
-		private void Update()
-		{
-			timer += Time.deltaTime;
-			if (timer < flag1)
-			{
-				var color = image.color;
-				color.a = Mathf.Lerp(0f, 1f, timer / flag1);
-				image.color = color;
-			}
-			else if (timer < flag2)
-			{
+        private void Update()
+        {
+            timer += Time.deltaTime;
+            if (timer < flag1)
+            {
+                var color = image.color;
+                color.a = Mathf.Lerp(0f, 1f, timer / flag1);
+                image.color = color;
+            }
+            else if (timer < flag2)
+            {
 
-			}
-			else if (timer < flag3)
-			{
-				var color = image.color;
-				color.a = Mathf.Lerp(1f, 0f, (timer - flag2) / FadeOutTime);
-				image.color = color;
-			}
-			else
-			{
-				ao.allowSceneActivation = true;
-			}
-		}
-	}
+            }
+            else if (timer < flag3)
+            {
+                var color = image.color;
+                color.a = Mathf.Lerp(1f, 0f, (timer - flag2) / FadeOutTime);
+                image.color = color;
+            }
+            else
+            {
+                ao.allowSceneActivation = true;
+            }
+        }
+    }
 }
