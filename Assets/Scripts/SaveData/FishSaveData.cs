@@ -31,11 +31,23 @@ namespace SubmarineConcierge.SaveData
         public void Add(FishIndividualData fish)
         {
             Fishes.Add(fish);
+            Save();
         }
 
         public void Remove(FishIndividualData fish)
         {
             Fishes.Remove(fish);
+            Save();
+        }
+
+        public override void Save()
+        {
+            SaveDataManager.Save(SaveDataManager.fishSaveData);
+        }
+
+        public override void Load()
+        {
+            SaveDataManager.fishSaveData = SaveDataManager.Load<FishSaveData>();
         }
     }
 }

@@ -2,12 +2,12 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月27日
- *　更新日：
+ *　更新日：2022年01月29日
  *
  ******************************
  *
  *　更新履歴...編集者
- *　1.
+ *　1.Add z position...楊志庄
  *　2.
  *　3.
  *
@@ -33,5 +33,6 @@ namespace SubmarineConcierge.Fish
 		/* public Material TamedMaterial;
 		 public Material WildMaterial;*/
 		public int TamePP;
+		public float z;
 	}
 }

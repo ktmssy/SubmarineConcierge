@@ -19,6 +19,7 @@ using UnityEngine;
 
 namespace SubmarineConcierge.Fish
 {
+    [AddComponentMenu("_SubmarineConcierge/Fish/FishTamed")]
     public class FishTamed : Fish
     {
         public bool DoMove;
@@ -32,7 +33,7 @@ namespace SubmarineConcierge.Fish
 
         private float timer;
         private float waitTime;
-        private Vector2 targetPos;
+        private Vector3 targetPos;
 
         private float NewWaitTime()
         {
@@ -41,11 +42,11 @@ namespace SubmarineConcierge.Fish
             return waitTime;
         }
 
-        private Vector2 NewTargetPos()
+        private Vector3 NewTargetPos()
         {
             float x = Random.Range(PosMin.x, PosMax.x);
             float y = Random.Range(PosMin.y, PosMax.y);
-            targetPos = new Vector2(x, y);
+            targetPos = new Vector3(x, y, data.z);
             return targetPos;
         }
 
@@ -58,11 +59,18 @@ namespace SubmarineConcierge.Fish
             NewTargetPos();
         }
 
+        public void Init(FishIndividualData fish, FishData data, bool randomStart)
+        {
+            Init(fish, data);
+            if (randomStart)
+                transform.position = targetPos;
+        }
+
         private void FixedUpdate()
         {
             if (!DoMove)
                 return;
-            Vector2 direction = targetPos - (Vector2)transform.position;
+            Vector2 direction = targetPos - transform.position;
             if (direction.sqrMagnitude < 1f)
             {
                 timer += Time.deltaTime;
@@ -78,6 +86,25 @@ namespace SubmarineConcierge.Fish
                 transform.position += (Vector3)direction.normalized * Speed * Time.deltaTime;
             }
             transform.localScale = new Vector3(direction.x > 0 ? -1f : 1f, 1f, 1f);
+        }
+
+        private IEnumerator VanishAnimation()
+        {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            Color color = sr.color;
+            while (color.a > 0)
+            {
+                color.a -= 0.1f;
+                sr.color = color;
+                yield return new WaitForSeconds(0.02f);
+            }
+            Destroy(gameObject);
+            yield break;
+        }
+
+        public void Vanish()
+        {
+            StartCoroutine(VanishAnimation());
         }
 
         private void OnDrawGizmos()

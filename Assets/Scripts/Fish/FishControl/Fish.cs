@@ -23,7 +23,7 @@ namespace SubmarineConcierge.Fish
 	{
 		public FishIndividualData fish;
 		//public Material WildMaterial;
-		private FishData data;
+		protected FishData data;
 		//public Dictionary<ClothesType, ClothesData> Clothes;
 
 		private bool inited = false;

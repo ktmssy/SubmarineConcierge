@@ -94,5 +94,13 @@ namespace SubmarineConcierge.SaveData
             //Debug.Log("AddGained: " + value + " , " + Gained);
             return Gained;
         }
+
+        public static bool UsePP(int value)
+        {
+            if (Hold < value)
+                return false;
+            AddHold(value * -1);
+            return true;
+        }
     }
 }

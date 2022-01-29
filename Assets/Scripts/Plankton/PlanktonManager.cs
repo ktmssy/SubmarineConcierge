@@ -23,7 +23,6 @@ using SubmarineConcierge.SaveData;
 
 namespace SubmarineConcierge.Plankton
 {
-    [RequireComponent(typeof(TouchManager))]
     [AddComponentMenu("_SubmarineConcierge/Plankton/PlanktonManager")]
     public class PlanktonManager : MonoBehaviour
     {

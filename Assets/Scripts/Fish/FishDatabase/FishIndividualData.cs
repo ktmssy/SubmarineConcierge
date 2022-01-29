@@ -1,8 +1,8 @@
 /******************************
  *
- *　作成者：
+ *　作成者：楊志庄
  *　作成日：
- *　更新日：
+ *　更新日：2022年01月29日
  *
  ******************************
  *
@@ -22,13 +22,15 @@ namespace SubmarineConcierge.Fish
     [System.Serializable]
     public class FishIndividualData
     {
+        public string id;
         public FishType Type;
         public int Friendship;
         public string Name;
         public bool IsTamed;
 
-        public FishIndividualData(FishType type,int friendship,string name,bool isTamed)
+        public FishIndividualData(FishType type, int friendship, string name, bool isTamed)
         {
+            id = System.Guid.NewGuid().ToString();
             Type = type;
             Friendship = friendship;
             Name = name;
