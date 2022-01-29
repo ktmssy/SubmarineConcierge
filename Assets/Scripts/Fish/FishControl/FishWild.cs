@@ -76,7 +76,7 @@ namespace SubmarineConcierge.Fish
             // 画面外に出たら消滅
             if (this.transform.position.x >= 20 || this.transform.position.x <= -20)
             {
-                manager.RemoveWildFish(gameObject);
+                manager.RemoveWildFish(this);
                 Destroy(this.gameObject);
             }
         }
@@ -152,9 +152,10 @@ namespace SubmarineConcierge.Fish
             obj.transform.localScale = new Vector3(moveSpeed > 0 ? -1f : 1f, 1f, 1f);
             FishTamed f = obj.GetComponent<FishTamed>();
             f.Init(fish, data, false);
+            manager.Tame(fish.id, f);
             SaveData.SaveDataManager.fishSaveData.Add(f.fish);
             SaveData.SaveDataManager.fishFormationSaveData.Add(f.fish);
-            manager.RemoveWildFish(gameObject);
+            manager.RemoveWildFish(this);
             Destroy(gameObject);
             isAnimating = false;
             yield break;

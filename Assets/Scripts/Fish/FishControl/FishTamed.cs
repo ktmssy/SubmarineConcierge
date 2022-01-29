@@ -13,6 +13,7 @@
  *
  ******************************/
 
+using SubmarineConcierge.Session;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,14 @@ namespace SubmarineConcierge.Fish
     [AddComponentMenu("_SubmarineConcierge/Fish/FishTamed")]
     public class FishTamed : Fish
     {
-        public bool DoMove;
+        //public bool DoMove;
         public float Speed;
         public float WaitTimeMin;
         public float WaitTimeMax;
         public Vector2 Margin;
+        public bool isReadyForSession = false;
+        private bool isPreparingForSessiong = false;
+        private bool isInSession = false;
 
         private Vector2 PosMin;
         private Vector2 PosMax;
@@ -34,6 +38,72 @@ namespace SubmarineConcierge.Fish
         private float timer;
         private float waitTime;
         private Vector3 targetPos;
+        private AudioSource sessionFirst;
+        private AudioSource sessionLoop;
+
+        private Vector3 GetSessionPos()
+        {
+            Vector3 ret = SessionPositionManager.GetSessionPosition();
+            ret.z = data.z;
+            return ret;
+        }
+
+        public void PrepareSession()
+        {
+            isReadyForSession = false;
+            isInSession = false;
+            isPreparingForSessiong = true;
+            targetPos = GetSessionPos();
+        }
+
+        public void StartSession(MusicData music)
+        {
+            isPreparingForSessiong = false;
+            isInSession = true;
+            //todo animation
+
+            SoundTrack track = music.GetTrack(data.Instrument);
+            if (track == null)
+                return;
+
+            sessionFirst = gameObject.AddComponent<AudioSource>();
+            sessionFirst.clip = track.clipFirst;
+            sessionFirst.loop = false;
+            sessionFirst.volume = track.volume;
+            sessionFirst.playOnAwake = false;
+            sessionFirst.Play();
+
+            sessionLoop = gameObject.AddComponent<AudioSource>();
+            sessionLoop.clip = track.clipLoop;
+            sessionLoop.loop = true;
+            sessionLoop.volume = track.volume;
+            sessionLoop.playOnAwake = false;
+            sessionLoop.Stop();
+
+            Invoke("DoLoop", track.clipFirst.length-0.2f);
+        }
+
+        private void DoLoop()
+        {
+            sessionFirst?.Stop();
+            sessionLoop?.Play();
+            Destroy(sessionFirst);
+            sessionFirst = null;
+        }
+
+        public void StopSession()
+        {
+            isReadyForSession = false;
+            isInSession = false;
+            sessionFirst?.Stop();
+            sessionLoop?.Stop();
+            Destroy(sessionFirst);
+            sessionFirst = null;
+            Destroy(sessionLoop);
+            sessionLoop = null;
+            NewTargetPos();
+            NewWaitTime();
+        }
 
         private float NewWaitTime()
         {
@@ -63,16 +133,28 @@ namespace SubmarineConcierge.Fish
         {
             Init(fish, data);
             if (randomStart)
+            {
+                waitTime = 0f;
                 transform.position = targetPos;
+            }
         }
 
         private void FixedUpdate()
         {
-            if (!DoMove)
+            /*if (!DoMove)
+                return;*/
+            if (isInSession || isReadyForSession)
                 return;
+
             Vector2 direction = targetPos - transform.position;
             if (direction.sqrMagnitude < 1f)
             {
+                if (isPreparingForSessiong)
+                {
+                    transform.localScale = new Vector3(transform.position.x > 0 ? 1f : -1f, 1f, 1f);
+                    isReadyForSession = true;
+                    return;
+                }
                 timer += Time.deltaTime;
                 if (timer >= waitTime)
                 {

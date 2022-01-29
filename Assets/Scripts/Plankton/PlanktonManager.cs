@@ -52,6 +52,7 @@ namespace SubmarineConcierge.Plankton
 
         public int MaxPlanktonAmount;
 
+
         /// <summary>
         /// プランクトンの間隔距離。0の場合は等間隔。
         /// </summary>
@@ -63,6 +64,20 @@ namespace SubmarineConcierge.Plankton
         private List<Plankton> planktons;
 
         private float delta;
+
+        private bool isInSession = false;
+
+        public void PrepareSession()
+        {
+            isInSession = true;
+            RemoveAll();
+        }
+
+        public void StopSession()
+        {
+            isInSession = false;
+            GenerateAll();
+        }
 
         private int CalcPP()
         {
@@ -142,10 +157,18 @@ namespace SubmarineConcierge.Plankton
             return ret;
         }
 
+        private void RemoveAll()
+        {
+            foreach (var c in planktons)
+                c.Vanish();
+            count = 0;
+            planktons.Clear();
+        }
+
         /// <summary>
         /// プランクトンを生成する
         /// </summary>
-        public void GenerateAll()
+        private void GenerateAll()
         {
             //生成する数を算出
             count = CalcPlanktonCount();
@@ -173,6 +196,9 @@ namespace SubmarineConcierge.Plankton
 
         private void FixedUpdate()
         {
+            if (isInSession)
+                return;
+
             int nCount = CalcPlanktonCount();
             //Debug.Log(nCount + " > " + count + " ?");
             if (nCount > count)

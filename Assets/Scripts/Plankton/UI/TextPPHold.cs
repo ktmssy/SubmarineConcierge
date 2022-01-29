@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SubmarineConcierge
+namespace SubmarineConcierge.UI
 {
 
     [AddComponentMenu("_SubmarineConcierge/UI/Text/PPHold")]

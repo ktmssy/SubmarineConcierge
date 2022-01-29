@@ -14,6 +14,7 @@
  ******************************/
 
 using SubmarineConcierge.SaveData;
+using SubmarineConcierge.Session;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,10 +28,11 @@ namespace SubmarineConcierge.Fish
     {
         [Header("Manage")]
         public FishDatabase Database;
-        private List<GameObject> wildFishes = new List<GameObject>();
+        [System.NonSerialized] public List<FishWild> wildFishes = new List<FishWild>();
         public int WildFishCount;
         private List<FishType> fishTypes = new List<FishType>();
-        private Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
+        [System.NonSerialized] public Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
+        public SessionManager sessionManager;
 
         [Header("Sound")]
         public AudioSource TameSound;
@@ -40,7 +42,12 @@ namespace SubmarineConcierge.Fish
         [Header("Effect")]
         public GameObject TameEffectPrefab;
 
-        public void RemoveWildFish(GameObject fish)
+        public void Tame(string id,FishTamed fish)
+        {
+            tamedFishes.Add(id, fish);
+        }
+
+        public void RemoveWildFish(FishWild fish)
         {
             wildFishes.Remove(fish);
         }
@@ -88,7 +95,7 @@ namespace SubmarineConcierge.Fish
             fishWild.Init(fish, data, this);
             fishWild.moveSpeed = UnityEngine.Random.Range(2.0f, 3.5f);
             fishWild.moveSpeed *= -direction;
-            wildFishes.Add(obj);
+            wildFishes.Add(fishWild);
         }
 
         private void GenerateWildRandom()
@@ -119,6 +126,8 @@ namespace SubmarineConcierge.Fish
 
         private void FixedUpdate()
         {
+            if (sessionManager.Status != SessionStatus.Stop)
+                return;
             while (wildFishes.Count < WildFishCount)
             {
                 GenerateWildRandom();

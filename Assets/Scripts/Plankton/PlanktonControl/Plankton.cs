@@ -106,6 +106,47 @@ namespace SubmarineConcierge.Plankton
             }
         }
 
+        private IEnumerator FadeInAnm()
+        {
+            ColorControl cc = GetComponent<ColorControl>();
+            cc.enabled = false;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            Color color = cc.A;
+            float a = 0f;
+            float target = cc.A.a;
+            while (a < target)
+            {
+                a += 0.01f;
+                color.a = a;
+                sr.color = color;
+                yield return new WaitForSeconds(0.02f);
+            }
+            cc.enabled = true;
+            yield break;
+        }
+
+        private IEnumerator VanishAnm()
+        {
+            GetComponent<ColorControl>().enabled = false;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            Color color = sr.color;
+            float a = color.a;
+            while (a > 0f)
+            {
+                a -= 0.01f;
+                color.a = a;
+                sr.color = color;
+                yield return new WaitForSeconds(0.02f);
+            }
+            Destroy(gameObject);
+            yield break;
+        }
+
+        public virtual void Vanish()
+        {
+            StartCoroutine(VanishAnm());
+        }
+
         public virtual void Collect(Vector2 target)
         {
             if (clicked)
@@ -119,6 +160,11 @@ namespace SubmarineConcierge.Plankton
         {
             UpdatePhase();
             UpdatePosition();
+        }
+
+        protected void Start()
+        {
+            StartCoroutine(FadeInAnm());
         }
     }
 }

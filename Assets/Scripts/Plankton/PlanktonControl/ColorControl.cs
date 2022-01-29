@@ -38,6 +38,11 @@ namespace SubmarineConcierge.Plankton
             sr = GetComponent<SpriteRenderer>();
         }
 
+        private void OnEnable()
+        {
+            timer = 0f;
+        }
+
         private void Update()
         {
             timer += Time.deltaTime;
