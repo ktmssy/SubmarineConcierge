@@ -29,11 +29,13 @@ namespace SubmarineConcierge.Fish
         private FishManager manager;
         private bool isTaming = false;
         private bool isAnimating = false;
+        private GameObject tameEffectPrefab;
 
         public void Init(FishIndividualData fish, FishData data, FishManager manager)
         {
             base.Init(fish, data);
             this.manager = manager;
+            tameEffectPrefab = Resources.Load<GameObject>("Effects/ParticleHeart");
         }
 
         private void Start()
@@ -81,10 +83,12 @@ namespace SubmarineConcierge.Fish
 
         private IEnumerator Tame()
         {
+            GameObject effect = Instantiate(tameEffectPrefab, transform);
             while (fish.Friendship < data.TamePP)
             {
                 if (!isTaming)
                 {
+                    Destroy(effect);
                     yield break;
                 }
                 Debug.Log("Taming " + fish.Friendship + " / " + data.TamePP);
@@ -95,10 +99,12 @@ namespace SubmarineConcierge.Fish
                 }
                 else
                 {
+                    Destroy(effect);
                     EndTame();
                     yield break;
                 }
             }
+            Destroy(effect);
             TameSucceeded();
             yield break;
         }
