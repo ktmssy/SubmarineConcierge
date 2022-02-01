@@ -7,7 +7,7 @@
  ******************************
  *
  *　更新履歴...編集者
- *　1.野生魚のZ軸をランダムにずれる...楊志庄
+ *　1.魚のZ軸をランダムにずれる...楊志庄
  *　2.
  *　3.
  *
@@ -67,7 +67,7 @@ namespace SubmarineConcierge.Fish
             FishData fishData = database.GetFishData(data.type);
             GameObject obj = Instantiate(fishData.prefabTamed, Vector3.zero, Quaternion.identity);
             obj.transform.parent = transform;
-            obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, fishData.z);
+            obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, fishData.z + UnityEngine.Random.Range(0f, 0.5f));
             FishTamed fish = obj.GetComponent<FishTamed>();
             fish.Init(data, fishData, true);
             tamedFishes.Add(data.id, fish);

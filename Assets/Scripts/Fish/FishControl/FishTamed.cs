@@ -46,7 +46,7 @@ namespace SubmarineConcierge.Fish
         private Vector3 GetSessionPos()
         {
             Vector3 ret = SessionPositionManager.GetSessionPosition();
-            ret.z = data.z;
+            ret.z = transform.position.z;
             return ret;
         }
 
@@ -122,7 +122,7 @@ namespace SubmarineConcierge.Fish
         {
             float x = Random.Range(posMin.x, posMax.x);
             float y = Random.Range(posMin.y, posMax.y);
-            targetPos = new Vector3(x, y, data.z);
+            targetPos = new Vector3(x, y, transform.position.z);
             return targetPos;
         }
 
