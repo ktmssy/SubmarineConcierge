@@ -51,7 +51,7 @@ namespace SubmarineConcierge.Fish
         {
             if (isTaming)
             {
-#if UNITY_EDITOR || UNITY_STONDALONE
+#if UNITY_EDITOR || UNITY_STANDALONE
                 if (Input.GetMouseButtonUp(0))
                 {
                     EndTame();

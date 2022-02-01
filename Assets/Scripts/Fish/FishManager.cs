@@ -2,12 +2,12 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月27日
- *　更新日：2022年01月28日
+ *　更新日：2022年02月01日
  *
  ******************************
  *
  *　更新履歴...編集者
- *　1.
+ *　1.野生魚のZ軸をランダムにずれる...楊志庄
  *　2.
  *　3.
  *
@@ -42,7 +42,7 @@ namespace SubmarineConcierge.Fish
         [Header("Effect")]
         public GameObject tameEffectPrefab;
 
-        public void Tame(string id,FishTamed fish)
+        public void Tame(string id, FishTamed fish)
         {
             tamedFishes.Add(id, fish);
         }
@@ -89,7 +89,7 @@ namespace SubmarineConcierge.Fish
             // 魚を生成
             GameObject obj = Instantiate(data.prefabWild, GeneratePos, Quaternion.identity);
             obj.transform.parent = transform;
-            obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, data.z + 0.5f);
+            obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, data.z + 0.5f + UnityEngine.Random.Range(0f, 0.5f));
 
             FishWild fishWild = obj.GetComponent<FishWild>();
             fishWild.Init(fish, data, this);
