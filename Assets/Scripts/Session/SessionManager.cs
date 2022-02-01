@@ -108,7 +108,7 @@ namespace SubmarineConcierge.Session
         {
             if (Status == SessionStatus.Prepare)
             {
-                bool __flag1 = (fishManager.wildFishes.Count == 0);
+                bool __flag1 = true/*(fishManager.wildFishes.Count == 0)*/;
 
                 bool __flag2 = true;
                 foreach (FishTamed fish in fishManager.tamedFishes.Values)
