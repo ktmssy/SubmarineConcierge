@@ -28,23 +28,21 @@ namespace SubmarineConcierge.Plankton
         /// <summary>
         /// スピード
         /// </summary>
-        public float Speed;
+        public float speed;
 
-        public float CollectSpeed;
+        public float collectspeed;
 
         /// <summary>
         /// ルートデータ
         /// </summary>
-        public RouteData Data;
+        public RouteData data;
 
         /// <summary>
         /// 位相
         /// </summary>
-        public float Phase = 0f;
+        public float phase = 0f;
 
         public PlanktonManager manager;
-
-        public Plankton LastPlankton;
 
         private Vector2 startPoint;
 
@@ -55,30 +53,30 @@ namespace SubmarineConcierge.Plankton
         /// <summary>
         /// 位相の更新
         /// </summary>
-        public virtual void UpdatePhase()
+        public virtual void Updatephase()
         {
             //位相の更新
-            Phase += Speed * Time.deltaTime;
+            phase += speed * Time.deltaTime;
 
             //位相Clamp
-            if (Phase > Data.TotalDistance)
-                Phase -= Data.TotalDistance;
-            else if (Phase < -Data.TotalDistance)
-                Phase += Data.TotalDistance;
+            if (phase > data.totalDistance)
+                phase -= data.totalDistance;
+            else if (phase < -data.totalDistance)
+                phase += data.totalDistance;
         }
 
         protected virtual void UpdatePositionUncollected()
         {
             //移動
             if (transform.parent)
-                transform.position = Data.Lerp(Phase, transform.parent.localToWorldMatrix);
+                transform.position = data.Lerp(phase, transform.parent.localToWorldMatrix);
             else
-                transform.position = Data.Lerp(Phase);
+                transform.position = data.Lerp(phase);
         }
 
         protected virtual void UpdatePositionCollected()
         {
-            transform.position = Vector2.MoveTowards(transform.position, endPoint, CollectSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, endPoint, collectspeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, endPoint) < 0.00001f)
             {
                 GainPoint();
@@ -111,9 +109,9 @@ namespace SubmarineConcierge.Plankton
             ColorControl cc = GetComponent<ColorControl>();
             cc.enabled = false;
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            Color color = cc.A;
+            Color color = cc.a;
             float a = 0f;
-            float target = cc.A.a;
+            float target = cc.a.a;
             while (a < target)
             {
                 a += 0.01f;
@@ -158,7 +156,7 @@ namespace SubmarineConcierge.Plankton
 
         protected void Update()
         {
-            UpdatePhase();
+            Updatephase();
             UpdatePosition();
         }
 

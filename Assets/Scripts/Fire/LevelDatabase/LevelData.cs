@@ -29,16 +29,16 @@ namespace SubmarineConcierge.Fire
         /// <summary>
         /// レベル
         /// </summary>
-        public int Level;
+        public int level;
 
         /// <summary>
         /// 1秒間産出するプランクトンポイント数
         /// </summary>
-        public float PlanktonPointPerSecond;
+        public float planktonPointPerSecond;
 
         /// <summary>
         /// 1匹のプランクトンが持つPPの上限値
         /// </summary>
-        public float PlanktonPointPerPlankton;
+        public float planktonPointPerPlankton;
     }
 }

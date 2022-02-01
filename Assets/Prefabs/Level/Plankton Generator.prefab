@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e69724e6e70ae41b183167fc6aeb13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoDraw: 1
-  Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
-  PointRadius: 0.1
+  doDraw: 1
+  data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
+  pointRadius: 0.1
 --- !u!114 &7170210550278575756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d37ea213faa7704eaf69b2ffd5427ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 5054847332903176, guid: 092601bf695854245bd2951b072555b3, type: 3}
-  Data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
-  FireLevelDatabase: {fileID: 11400000, guid: 84cb29e275768d94182a39b26103ba6d, type: 2}
-  Speed: 1
-  MaxPlanktonAmount: 100
+  prefab: {fileID: 5054847332903176, guid: 092601bf695854245bd2951b072555b3, type: 3}
+  data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
+  fireLevelDatabase: {fileID: 11400000, guid: 84cb29e275768d94182a39b26103ba6d, type: 2}
+  speed: 3
+  maxPlanktonAmount: 100
   distance: 0.8

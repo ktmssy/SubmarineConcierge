@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ecf447e0c7bbf47a39302f6a646c14, type: 3}
   m_Name: FireLevelDatabase
   m_EditorClassIdentifier: 
-  LevelDatas:
-  - Level: 1
-    PlanktonPointPerSecond: 1
-    PlanktonPointPerPlankton: 3
-  - Level: 2
-    PlanktonPointPerSecond: 2
-    PlanktonPointPerPlankton: 10
-  - Level: 3
-    PlanktonPointPerSecond: 3
-    PlanktonPointPerPlankton: 10
+  levelDatas:
+  - level: 1
+    planktonPointPerSecond: 1
+    planktonPointPerPlankton: 3

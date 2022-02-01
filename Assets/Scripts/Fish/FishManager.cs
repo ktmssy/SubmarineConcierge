@@ -27,20 +27,20 @@ namespace SubmarineConcierge.Fish
     public class FishManager : MonoBehaviour
     {
         [Header("Manage")]
-        public FishDatabase Database;
+        public FishDatabase database;
         [System.NonSerialized] public List<FishWild> wildFishes = new List<FishWild>();
-        public int WildFishCount;
+        public int wildFishCount;
         private List<FishType> fishTypes = new List<FishType>();
         [System.NonSerialized] public Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
         public SessionManager sessionManager;
 
         [Header("Sound")]
-        public AudioSource TameSound;
-        public AudioSource TameSuccessSound;
-        public AudioSource TameChargeSound;
+        public AudioSource tameSound;
+        public AudioSource tameSuccessSound;
+        public AudioSource tameChargeSound;
 
         [Header("Effect")]
-        public GameObject TameEffectPrefab;
+        public GameObject tameEffectPrefab;
 
         public void Tame(string id,FishTamed fish)
         {
@@ -64,8 +64,8 @@ namespace SubmarineConcierge.Fish
 
         private void GenerateTamed(FishIndividualData data)
         {
-            FishData fishData = Database.GetFishData(data.Type);
-            GameObject obj = Instantiate(fishData.PrefabTamed, Vector3.zero, Quaternion.identity);
+            FishData fishData = database.GetFishData(data.type);
+            GameObject obj = Instantiate(fishData.prefabTamed, Vector3.zero, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, fishData.z);
             FishTamed fish = obj.GetComponent<FishTamed>();
@@ -76,7 +76,7 @@ namespace SubmarineConcierge.Fish
         private void GenerateWild(FishType type)
         {
             FishIndividualData fish = new FishIndividualData(type, SaveDataManager.fishTameProgressSaveData.GetProgress(type), "", false);
-            FishData data = Database.GetFishData(type);
+            FishData data = database.GetFishData(type);
 
             // 魚の向きを決定
             int direction = UnityEngine.Random.Range(-1, 2);
@@ -87,7 +87,7 @@ namespace SubmarineConcierge.Fish
             Vector3 GeneratePos = new Vector3(18.0f * direction, UnityEngine.Random.Range(-3.0f, 9.0f));
 
             // 魚を生成
-            GameObject obj = Instantiate(data.PrefabWild, GeneratePos, Quaternion.identity);
+            GameObject obj = Instantiate(data.prefabWild, GeneratePos, Quaternion.identity);
             obj.transform.parent = transform;
             obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, data.z + 0.5f);
 
@@ -112,13 +112,13 @@ namespace SubmarineConcierge.Fish
 			SaveDataManager.Save();*/
             SaveDataManager.LoadOnce();
 
-            foreach (FishData fish in Database.FishDatas)
+            foreach (FishData fish in database.fishDatas)
             {
-                fishTypes.Add(fish.Type);
+                fishTypes.Add(fish.type);
             }
 
             //セーブデータを使って、テイムされた魚を生成する
-            foreach (FishIndividualData fish in SaveDataManager.fishFormationSaveData.Fishes)
+            foreach (FishIndividualData fish in SaveDataManager.fishFormationSaveData.fishes)
             {
                 GenerateTamed(fish);
             }
@@ -128,7 +128,7 @@ namespace SubmarineConcierge.Fish
         {
             if (sessionManager.Status != SessionStatus.Stop)
                 return;
-            while (wildFishes.Count < WildFishCount)
+            while (wildFishes.Count < wildFishCount)
             {
                 GenerateWildRandom();
             }

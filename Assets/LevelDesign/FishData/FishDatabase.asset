@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bb0cd587769a24aa901bb1afd270bf, type: 3}
   m_Name: FishDatabase
   m_EditorClassIdentifier: 
-  FishDatas:
+  fishDatas:
   - {fileID: 11400000, guid: ca2c0f473edd04d499891f591455a6cb, type: 2}
   - {fileID: 11400000, guid: d1d500d12dfd2a74182ac05fa9888d90, type: 2}
   - {fileID: 11400000, guid: 48ee0378579c2bf4c95ecbd5d2196da4, type: 2}

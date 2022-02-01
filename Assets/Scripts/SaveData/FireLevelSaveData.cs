@@ -21,25 +21,25 @@ namespace SubmarineConcierge.SaveData
 {
     public class FireLevelSaveData
     {
-        private const string SAVE_KEY = "FireLevel";
+        private const string SAVE_KEY = "Firelevel";
 
         private const int MAX_LEVEL = 3;
 
-        private static int level = 0;
+        private static int _level = 0;
 
-        public static int Level
+        public static int level
         {
             get
             {
-                if (level == 0)
+                if (_level == 0)
                 {
-                    level = Load();
+                    _level = Load();
                 }
-                return level;
+                return _level;
             }
             set
             {
-                level = value;
+                _level = value;
                 Save(value);
             }
         }
@@ -56,10 +56,10 @@ namespace SubmarineConcierge.SaveData
 
         public static int AddLevel(int value)
         {
-            int ret = Level + value;
+            int ret = level + value;
             if (ret > MAX_LEVEL || ret <= 0)
-                return Level;
-            Level = ret;
+                return level;
+            level = ret;
             return ret;
         }
     }

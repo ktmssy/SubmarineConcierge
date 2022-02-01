@@ -38,17 +38,17 @@ namespace SubmarineConcierge.Plankton
 
             if (GUILayout.Button("Smooth"))
             {
-                if (data.SmoothCount <= data.Edges.Length)
+                if (data.smoothCount <= data.edges.Length)
                     return;
-                Vector2[] newPoints = new Vector2[data.SmoothCount];
+                Vector2[] newPoints = new Vector2[data.smoothCount];
                 float value = 0f;
-                float delta = data.TotalDistance / data.SmoothCount;
-                for (int i = 0; i < data.SmoothCount; ++i)
+                float delta = data.totalDistance / data.smoothCount;
+                for (int i = 0; i < data.smoothCount; ++i)
                 {
                     newPoints[i] = data.Lerp(value);
                     value += delta;
                 }
-                data.Points = newPoints;
+                data.points = newPoints;
                 data.OnEnable();
             }
         }

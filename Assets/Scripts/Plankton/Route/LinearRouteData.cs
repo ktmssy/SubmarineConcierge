@@ -28,20 +28,20 @@ namespace SubmarineConcierge.Plankton
         /// <summary>
         /// 頂点座標
         /// </summary>
-        public Vector2[] Points;
+        public Vector2[] points;
 
-        public bool Loop;
+        public bool loop;
 
         /// <summary>
         /// 円滑化するときの頂点数
         /// </summary>
-        public int SmoothCount;
+        public int smoothCount;
 
         /// <summary>
         /// 辺
         /// </summary>
         [System.NonSerialized]
-        public RouteEdge[] Edges;
+        public RouteEdge[] edges;
 
         /// <summary>
         /// 自動で周長を算出し、辺の情報を用意する
@@ -49,31 +49,31 @@ namespace SubmarineConcierge.Plankton
         public void OnEnable()
         {
             //周長リセット
-            TotalDistance = 0f;
+            totalDistance = 0f;
 
             //辺のArrayを用意
-            if (Loop)
+            if (loop)
             {
-                Edges = new RouteEdge[Points.Length];
+                edges = new RouteEdge[points.Length];
 
                 //辺
-                Edges[Points.Length - 1] = new RouteEdge(Points[Points.Length - 1], Points[0]);
+                edges[points.Length - 1] = new RouteEdge(points[points.Length - 1], points[0]);
 
                 //周長
-                TotalDistance += Edges[Points.Length - 1].Distance;
+                totalDistance += edges[points.Length - 1].distance;
             }
             else
             {
-                Edges = new RouteEdge[Points.Length - 1];
+                edges = new RouteEdge[points.Length - 1];
             }
 
-            for (int i = 0; i < Points.Length - 1; ++i)
+            for (int i = 0; i < points.Length - 1; ++i)
             {
                 //辺
-                Edges[i] = new RouteEdge(Points[i], Points[i + 1]);
+                edges[i] = new RouteEdge(points[i], points[i + 1]);
 
                 //周長
-                TotalDistance += Edges[i].Distance;
+                totalDistance += edges[i].distance;
             }
         }
 
@@ -86,11 +86,11 @@ namespace SubmarineConcierge.Plankton
         {
             if (value >= 0)
             {
-                value -= Mathf.FloorToInt(value / TotalDistance) * TotalDistance;
+                value -= Mathf.FloorToInt(value / totalDistance) * totalDistance;
             }
             else
             {
-                value += Mathf.CeilToInt(-value / TotalDistance) * TotalDistance;
+                value += Mathf.CeilToInt(-value / totalDistance) * totalDistance;
             }
             return value;
         }
@@ -105,19 +105,19 @@ namespace SubmarineConcierge.Plankton
             //位相を0～周長の範囲内に変換
             value = Clamp(value);
 
-            foreach (RouteEdge edge in Edges)
+            foreach (RouteEdge edge in edges)
             {
                 //何辺にあるの判定
-                if (value > edge.Distance)
+                if (value > edge.distance)
                 {
-                    value -= edge.Distance;
+                    value -= edge.distance;
                     continue;
                 }
                 //その辺で座標をLerp
-                return Vector2.Lerp(edge.Start, edge.End, value / edge.Distance);
+                return Vector2.Lerp(edge.start, edge.end, value / edge.distance);
             }
 
-            return Edges[0].Start;
+            return edges[0].start;
         }
 
         /// <summary>
@@ -141,17 +141,17 @@ namespace SubmarineConcierge.Plankton
         {
             value = Clamp(value);
 
-            foreach (RouteEdge edge in Edges)
+            foreach (RouteEdge edge in edges)
             {
-                if (value > edge.Distance)
+                if (value > edge.distance)
                 {
-                    value -= edge.Distance;
+                    value -= edge.distance;
                     continue;
                 }
-                return Vector3.Slerp(new Vector3(edge.Start.x, edge.Start.y, 0f), new Vector3(edge.End.x, edge.End.y, 0f), value / edge.Distance);
+                return Vector3.Slerp(new Vector3(edge.start.x, edge.start.y, 0f), new Vector3(edge.end.x, edge.end.y, 0f), value / edge.distance);
             }
 
-            return Edges[0].Start;
+            return edges[0].start;
         }
     }
 }

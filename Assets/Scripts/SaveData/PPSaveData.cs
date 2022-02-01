@@ -22,47 +22,47 @@ namespace SubmarineConcierge.SaveData
 {
     public class PPSaveData
     {
-        private const string SAVE_KEY_HOLD = "PPHold";
-        private const string SAVE_KEY_GAINED = "PPGained";
+        private const string SAVE_KEY_HOLD = "PPhold";
+        private const string SAVE_KEY_GAINED = "PPgained";
 
-        private static int hold = -1;
-        private static int gained = -1;
+        private static int _hold = -1;
+        private static int _gained = -1;
 
-        public static int Hold
+        public static int hold
         {
             get
             {
-                if (hold == -1)
+                if (_hold == -1)
                 {
-                    hold = LoadHold();
+                    _hold = Load();
                 }
-                return hold;
+                return _hold;
             }
             set
             {
-                hold = value;
+                _hold = value;
                 SaveHold(value);
             }
         }
 
-        public static int Gained
+        public static int gained
         {
             get
             {
-                if (gained == -1)
+                if (_gained == -1)
                 {
-                    gained = LoadGained();
+                    _gained = LoadGained();
                 }
-                return gained;
+                return _gained;
             }
             set
             {
-                gained = value;
+                _gained = value;
                 SaveGained(value);
             }
         }
 
-        private static int LoadHold()
+        private static int Load()
         {
             return PlayerPrefs.GetInt(SAVE_KEY_HOLD, 0);
         }
@@ -84,20 +84,20 @@ namespace SubmarineConcierge.SaveData
 
         public static int AddHold(int value)
         {
-            Hold = MathUtility.SafeAdd(Hold, value);
-            return Hold;
+            hold = MathUtility.SafeAdd(hold, value);
+            return hold;
         }
 
         public static int AddGained(int value)
         {
-            Gained = MathUtility.SafeAdd(Gained, value);
-            //Debug.Log("AddGained: " + value + " , " + Gained);
-            return Gained;
+            gained = MathUtility.SafeAdd(gained, value);
+            //Debug.Log("AddGained: " + value + " , " + gained);
+            return gained;
         }
 
         public static bool UsePP(int value)
         {
-            if (Hold < value)
+            if (hold < value)
                 return false;
             AddHold(value * -1);
             return true;

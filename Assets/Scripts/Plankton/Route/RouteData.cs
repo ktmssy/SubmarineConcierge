@@ -28,7 +28,7 @@ namespace SubmarineConcierge.Plankton
         /// 周長
         /// </summary>
         [System.NonSerialized]
-        public float TotalDistance;
+        public float totalDistance;
 
         /// <summary>
         /// 位相を基にローカル座標を算出する

@@ -24,22 +24,24 @@ namespace SubmarineConcierge.Fish
     public class FishTamed : Fish
     {
         //public bool DoMove;
-        public float Speed;
-        public float WaitTimeMin;
-        public float WaitTimeMax;
-        public Vector2 Margin;
+        public float speed;
+        public float waitTimeMin;
+        public float waitTimeMax;
+        public Vector2 margin;
         public bool isReadyForSession = false;
         private bool isPreparingForSessiong = false;
         private bool isInSession = false;
 
-        private Vector2 PosMin;
-        private Vector2 PosMax;
+        private Vector2 posMin;
+        private Vector2 posMax;
 
         private float timer;
         private float waitTime;
         private Vector3 targetPos;
         private AudioSource sessionFirst;
         private AudioSource sessionLoop;
+
+        private float loopDelay = 0f;
 
         private Vector3 GetSessionPos()
         {
@@ -48,21 +50,14 @@ namespace SubmarineConcierge.Fish
             return ret;
         }
 
-        public void PrepareSession()
+        public void PrepareSession(MusicData music)
         {
             isReadyForSession = false;
             isInSession = false;
             isPreparingForSessiong = true;
             targetPos = GetSessionPos();
-        }
 
-        public void StartSession(MusicData music)
-        {
-            isPreparingForSessiong = false;
-            isInSession = true;
-            //todo animation
-
-            SoundTrack track = music.GetTrack(data.Instrument);
+            SoundTrack track = music.GetTrack(data.instrument);
             if (track == null)
                 return;
 
@@ -71,7 +66,7 @@ namespace SubmarineConcierge.Fish
             sessionFirst.loop = false;
             sessionFirst.volume = track.volume;
             sessionFirst.playOnAwake = false;
-            sessionFirst.Play();
+            sessionFirst.Stop();
 
             sessionLoop = gameObject.AddComponent<AudioSource>();
             sessionLoop.clip = track.clipLoop;
@@ -80,7 +75,18 @@ namespace SubmarineConcierge.Fish
             sessionLoop.playOnAwake = false;
             sessionLoop.Stop();
 
-            Invoke("DoLoop", track.clipFirst.length-0.2f);
+            loopDelay = track.clipFirst.length - 0.2f;
+        }
+
+        public void StartSession()
+        {
+            isPreparingForSessiong = false;
+            isInSession = true;
+            //todo animation
+
+            sessionFirst.Play();
+
+            Invoke("DoLoop", loopDelay);
         }
 
         private void DoLoop()
@@ -108,14 +114,14 @@ namespace SubmarineConcierge.Fish
         private float NewWaitTime()
         {
             timer = 0f;
-            waitTime = Random.Range(WaitTimeMin, WaitTimeMax);
+            waitTime = Random.Range(waitTimeMin, waitTimeMax);
             return waitTime;
         }
 
         private Vector3 NewTargetPos()
         {
-            float x = Random.Range(PosMin.x, PosMax.x);
-            float y = Random.Range(PosMin.y, PosMax.y);
+            float x = Random.Range(posMin.x, posMax.x);
+            float y = Random.Range(posMin.y, posMax.y);
             targetPos = new Vector3(x, y, data.z);
             return targetPos;
         }
@@ -123,8 +129,8 @@ namespace SubmarineConcierge.Fish
         public override void Init(FishIndividualData fish, FishData data)
         {
             base.Init(fish, data);
-            PosMax = (Vector2)Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 1f)) + Margin;
-            PosMin = (Vector2)Camera.main.ViewportToWorldPoint(Vector3.zero) - Margin;
+            posMax = (Vector2)Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 1f)) + margin;
+            posMin = (Vector2)Camera.main.ViewportToWorldPoint(Vector3.zero) - margin;
             NewWaitTime();
             NewTargetPos();
         }
@@ -165,7 +171,7 @@ namespace SubmarineConcierge.Fish
             }
             else
             {
-                transform.position += (Vector3)direction.normalized * Speed * Time.deltaTime;
+                transform.position += (Vector3)direction.normalized * speed * Time.deltaTime;
             }
             transform.localScale = new Vector3(direction.x > 0 ? -1f : 1f, 1f, 1f);
         }
@@ -192,10 +198,10 @@ namespace SubmarineConcierge.Fish
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Vector3 leftBottom = PosMin;
-            Vector3 rightTop = PosMax;
-            Vector3 leftTop = new Vector3(PosMin.x, PosMax.y);
-            Vector3 rightBottom = new Vector3(PosMax.x, PosMin.y);
+            Vector3 leftBottom = posMin;
+            Vector3 rightTop = posMax;
+            Vector3 leftTop = new Vector3(posMin.x, posMax.y);
+            Vector3 rightBottom = new Vector3(posMax.x, posMin.y);
             Gizmos.DrawLine(leftBottom, leftTop);
             Gizmos.DrawLine(rightTop, leftTop);
             Gizmos.DrawLine(rightTop, rightBottom);

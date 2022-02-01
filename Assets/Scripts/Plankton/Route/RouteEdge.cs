@@ -26,17 +26,17 @@ namespace SubmarineConcierge.Plankton
         /// <summary>
         /// スタートポイント
         /// </summary>
-        public Vector2 Start;
+        public Vector2 start;
 
         /// <summary>
         /// エンドポイント
         /// </summary>
-        public Vector2 End;
+        public Vector2 end;
 
         /// <summary>
         /// 長さ
         /// </summary>
-        public float Distance;
+        public float distance;
 
         /// <summary>
         /// 構造関数コンストラクタ
@@ -45,9 +45,9 @@ namespace SubmarineConcierge.Plankton
         /// <param name="end">エンド座標</param>
         public RouteEdge(Vector2 start, Vector2 end)
         {
-            this.Start = start;
-            this.End = end;
-            Distance = Vector2.Distance(start, end);
+            this.start = start;
+            this.end = end;
+            distance = Vector2.Distance(start, end);
         }
 
     }

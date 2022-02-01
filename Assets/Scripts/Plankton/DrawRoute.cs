@@ -31,36 +31,36 @@ namespace SubmarineConcierge.Plankton
         /// 描画しますか？
         /// </summary>
         [Tooltip("描画On/Off")]
-        public bool DoDraw;
+        public bool doDraw;
 
         /// <summary>
         /// ルートデータ
         /// </summary>
         [Tooltip("ルートデータ")]
-        public RouteData Data;
+        public RouteData data;
 
         /// <summary>
         /// 頂点の半径
         /// </summary>
         [Tooltip("頂点の描画半径")]
-        public float PointRadius = 0.1f;
+        public float pointRadius = 0.1f;
 
         public void OnDrawGizmos()
         {
-            if (!DoDraw)
+            if (!doDraw)
                 return;
 
-            if (Data is LinearRouteData)
+            if (data is LinearRouteData)
             {
                 //辺の描画
                 Gizmos.color = Color.white;
-                foreach (var edge in ((LinearRouteData)Data).Edges)
-                    Gizmos.DrawLine(CoordinateUtility.CalcWorldPosFromLocalPos(edge.Start, transform.localToWorldMatrix), CoordinateUtility.CalcWorldPosFromLocalPos(edge.End, transform.localToWorldMatrix));
+                foreach (var edge in ((LinearRouteData)data).edges)
+                    Gizmos.DrawLine(CoordinateUtility.CalcWorldPosFromLocalPos(edge.start, transform.localToWorldMatrix), CoordinateUtility.CalcWorldPosFromLocalPos(edge.end, transform.localToWorldMatrix));
 
                 //頂点の描画
                 Gizmos.color = Color.red;
-                foreach (Vector2 pos in ((LinearRouteData)Data).Points)
-                    Gizmos.DrawSphere(CoordinateUtility.CalcWorldPosFromLocalPos(pos, transform.localToWorldMatrix), PointRadius);
+                foreach (Vector2 pos in ((LinearRouteData)data).points)
+                    Gizmos.DrawSphere(CoordinateUtility.CalcWorldPosFromLocalPos(pos, transform.localToWorldMatrix), pointRadius);
             }
 
         }

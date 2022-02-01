@@ -30,25 +30,25 @@ namespace SubmarineConcierge.Plankton
         /// プランクトンのプレハブ
         /// </summary>
         [Tooltip("プランクトンのプレハブ")]
-        public GameObject Prefab;
+        public GameObject prefab;
 
         /// <summary>
         /// ルートデータ
         /// </summary>
         [Tooltip("ルートデータ")]
-        public RouteData Data;
+        public RouteData data;
 
         /// <summary>
         /// 生成する数
         /// </summary>
         [Tooltip("生成する数")]
-        public int Count;
+        public int count;
 
         /// <summary>
         /// プランクトンたちのスピード
         /// </summary>
         [Tooltip("プランクトンたちのスピード")]
-        public float Speed;
+        public float speed;
 
         /// <summary>
         /// プランクトンの間隔距離。0の場合は等間隔。
@@ -70,12 +70,12 @@ namespace SubmarineConcierge.Plankton
 
             //0の場合は等間隔
             if (distance == 0f)
-                delta = Data.TotalDistance / Count;
+                delta = data.totalDistance / count;
 
-            for (int i = 0; i < Count; ++i)
+            for (int i = 0; i < count; ++i)
             {
                 //プランクトンを生成する。場所はルートデータのLerp関数で算出
-                GameObject go = Instantiate(Prefab, CoordinateUtility.CalcWorldPosFromLocalPos(Data.Lerp(phase), transform.localToWorldMatrix), Quaternion.identity);
+                GameObject go = Instantiate(prefab, CoordinateUtility.CalcWorldPosFromLocalPos(data.Lerp(phase), transform.localToWorldMatrix), Quaternion.identity);
 
                 //プランクトンの親を自分にする
                 go.transform.parent = transform;
@@ -84,13 +84,13 @@ namespace SubmarineConcierge.Plankton
                 var plankton = go.GetComponent<Plankton>();
 
                 //位相の値を付与する
-                plankton.Phase = phase;
+                plankton.phase = phase;
 
                 //ルートデータを付与する
-                plankton.Data = Data;
+                plankton.data = data;
 
                 //スピードを付与する
-                plankton.Speed = Speed;
+                plankton.speed = speed;
 
                 //mar.localToWorldMatrix = transform.localToWorldMatrix;
 

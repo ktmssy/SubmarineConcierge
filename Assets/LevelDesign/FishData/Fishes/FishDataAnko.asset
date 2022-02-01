@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2efb87871bf0946acdb321a4320260, type: 3}
   m_Name: FishDataAnko
   m_EditorClassIdentifier: 
-  Type: 3
-  Instrument: 0
-  AppearAtShoal: 0
-  AppearAtMiddleSea: 0
-  AppearAtDeapSea: 0
-  PrefabWild: {fileID: 1793113199886427655, guid: 7ff47580575b8454eae009c2468fef63, type: 3}
-  PrefabTamed: {fileID: 9059787152396692144, guid: 2596d6a964f579f4b806147cec5bf0a1, type: 3}
-  TamePP: 20
+  type: 3
+  instrument: 0
+  appearAtShoal: 0
+  appearAtMiddleSea: 0
+  appearAtDeapSea: 0
+  prefabWild: {fileID: 1793113199886427655, guid: 7ff47580575b8454eae009c2468fef63, type: 3}
+  prefabTamed: {fileID: 9059787152396692144, guid: 2596d6a964f579f4b806147cec5bf0a1, type: 3}
+  tamePP: 20
   z: 2

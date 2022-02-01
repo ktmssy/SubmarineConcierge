@@ -66,19 +66,20 @@ namespace SubmarineConcierge.Session
             stopButton.gameObject.SetActive(true);
             textPPControl.FadeOut();
             planktonManager.PrepareSession();
+            MusicData music = musicDatabase.GetRandom();
             foreach (FishTamed fish in fishManager.tamedFishes.Values)
             {
-                fish.PrepareSession();
+                fish.PrepareSession(music);
             }
         }
 
         private void StartSession()
         {
             Debug.Log("Start Session ");
-            MusicData music = musicDatabase.GetRandom();
+
             foreach (FishTamed fish in fishManager.tamedFishes.Values)
             {
-                fish.StartSession(music);
+                fish.StartSession();
             }
             //todo play music
         }

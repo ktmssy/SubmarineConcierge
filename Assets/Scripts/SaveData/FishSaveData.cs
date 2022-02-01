@@ -26,17 +26,17 @@ namespace SubmarineConcierge.SaveData
     [System.Serializable]
     public class FishSaveData : SaveData
     {
-        public List<FishIndividualData> Fishes = new List<FishIndividualData>();
+        public List<FishIndividualData> fishes = new List<FishIndividualData>();
 
         public void Add(FishIndividualData fish)
         {
-            Fishes.Add(fish);
+            fishes.Add(fish);
             Save();
         }
 
         public void Remove(FishIndividualData fish)
         {
-            Fishes.Remove(fish);
+            fishes.Remove(fish);
             Save();
         }
 

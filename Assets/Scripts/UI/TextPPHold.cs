@@ -34,7 +34,7 @@ namespace SubmarineConcierge.UI
     
         private void Update()
         {
-            text.text = PPSaveData.Hold.ToString();
+            text.text = PPSaveData.hold.ToString();
         }
     }
 }

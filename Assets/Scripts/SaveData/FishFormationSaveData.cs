@@ -40,25 +40,25 @@ namespace SubmarineConcierge.SaveData
              }
          }*/
 
-        public List<FishIndividualData> Fishes = new List<FishIndividualData>();
+        public List<FishIndividualData> fishes = new List<FishIndividualData>();
 
         public void Add(FishIndividualData fish)
         {
-            Fishes.Add(fish);
+            fishes.Add(fish);
             FishManager manager = GameObject.FindGameObjectWithTag("FishManager")?.GetComponent<FishManager>();
-            Debug.Log("maxCount " + maxCount + " ,fish count " + Fishes.Count);
-            while (Fishes.Count > maxCount)
+            Debug.Log("maxCount " + maxCount + " ,fish count " + fishes.Count);
+            while (fishes.Count > maxCount)
             {
                 Debug.Log("manager is null? " + (manager == null));
-                manager?.RemoveTamedFish(Fishes[0].id);
-                Fishes.RemoveAt(0);
+                manager?.RemoveTamedFish(fishes[0].id);
+                fishes.RemoveAt(0);
             }
             Save();
         }
 
         public void Remove(FishIndividualData fish)
         {
-            Fishes.Remove(fish);
+            fishes.Remove(fish);
             Save();
         }
 

@@ -117,12 +117,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fish:
     id: 
-    Type: 3
-    Friendship: 0
-    Name: 
-    IsTamed: 1
-  DoMove: 1
-  Speed: 3
-  WaitTimeMin: 1
-  WaitTimeMax: 2
-  Margin: {x: -2, y: -2}
+    type: 0
+    friendship: 0
+    name: 
+    isTamed: 0
+  speed: 3
+  waitTimeMin: 1
+  waitTimeMax: 2
+  margin: {x: -2, y: -2}
+  isReadyForSession: 0

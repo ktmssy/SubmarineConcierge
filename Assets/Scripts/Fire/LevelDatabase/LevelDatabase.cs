@@ -28,7 +28,7 @@ namespace SubmarineConcierge.Fire
         /// <summary>
         /// レベルごとのデータ
         /// </summary>
-        public LevelData[] LevelDatas;
+        public LevelData[] levelDatas;
 
         /// <summary>
         /// Query用のマップ
@@ -38,14 +38,14 @@ namespace SubmarineConcierge.Fire
         public void OnEnable()
         {
             //レベルデータがないと処理しない
-            if (LevelDatas == null)
+            if (levelDatas == null)
                 return;
 
             //マップの初期化
             dataMap = new Dictionary<int, LevelData>();
-            foreach(LevelData data in LevelDatas)
+            foreach(LevelData data in levelDatas)
             {
-                dataMap.Add(data.Level, data);
+                dataMap.Add(data.level, data);
             }
         }
 

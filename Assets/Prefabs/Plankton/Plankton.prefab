@@ -98,12 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e640c8a5b16187468452ac274f46c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  CollectSpeed: 5
-  Data: {fileID: 0}
-  Phase: 0
+  speed: 1
+  collectspeed: 3
+  data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
+  phase: 0
   manager: {fileID: 0}
-  LastPlankton: {fileID: 0}
 --- !u!114 &9123597268466765661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,12 +115,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86474e6a407c9cd4087acc33dc03f2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeIntervalMin: 1
-  TimeIntervalMax: 2
-  A: {x: 0.4, y: 0.4, z: 1}
-  B: {x: 0.2, y: 0.2, z: 1}
-  RemainTimeMin: 0.5
-  RemainTimeMax: 2
+  timeIntervalMin: 1
+  timeIntervalMax: 2
+  a: {x: 0.4, y: 0.4, z: 0}
+  b: {x: 0.2, y: 0.2, z: 0}
+  remainTimeMin: 0.5
+  remainTimeMax: 2
 --- !u!114 &5054847332903180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,10 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbbc16606fe1f043b92a1247da47755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeIntervalMin: 1
-  TimeIntervalMax: 2
-  A: {r: 0.46339473, g: 1, b: 0.2688679, a: 1}
-  B: {r: 0.2235294, g: 0.82404536, b: 1, a: 1}
+  timeIntervalMin: 1
+  timeIntervalMax: 2
+  a: {r: 0.4627451, g: 1, b: 0.26666668, a: 1}
+  b: {r: 0.22352941, g: 0.8235294, b: 1, a: 1}
 --- !u!58 &4859621637042346875
 CircleCollider2D:
   m_ObjectHideFlags: 0

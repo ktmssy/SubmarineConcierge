@@ -23,18 +23,18 @@ namespace SubmarineConcierge.Fish
     public class FishIndividualData
     {
         public string id;
-        public FishType Type;
-        public int Friendship;
-        public string Name;
-        public bool IsTamed;
+        public FishType type;
+        public int friendship;
+        public string name;
+        public bool isTamed;
 
         public FishIndividualData(FishType type, int friendship, string name, bool isTamed)
         {
             id = System.Guid.NewGuid().ToString();
-            Type = type;
-            Friendship = friendship;
-            Name = name;
-            IsTamed = isTamed;
+            this.type = type;
+            this.friendship = friendship;
+            this.name = name;
+            this.isTamed = isTamed;
         }
     }
 }

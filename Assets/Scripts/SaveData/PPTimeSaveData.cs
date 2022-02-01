@@ -24,21 +24,21 @@ namespace SubmarineConcierge.SaveData
     {
         private const string SAVE_KEY = "PPTime";
 
-        private static DateTime time = new DateTime(0);
+        private static DateTime _time = new DateTime(0);
 
-        public static DateTime Time
+        public static DateTime time
         {
             get
             {
-                if (time.Ticks == 0)
+                if (_time.Ticks == 0)
                 {
-                    time = Load();
+                    _time = Load();
                 }
-                return time;
+                return _time;
             }
             set
             {
-                time = value;
+                _time = value;
                 Save(value);
             }
         }

@@ -22,15 +22,15 @@ namespace SubmarineConcierge.Fish
     [CreateAssetMenu(fileName = "FishDatabase", menuName = "SubmarineConcierge/Fish/FishDatabase")]
     public class FishDatabase : ScriptableObject
     {
-        public FishData[] FishDatas;
+        public FishData[] fishDatas;
         private Dictionary<FishType, FishData> dataMap;
 
         public void OnEnable()
         {
             dataMap = new Dictionary<FishType, FishData>();
-            foreach (var fish in FishDatas)
+            foreach (var fish in fishDatas)
             {
-                dataMap.Add(fish.Type, fish);
+                dataMap.Add(fish.type, fish);
             }
         }
 

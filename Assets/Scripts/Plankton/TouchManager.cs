@@ -17,13 +17,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SubmarineConcierge.Plankton
+namespace SubmarineConcierge
 {
 
-    [AddComponentMenu("_SubmarineConcierge/Plankton/TouchManager")]
+    [AddComponentMenu("_SubmarineConcierge/TouchManager")]
     public class TouchManager : MonoBehaviour
     {
         public Transform target;
+        public Session.SessionManager sessionManager;
 
         private void CheckPlankton(Vector2 screenPos)
         {
@@ -32,7 +33,7 @@ namespace SubmarineConcierge.Plankton
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(ray.origin.x, ray.origin.y), Vector2.zero, Mathf.Infinity, 1 << 10);
             if (hit.collider != null)
             {
-                hit.collider.gameObject.GetComponent<Plankton>().Collect(target.position);
+                hit.collider.gameObject.GetComponent<Plankton.Plankton>().Collect(target.position);
             }
         }
 
@@ -58,6 +59,8 @@ namespace SubmarineConcierge.Plankton
 
         private void Update()
         {
+            if (sessionManager.Status != Session.SessionStatus.Stop)
+                return;
 
 #if UNITY_EDITOR||UNITY_STANDALONE
             if (Input.GetMouseButton(0))

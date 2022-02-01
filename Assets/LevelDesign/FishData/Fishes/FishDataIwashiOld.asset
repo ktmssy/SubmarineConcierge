@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2efb87871bf0946acdb321a4320260, type: 3}
   m_Name: FishDataIwashiOld
   m_EditorClassIdentifier: 
-  Type: 1
-  Instrument: 1
-  AppearAtShoal: 0
-  AppearAtMiddleSea: 0
-  AppearAtDeapSea: 0
-  PrefabWild: {fileID: 7056619693691282947, guid: 11ae05b533d24364f853901fbc0db834, type: 3}
-  PrefabTamed: {fileID: 5811555893457147060, guid: 446fd30a7a934e747b46c4ade1b363cc, type: 3}
-  TamePP: 10
+  type: 1
+  instrument: 1
+  appearAtShoal: 0
+  appearAtMiddleSea: 0
+  appearAtDeapSea: 0
+  prefabWild: {fileID: 7056619693691282947, guid: 11ae05b533d24364f853901fbc0db834, type: 3}
+  prefabTamed: {fileID: 5811555893457147060, guid: 446fd30a7a934e747b46c4ade1b363cc, type: 3}
+  tamePP: 10
   z: 1

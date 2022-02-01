@@ -23,26 +23,26 @@ namespace SubmarineConcierge.Dbg
     public class SaveDataDebugger : MonoBehaviour
     {
 #if UNITY_EDITOR
-        public int FireLevel;
-        public int GainedPP;
-        public int HoldPP;
+        public int fireLevel;
+        public int gainedPP;
+        public int holdPP;
         [ReadOnly]
-        public string LastTime;
+        public string lastTime;
 
     
         private void Update()
         {
-            FireLevel = FireLevelSaveData.Level;
-            GainedPP = PPSaveData.Gained;
-            HoldPP = PPSaveData.Hold;
-            LastTime = PPTimeSaveData.Time.ToString();
+            fireLevel = FireLevelSaveData.level;
+            gainedPP = PPSaveData.gained;
+            holdPP = PPSaveData.hold;
+            lastTime = PPTimeSaveData.time.ToString();
         }
 
         public void Save()
         {
-            FireLevelSaveData.Level = FireLevel;
-            PPSaveData.Gained = GainedPP;
-            PPSaveData.Hold = HoldPP;
+            FireLevelSaveData.level = fireLevel;
+            PPSaveData.gained = gainedPP;
+            PPSaveData.hold = holdPP;
         }
 #endif
     }

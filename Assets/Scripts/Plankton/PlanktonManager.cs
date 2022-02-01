@@ -30,27 +30,27 @@ namespace SubmarineConcierge.Plankton
         /// プランクトンのプレハブ
         /// </summary>
         [Tooltip("プランクトンのプレハブ")]
-        public GameObject Prefab;
+        public GameObject prefab;
 
         /// <summary>
         /// ルートデータ
         /// </summary>
         [Tooltip("ルートデータ")]
-        public RouteData Data;
+        public RouteData data;
 
         /// <summary>
         /// 火のレベルデータベース
         /// </summary>
         [Tooltip("火のレベルデータベース")]
-        public LevelDatabase FireLevelDatabase;
+        public LevelDatabase fireLevelDatabase;
 
         /// <summary>
         /// プランクトンたちのスピード
         /// </summary>
         [Tooltip("プランクトンたちのスピード")]
-        public float Speed;
+        public float speed;
 
-        public int MaxPlanktonAmount;
+        public int maxPlanktonAmount;
 
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace SubmarineConcierge.Plankton
 
         private int CalcPP()
         {
-            DateTime last = PPTimeSaveData.Time;
+            DateTime last = PPTimeSaveData.time;
             DateTime now = DateTime.Now;
             TimeSpan lastSpan = new TimeSpan(last.Ticks);
             TimeSpan nowSpan = new TimeSpan(now.Ticks);
@@ -89,24 +89,24 @@ namespace SubmarineConcierge.Plankton
             double seconds = deltaSpan.TotalSeconds;
             //Debug.Log("deltaSeconds: " + seconds);
 
-            LevelData fireLevelData = FireLevelDatabase.GetLevelData(FireLevelSaveData.Level);
+            LevelData fireLevelData = fireLevelDatabase.GetLevelData(FireLevelSaveData.level);
             //Debug.Log("FireLevel: " + FireLevelSaveData.Level);
 
-            int delta = (int)(fireLevelData.PlanktonPointPerSecond * seconds);
+            int delta = (int)(fireLevelData.planktonPointPerSecond * seconds);
             //Debug.Log("CalcPP: " + delta);
             //Debug.Log("GainedPP: " + PPSaveData.Gained);
 
             if (delta <= 0)
-                return PPSaveData.Gained;
+                return PPSaveData.gained;
 
-            PPTimeSaveData.Time = now;
+            PPTimeSaveData.time = now;
             return PPSaveData.AddGained(delta);
         }
 
         public void GainPP(Plankton p)
         {
             //Debug.Log("PlanktonCount: " + count);
-            int pp = PPSaveData.Gained / count--;
+            int pp = PPSaveData.gained / count--;
             planktons.Remove(p);
             PPSaveData.AddHold(pp);
             PPSaveData.AddGained(-pp);
@@ -116,7 +116,7 @@ namespace SubmarineConcierge.Plankton
         public void Generate(float phase)
         {
             //プランクトンを生成する。場所はルートデータのLerp関数で算出
-            GameObject go = Instantiate(Prefab, CoordinateUtility.CalcWorldPosFromLocalPos(Data.Lerp(phase), transform.localToWorldMatrix), Quaternion.identity);
+            GameObject go = Instantiate(prefab, CoordinateUtility.CalcWorldPosFromLocalPos(data.Lerp(phase), transform.localToWorldMatrix), Quaternion.identity);
 
             //プランクトンの親を自分にする
             go.transform.parent = transform;
@@ -125,13 +125,13 @@ namespace SubmarineConcierge.Plankton
             var plankton = go.GetComponent<Plankton>();
 
             //位相の値を付与する
-            plankton.Phase = phase;
+            plankton.phase = phase;
 
             //ルートデータを付与する
-            plankton.Data = Data;
+            plankton.data = data;
 
             //スピードを付与する
-            plankton.Speed = Speed;
+            plankton.speed = speed;
 
             plankton.manager = this;
 
@@ -143,7 +143,7 @@ namespace SubmarineConcierge.Plankton
         {
             float phase = 0f;
             if (planktons.Count > 0)
-                phase = planktons[planktons.Count - 1].Phase - delta;
+                phase = planktons[planktons.Count - 1].phase - delta;
             Generate(phase);
 
         }
@@ -151,9 +151,9 @@ namespace SubmarineConcierge.Plankton
         private int CalcPlanktonCount()
         {
             CalcPP();
-            LevelData fireLevelData = FireLevelDatabase.GetLevelData(FireLevelSaveData.Level);
-            int ret = Mathf.CeilToInt(PPSaveData.Gained / fireLevelData.PlanktonPointPerPlankton);
-            ret = Mathf.Min(ret, MaxPlanktonAmount);
+            LevelData fireLevelData = fireLevelDatabase.GetLevelData(FireLevelSaveData.level);
+            int ret = Mathf.CeilToInt(PPSaveData.gained / fireLevelData.planktonPointPerPlankton);
+            ret = Mathf.Min(ret, maxPlanktonAmount);
             return ret;
         }
 
@@ -187,7 +187,7 @@ namespace SubmarineConcierge.Plankton
 
             //0の場合は等間隔
             if (distance == 0f)
-                delta = Data.TotalDistance / count;
+                delta = data.totalDistance / count;
 
             planktons = new List<Plankton>();
 

@@ -22,17 +22,17 @@ namespace SubmarineConcierge.Fish
 	[CreateAssetMenu(fileName = "FishData", menuName = "SubmarineConcierge/Fish/FishData")]
 	public class FishData : ScriptableObject
 	{
-		public FishType Type;
-		public InstrumentType Instrument;
-		public bool AppearAtShoal;
-		public bool AppearAtMiddleSea;
-		public bool AppearAtDeapSea;
+		public FishType type;
+		public InstrumentType instrument;
+		public bool appearAtShoal;
+		public bool appearAtMiddleSea;
+		public bool appearAtDeapSea;
 		//public Sprite Sprite;
-		public GameObject PrefabWild;
-		public GameObject PrefabTamed;
+		public GameObject prefabWild;
+		public GameObject prefabTamed;
 		/* public Material TamedMaterial;
 		 public Material WildMaterial;*/
-		public int TamePP;
+		public int tamePP;
 		public float z;
 	}
 }

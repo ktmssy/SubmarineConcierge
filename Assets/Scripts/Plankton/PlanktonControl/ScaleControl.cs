@@ -28,31 +28,31 @@ namespace SubmarineConcierge.Plankton
         /// 変化する過程の時間最小値
         /// </summary>
         [Tooltip("変化する過程の時間最小値")]
-        public float TimeIntervalMin;
+        public float timeIntervalMin;
 
         /// <summary>
         /// 変化する過程の時間最大値
         /// </summary>
         [Tooltip("変化する過程の時間最大値")]
-        public float TimeIntervalMax;
+        public float timeIntervalMax;
 
         /// <summary>
         /// 変化するスケールのスタートとエンド値
         /// </summary>
         [Tooltip("変化するスケールのスタートとエンド値")]
-        public Vector3 A, B;
+        public Vector3 a, b;
 
         /// <summary>
         /// "Aの持続時間最小値
         /// </summary>
         [Tooltip("Aの持続時間最小値")]
-        public float RemainTimeMin;
+        public float remainTimeMin;
 
         /// <summary>
         /// Aの持続時間最大値
         /// </summary>
         [Tooltip("Aの持続時間最大値")]
-        public float RemainTimeMax;
+        public float remainTimeMax;
 
         /// <summary>
         /// Aの持続時間
@@ -70,19 +70,19 @@ namespace SubmarineConcierge.Plankton
 
         private void Start()
         {
-            timeInterval = Random.Range(TimeIntervalMin, TimeIntervalMax);
-            remainTime = Random.Range(RemainTimeMin, RemainTimeMax);
+            timeInterval = Random.Range(timeIntervalMin, timeIntervalMax);
+            remainTime = Random.Range(remainTimeMin, remainTimeMax);
             timer = Random.Range(0f, timeInterval);
         }
 
         private void Update()
         {
             timer += Time.deltaTime;
-            transform.localScale = timer / timeInterval <= 0.5f ? Vector3.Lerp(A, B, timer / timeInterval * 2f) : Vector3.Lerp(B, A, timer / timeInterval * 2f - 1f);
+            transform.localScale = timer / timeInterval <= 0.5f ? Vector3.Lerp(a, b, timer / timeInterval * 2f) : Vector3.Lerp(b, a, timer / timeInterval * 2f - 1f);
             if (timer > timeInterval+remainTime)
             {
-                timeInterval = Random.Range(TimeIntervalMin, TimeIntervalMax);
-                remainTime = Random.Range(RemainTimeMin, RemainTimeMax);
+                timeInterval = Random.Range(timeIntervalMin, timeIntervalMax);
+                remainTime = Random.Range(remainTimeMin, remainTimeMax);
                 timer = 0f;
             }
         }
