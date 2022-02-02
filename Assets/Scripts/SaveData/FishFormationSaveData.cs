@@ -20,12 +20,12 @@ using UnityEngine;
 
 namespace SubmarineConcierge.SaveData
 {
-    [System.Serializable]
-    public class FishFormationSaveData : SaveData
-    {
-        private const int maxCount = 3;
+	[System.Serializable]
+	public class FishFormationSaveData : SaveData
+	{
+		private const int maxCount = 3;
 
-        /* private FishManager _manager = null;
+		/* private FishManager _manager = null;
          private FishManager manager
          {
              get
@@ -40,36 +40,38 @@ namespace SubmarineConcierge.SaveData
              }
          }*/
 
-        public List<FishIndividualData> fishes = new List<FishIndividualData>();
+		public List<FishIndividualData> fishes = new List<FishIndividualData>();
 
-        public void Add(FishIndividualData fish)
-        {
-            fishes.Add(fish);
-            FishManager manager = GameObject.FindGameObjectWithTag("FishManager")?.GetComponent<FishManager>();
-            Debug.Log("maxCount " + maxCount + " ,fish count " + fishes.Count);
-            while (fishes.Count > maxCount)
-            {
-                Debug.Log("manager is null? " + (manager == null));
-                manager?.RemoveTamedFish(fishes[0].id);
-                fishes.RemoveAt(0);
-            }
-            Save();
-        }
+		public void Add(FishIndividualData fish)
+		{
+			if (fishes == null)
+				fishes = new List<FishIndividualData>();
+			fishes.Add(fish);
+			FishManager manager = GameObject.FindGameObjectWithTag("FishManager")?.GetComponent<FishManager>();
+			Debug.Log("maxCount " + maxCount + " ,fish count " + fishes.Count);
+			while (fishes.Count > maxCount)
+			{
+				Debug.Log("manager is null? " + (manager == null));
+				manager?.RemoveTamedFish(fishes[0].id);
+				fishes.RemoveAt(0);
+			}
+			Save();
+		}
 
-        public void Remove(FishIndividualData fish)
-        {
-            fishes.Remove(fish);
-            Save();
-        }
+		public void Remove(FishIndividualData fish)
+		{
+			fishes?.Remove(fish);
+			Save();
+		}
 
-        public override void Save()
-        {
-            SaveDataManager.Save(SaveDataManager.fishFormationSaveData);
-        }
+		public override void Save()
+		{
+			SaveDataManager.Save(SaveDataManager.fishFormationSaveData);
+		}
 
-        public override void Load()
-        {
-            SaveDataManager.fishFormationSaveData = SaveDataManager.Load<FishFormationSaveData>();
-        }
-    }
+		public override void Load()
+		{
+			SaveDataManager.fishFormationSaveData = SaveDataManager.Load<FishFormationSaveData>();
+		}
+	}
 }
