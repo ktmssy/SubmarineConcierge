@@ -75,7 +75,7 @@ namespace SubmarineConcierge.Fish
 
         private void GenerateWild(FishType type)
         {
-            FishIndividualData fish = new FishIndividualData(type, SaveDataManager.fishTameProgressSaveData.GetProgress(type), "", false);
+            FishIndividualData fish = new FishIndividualData(type, 0, "", false);
             FishData data = database.GetFishData(type);
 
             // 魚の向きを決定
