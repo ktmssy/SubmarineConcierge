@@ -86,7 +86,12 @@ namespace SubmarineConcierge.Session
             {
                 fish.StartSession();
             }
-            Invoke("StopSession", duration);
+            Invoke("OnSongOver", duration);
+        }
+
+        private void OnSongOver()
+        {
+            SetStatus(SessionStatus.Stop);
         }
 
 
