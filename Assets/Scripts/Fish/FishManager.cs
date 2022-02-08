@@ -24,7 +24,7 @@ namespace SubmarineConcierge.Fish
 {
 
     [AddComponentMenu("_SubmarineConcierge/Fish/FishManager")]
-    public class FishManager : MonoBehaviour
+    public class FishManager : SingletonMB<FishManager>
     {
         [Header("Manage")]
         public FishDatabase database;
@@ -32,7 +32,7 @@ namespace SubmarineConcierge.Fish
         public int wildFishCount;
         private List<FishType> fishTypes = new List<FishType>();
         [System.NonSerialized] public Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
-        public SessionManager sessionManager;
+        private SessionManager sessionManager;
 
         [Header("Sound")]
         public AudioSource tameSound;
@@ -92,7 +92,7 @@ namespace SubmarineConcierge.Fish
             obj.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y, data.z + 0.5f + UnityEngine.Random.Range(0f, 0.5f));
 
             FishWild fishWild = obj.GetComponent<FishWild>();
-            fishWild.Init(fish, data, this);
+            fishWild.Init(fish, data/*, this*/);
             fishWild.moveSpeed = UnityEngine.Random.Range(2.0f, 3.5f);
             fishWild.moveSpeed *= -direction;
             wildFishes.Add(fishWild);
@@ -122,11 +122,13 @@ namespace SubmarineConcierge.Fish
             {
                 GenerateTamed(fish);
             }
+
+            sessionManager = SingletonMB<SessionManager>.Instance;
         }
 
         private void FixedUpdate()
         {
-            if (sessionManager.Status != SessionStatus.Stop)
+            if (sessionManager.status != SessionStatus.Stop)
                 return;
             while (wildFishes.Count < wildFishCount)
             {

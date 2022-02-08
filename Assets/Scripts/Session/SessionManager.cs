@@ -24,22 +24,24 @@ using UnityEngine.UI;
 namespace SubmarineConcierge.Session
 {
     [AddComponentMenu("_SubmarineConcierge/Session/SessionManager")]
-    public class SessionManager : MonoBehaviour
+    public class SessionManager : SingletonMB<SessionManager>
     {
         public Button startButton;
         public Button stopButton;
-        public FishManager fishManager;
+        //public FishManager fishManager;
         public TextPPControl textPPControl;
         public PlanktonManager planktonManager;
         public MusicDatabase musicDatabase;
 
-        public SessionStatus Status { get; private set; } = SessionStatus.Stop;
+        public SessionStatus status { get; private set; } = SessionStatus.Stop;
+
+        private float duration;
 
         //private bool isReady = false;
 
         public void SetStatus(SessionStatus status)
         {
-            if (Status == status)
+            if (this.status == status)
                 return;
             switch (status)
             {
@@ -56,7 +58,7 @@ namespace SubmarineConcierge.Session
                     StopSession();
                     break;
             }
-            Status = status;
+            this.status = status;
         }
 
         private void PrepareSession()
@@ -67,7 +69,10 @@ namespace SubmarineConcierge.Session
             textPPControl.FadeOut();
             planktonManager.PrepareSession();
             MusicData music = musicDatabase.GetRandom();
-            foreach (FishTamed fish in fishManager.tamedFishes.Values)
+            var track = music.soundTracks[0];
+            duration = track.clipFirst.length + track.clipLoop.length;
+            Debug.Log(track.clipFirst.length + " + " + track.clipLoop.length + " = " + duration);
+            foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
             {
                 fish.PrepareSession(music);
             }
@@ -76,13 +81,14 @@ namespace SubmarineConcierge.Session
         private void StartSession()
         {
             Debug.Log("Start Session ");
-
-            foreach (FishTamed fish in fishManager.tamedFishes.Values)
+            SingletonMB<MiniGameManager>.Instance.OnSessionStart();
+            foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
             {
                 fish.StartSession();
             }
-            //todo play music
+            Invoke("StopSession", duration);
         }
+
 
         private void StopSession()
         {
@@ -91,7 +97,7 @@ namespace SubmarineConcierge.Session
             stopButton.gameObject.SetActive(false);
             textPPControl.FadeIn();
             planktonManager.StopSession();
-            foreach (FishTamed fish in fishManager.tamedFishes.Values)
+            foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
             {
                 fish.StopSession();
             }
@@ -106,12 +112,12 @@ namespace SubmarineConcierge.Session
 
         private void FixedUpdate()
         {
-            if (Status == SessionStatus.Prepare)
+            if (status == SessionStatus.Prepare)
             {
                 bool __flag1 = true/*(fishManager.wildFishes.Count == 0)*/;
 
                 bool __flag2 = true;
-                foreach (FishTamed fish in fishManager.tamedFishes.Values)
+                foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
                 {
                     __flag2 &= fish.isReadyForSession;
                 }

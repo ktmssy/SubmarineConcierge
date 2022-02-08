@@ -8,6 +8,9 @@ TagManager:
   - FishWild
   - FishTamed
   - FishManager
+  - Log
+  - LogDragging
+  - Fire
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Log
   - Plankton
   - FishWild
   - FishTamed

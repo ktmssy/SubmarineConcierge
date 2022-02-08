@@ -26,17 +26,17 @@ namespace SubmarineConcierge.Fish
 
         public Shader maskShader;
 
-        private FishManager manager;
+        //private FishManager manager;
         private bool isTaming = false;
         private bool isAnimating = false;
         //private GameObject tameEffectPrefab;
 
-        public void Init(FishIndividualData fish, FishData data, FishManager manager)
+       /* public void Init(FishIndividualData fish, FishData data*//*, FishManager manager*//*)
         {
             base.Init(fish, data);
-            this.manager = manager;
+            //this.manager = manager;
             //tameEffectPrefab = Resources.Load<GameObject>("Effects/ParticleHeart");
-        }
+        }*/
 
         private void Start()
         {
@@ -76,21 +76,21 @@ namespace SubmarineConcierge.Fish
             // 画面外に出たら消滅
             if (this.transform.position.x >= 20 || this.transform.position.x <= -20)
             {
-                manager.RemoveWildFish(this);
+                SingletonMB<FishManager>.Instance.RemoveWildFish(this);
                 Destroy(this.gameObject);
             }
         }
 
         private IEnumerator Tame()
         {
-            GameObject effect = Instantiate(manager.tameEffectPrefab, transform);
-            manager.tameSound.Play();
+            GameObject effect = Instantiate(SingletonMB<FishManager>.Instance.tameEffectPrefab, transform);
+            SingletonMB<FishManager>.Instance.tameSound.Play();
             while (fish.friendship < data.tamePP)
             {
                 if (!isTaming)
                 {
                     Destroy(effect);
-                    manager.tameSound.Stop();
+                    SingletonMB<FishManager>.Instance.tameSound.Stop();
                     yield break;
                 }
                 Debug.Log("Taming " + fish.friendship + " / " + data.tamePP);
@@ -102,13 +102,13 @@ namespace SubmarineConcierge.Fish
                 else
                 {
                     Destroy(effect);
-                    manager.tameSound.Stop();
+                    SingletonMB<FishManager>.Instance.tameSound.Stop();
                     EndTame();
                     yield break;
                 }
             }
             Destroy(effect);
-            manager.tameSound.Stop();
+            SingletonMB<FishManager>.Instance.tameSound.Stop();
             TameSucceeded();
             yield break;
         }
@@ -137,25 +137,25 @@ namespace SubmarineConcierge.Fish
             Material material = new Material(maskShader);
             sr.material = material;
             float progress = 1f;
-            manager.tameChargeSound.Play();
+            SingletonMB<FishManager>.Instance.tameChargeSound.Play();
             while (progress > 0f)
             {
                 progress -= 0.01f;
                 sr.material.SetFloat("Progress", progress);
                 yield return new WaitForSeconds(0.02f);
             }
-            manager.tameChargeSound.Stop();
-            manager.tameSuccessSound.Play();
+            SingletonMB<FishManager>.Instance.tameChargeSound.Stop();
+            SingletonMB<FishManager>.Instance.tameSuccessSound.Play();
             yield return new WaitForSeconds(0.5f);
             GameObject obj = Instantiate(data.prefabTamed, transform.position, Quaternion.identity);
             obj.transform.parent = transform.parent;
             obj.transform.localScale = new Vector3(moveSpeed > 0 ? -1f : 1f, 1f, 1f);
             FishTamed f = obj.GetComponent<FishTamed>();
             f.Init(fish, data, false);
-            manager.Tame(fish.id, f);
+            SingletonMB<FishManager>.Instance.Tame(fish.id, f);
             SaveData.SaveDataManager.fishSaveData.Add(f.fish);
             SaveData.SaveDataManager.fishFormationSaveData.Add(f.fish);
-            manager.RemoveWildFish(this);
+            SingletonMB<FishManager>.Instance.RemoveWildFish(this);
             Destroy(gameObject);
             isAnimating = false;
             yield break;
