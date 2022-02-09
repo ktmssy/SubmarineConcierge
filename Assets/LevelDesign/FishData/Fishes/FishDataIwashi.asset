@@ -17,6 +17,7 @@ MonoBehaviour:
   appearAtShoal: 0
   appearAtMiddleSea: 0
   appearAtDeapSea: 0
+  icon: {fileID: 21300000, guid: 857a3f61f5083164e8a4b0e4c192ab61, type: 3}
   prefabWild: {fileID: 8462803374965647454, guid: f0b1c698e7624584687fb9318e464dff, type: 3}
   prefabTamed: {fileID: 7647880912855972587, guid: 9fc3105a661129848812e7c76aef2e36, type: 3}
   tamePP: 10

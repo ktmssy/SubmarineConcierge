@@ -2,17 +2,18 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月27日
- *　更新日：2022年02月01日
+ *　更新日：2022年02月09日
  *
  ******************************
  *
  *　更新履歴...編集者
  *　1.魚のZ軸をランダムにずれる...楊志庄
- *　2.
+ *　2.魚に名前を付ける...楊志庄
  *　3.
  *
  ******************************/
 
+using SubmarineConcierge.Event;
 using SubmarineConcierge.SaveData;
 using SubmarineConcierge.Session;
 using System;
@@ -33,6 +34,7 @@ namespace SubmarineConcierge.Fish
         private List<FishType> fishTypes = new List<FishType>();
         [System.NonSerialized] public Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
         private SessionManager sessionManager;
+        public FishNameList nameList;
 
         [Header("Sound")]
         public AudioSource tameSound;
@@ -75,7 +77,7 @@ namespace SubmarineConcierge.Fish
 
         private void GenerateWild(FishType type)
         {
-            FishIndividualData fish = new FishIndividualData(type, 0, "", false);
+            FishIndividualData fish = new FishIndividualData(type, 0, nameList.GetRandom(), false);
             FishData data = database.GetFishData(type);
 
             // 魚の向きを決定
@@ -104,14 +106,25 @@ namespace SubmarineConcierge.Fish
             GenerateWild(type);
         }
 
+        private void Awake()
+        {
+            SaveDataManager.LoadOnce();
+        }
+
+        private void OnFishJoinTeam(UEvent e)
+        {
+            FishIndividualData fid = e.eventParams as FishIndividualData;
+            GenerateTamed(fid);
+        }
+
+        private void OnFishLeaveTeam(UEvent e)
+        {
+            FishIndividualData fid = e.eventParams as FishIndividualData;
+            RemoveTamedFish(fid.id);
+        }
+
         private void Start()
         {
-            /*SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
-			SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
-			SaveDataManager.fishSaveData.Add(new FishIndividualData(FishType.Iwashi, 0, "hya", true));
-			SaveDataManager.Save();*/
-            SaveDataManager.LoadOnce();
-
             foreach (FishData fish in database.fishDatas)
             {
                 fishTypes.Add(fish.type);
@@ -124,6 +137,14 @@ namespace SubmarineConcierge.Fish
             }
 
             sessionManager = SingletonMB<SessionManager>.Instance;
+            UEventDispatcher.addEventListener(SCEvent.OnFishJoinTeam, OnFishJoinTeam);
+            UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, OnFishLeaveTeam);
+        }
+
+        private void OnDestroy()
+        {
+            UEventDispatcher.removeEventListener(SCEvent.OnFishJoinTeam, OnFishJoinTeam);
+            UEventDispatcher.removeEventListener(SCEvent.OnFishLeaveTeam, OnFishLeaveTeam);
         }
 
         private void FixedUpdate()

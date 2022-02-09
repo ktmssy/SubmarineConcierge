@@ -27,7 +27,7 @@ namespace SubmarineConcierge.Fish
 		public bool appearAtShoal;
 		public bool appearAtMiddleSea;
 		public bool appearAtDeapSea;
-		//public Sprite Sprite;
+		public Sprite icon;
 		public GameObject prefabWild;
 		public GameObject prefabTamed;
 		/* public Material TamedMaterial;

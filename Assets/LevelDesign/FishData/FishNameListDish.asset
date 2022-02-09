@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bff36fdcf205548826b85bf3b30d9f, type: 3}
+  m_Name: FishNameListDish
+  m_EditorClassIdentifier: 
+  names:
+  - "\u6885\u716E"
+  - "\u751F\u59DC\u716E"
+  - "\u30B5\u3063\u3068\u716E"
+  - "\u6885\u8089\u63DA\u3052"
+  - "\u7ADC\u7530\u63DA\u3052"
+  - "\u30B4\u30DE\u713C\u304D"
+  - "\u3064\u307F\u308C\u6C41"
+  - "\u5357\u86EE\u6F2C\u3051"
+  - "\u30C1\u30FC\u30BA\u30D5\u30E9\u30A4"
+  - "\u30B0\u30EA\u30EB\u713C\u304D"
+  - "\u5929\u3077\u3089"
+  - "\u5869\u713C\u304D"
+  - "\u5E72\u7269"
+  - "\u5C71\u6912\u98A8\u5473\u716E"
+  - "\u30AD\u30E0\u30C1\u716E"
+  - "\u84B2\u713C\u304D"
+  - "\u307F\u305D\u716E"
+  - "\u9162\u307F\u305D\u304C\u3051"
+  - "\u523A\u8EAB"
+  - "\u304A\u9020\u308A"

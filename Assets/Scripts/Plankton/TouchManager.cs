@@ -34,9 +34,14 @@ namespace SubmarineConcierge
             sessionManager = SingletonMB<Session.SessionManager>.Instance;
         }
 
+        private bool CheckUI(Ray ray)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(ray.origin.x, ray.origin.y), Vector2.zero, Mathf.Infinity, 1 << 5);
+            return hit.collider != null;
+        }
+
         private void CheckPlankton(Vector2 screenPos)
         {
-
             Ray ray = Camera.main.ScreenPointToRay(screenPos);
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(ray.origin.x, ray.origin.y), Vector2.zero, Mathf.Infinity, 1 << 10);
             if (hit.collider != null)

@@ -151,6 +151,7 @@ namespace SubmarineConcierge.Fish
             obj.transform.parent = transform.parent;
             obj.transform.localScale = new Vector3(moveSpeed > 0 ? -1f : 1f, 1f, 1f);
             FishTamed f = obj.GetComponent<FishTamed>();
+            fish.isTamed = true;
             f.Init(fish, data, false);
             SingletonMB<FishManager>.Instance.Tame(fish.id, f);
             SaveData.SaveDataManager.fishSaveData.Add(f.fish);
