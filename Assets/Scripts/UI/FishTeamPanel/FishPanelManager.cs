@@ -30,9 +30,19 @@ namespace SubmarineConcierge.UI
 
         private bool isOpen = false;
 
-        private void Refresh()
+        private void RefreshAll()
+        {
+            RefreshLeft();
+            RefreshRight();
+        }
+
+        private void RefreshLeft()
         {
             flm.ReGenerate();
+        }
+
+        private void RefreshRight()
+        {
             frm.ReGenerate();
         }
 
@@ -52,9 +62,14 @@ namespace SubmarineConcierge.UI
             bOpen.gameObject.SetActive(true);
         }
 
-        private void Refresh(UEvent e)
+        private void RefreshAll(UEvent e)
         {
-            Refresh();
+            RefreshAll();
+        }
+
+        private void OnFishNameChanged(UEvent e)
+        {
+            RefreshLeft();
         }
 
         private void Start()
@@ -62,14 +77,16 @@ namespace SubmarineConcierge.UI
             Close();
             bOpen.onClick.AddListener(Open);
             bClose.onClick.AddListener(Close);
-            UEventDispatcher.addEventListener(SCEvent.OnFishJoinTeam, Refresh);
-            UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, Refresh);
+            UEventDispatcher.addEventListener(SCEvent.OnFishJoinTeam, RefreshAll);
+            UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, RefreshAll);
+            UEventDispatcher.addEventListener(SCEvent.OnFishNameChanged, OnFishNameChanged);
         }
 
         private void OnDestroy()
         {
-            UEventDispatcher.removeEventListener(SCEvent.OnFishJoinTeam, Refresh);
-            UEventDispatcher.removeEventListener(SCEvent.OnFishLeaveTeam, Refresh);
+            UEventDispatcher.removeEventListener(SCEvent.OnFishJoinTeam, RefreshAll);
+            UEventDispatcher.removeEventListener(SCEvent.OnFishLeaveTeam, RefreshAll);
+            UEventDispatcher.addEventListener(SCEvent.OnFishNameChanged, OnFishNameChanged);
         }
 
     }

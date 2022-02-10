@@ -15,6 +15,8 @@
 
 using SubmarineConcierge.Event;
 using SubmarineConcierge.Fish;
+using SubmarineConcierge.SaveData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +35,8 @@ namespace SubmarineConcierge.UI
         private FishData fd;
         private FishIndividualData fid;
 
+        private bool isChangingName = false;
+
         private void JoinTeam()
         {
             SaveData.SaveDataManager.fishFormationSaveData.Add(fid);
@@ -41,7 +45,26 @@ namespace SubmarineConcierge.UI
 
         private void ChangeName()
         {
+            if(isChangingName)
+            {
+                OnNameChanged(ifName.text);
+            }
+            else
+            {
+                tName.gameObject.SetActive(false);
+                ifName.gameObject.SetActive(true);
+                ifName.ActivateInputField();
+                isChangingName = true;
+            }
+        }
 
+        private void OnNameChanged(string newName)
+        {
+            tName.gameObject.SetActive(true);
+            ifName.gameObject.SetActive(false);
+            SaveDataManager.fishSaveData.ChangeName(fid.id, newName);
+            UEventDispatcher.dispatchEvent(SCEvent.OnFishNameChanged, gameObject, newName);
+            isChangingName = false;
         }
 
         public void Init(FishIndividualData data)
@@ -53,7 +76,7 @@ namespace SubmarineConcierge.UI
             ifName.text = fid.name;
             bJoin.onClick.AddListener(JoinTeam);
             bChangeName.onClick.AddListener(ChangeName);
+            ifName.onEndEdit.AddListener(OnNameChanged);
         }
-
     }
 }
