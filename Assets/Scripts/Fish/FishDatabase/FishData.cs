@@ -34,5 +34,6 @@ namespace SubmarineConcierge.Fish
 		 public Material WildMaterial;*/
 		public int tamePP;
 		public float z;
+		public FishSize size;
 	}
 }

@@ -2,7 +2,7 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年01月27日
- *　更新日：2022年02月09日
+ *　更新日：2022年02月10日
  *
  ******************************
  *
@@ -35,6 +35,7 @@ namespace SubmarineConcierge.Fish
         [System.NonSerialized] public Dictionary<string, FishTamed> tamedFishes = new Dictionary<string, FishTamed>();
         private SessionManager sessionManager;
         public FishNameList nameList;
+        private Dictionary<FishSize, List<FishData>> sizeDic;
 
         [Header("Sound")]
         public AudioSource tameSound;
@@ -102,7 +103,31 @@ namespace SubmarineConcierge.Fish
 
         private void GenerateWildRandom()
         {
-            FishType type = fishTypes[UnityEngine.Random.Range(0, fishTypes.Count)];
+            FishSize targetSize = FishSize.Small;
+
+            float random = UnityEngine.Random.Range(0f, 1f);
+
+            if (random < 0.6f)
+            {
+                targetSize = FishSize.Small;
+            }
+            else if (random < 0.9f)
+            {
+                targetSize = FishSize.Middle;
+            }
+            else
+            {
+                targetSize = FishSize.Big;
+            }
+
+            if (!sizeDic.ContainsKey(targetSize))
+                return;
+
+            var list = sizeDic[targetSize];
+            if (list.Count == 0)
+                return;
+
+            FishType type = list[UnityEngine.Random.Range(0, list.Count)].type;
             GenerateWild(type);
         }
 
@@ -125,9 +150,16 @@ namespace SubmarineConcierge.Fish
 
         private void Start()
         {
+            sizeDic = new Dictionary<FishSize, List<FishData>>();
+            foreach (FishSize key in Enum.GetValues(typeof(FishSize)))
+            {
+                sizeDic.Add(key, new List<FishData>());
+            }
+
             foreach (FishData fish in database.fishDatas)
             {
                 fishTypes.Add(fish.type);
+                sizeDic[fish.size]?.Add(fish);
             }
 
             //セーブデータを使って、テイムされた魚を生成する
@@ -141,8 +173,9 @@ namespace SubmarineConcierge.Fish
             UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, OnFishLeaveTeam);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             UEventDispatcher.removeEventListener(SCEvent.OnFishJoinTeam, OnFishJoinTeam);
             UEventDispatcher.removeEventListener(SCEvent.OnFishLeaveTeam, OnFishLeaveTeam);
         }

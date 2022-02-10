@@ -4224,7 +4224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: ba52190b204854742be45abbbb2dc0b0, type: 2}
-  wildFishCount: 3
+  wildFishCount: 5
   nameList: {fileID: 11400000, guid: c30084d1015eb244695bb14f72730589, type: 2}
   tameSound: {fileID: 2068836242}
   tameSuccessSound: {fileID: 1563964185}

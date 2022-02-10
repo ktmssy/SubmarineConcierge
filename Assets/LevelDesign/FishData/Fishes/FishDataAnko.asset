@@ -22,3 +22,4 @@ MonoBehaviour:
   prefabTamed: {fileID: 9059787152396692144, guid: 2596d6a964f579f4b806147cec5bf0a1, type: 3}
   tamePP: 20
   z: 2
+  size: 1
