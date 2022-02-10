@@ -89,5 +89,18 @@ namespace SubmarineConcierge.UI
             UEventDispatcher.addEventListener(SCEvent.OnFishNameChanged, OnFishNameChanged);
         }
 
+        private void Update()
+        {
+#if UNITY_EDITOR || UNITY_STANDALONE
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (!RectTransformUtility.RectangleContainsScreenPoint(transform as RectTransform, Input.mousePosition))
+                {
+                    Close();
+                }
+            }
+#endif
+        }
+
     }
 }
