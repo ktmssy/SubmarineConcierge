@@ -13,6 +13,7 @@
  *
  ******************************/
 
+using SubmarineConcierge.Event;
 using SubmarineConcierge.Fish;
 using SubmarineConcierge.Plankton;
 using SubmarineConcierge.UI;
@@ -28,6 +29,7 @@ namespace SubmarineConcierge.Session
     {
         public Button startButton;
         public Button stopButton;
+        public AudioSource buttonSound;
         //public FishManager fishManager;
         public TextPPControl textPPControl;
         public PlanktonManager planktonManager;
@@ -64,6 +66,7 @@ namespace SubmarineConcierge.Session
         private void PrepareSession()
         {
             Debug.Log("Prepare Session");
+            UEventDispatcher.dispatchEvent(SCEvent.OnSessionPrepare, gameObject);
             startButton.gameObject.SetActive(false);
             stopButton.gameObject.SetActive(true);
             textPPControl.FadeOut();
@@ -81,6 +84,7 @@ namespace SubmarineConcierge.Session
         private void StartSession()
         {
             Debug.Log("Start Session ");
+            UEventDispatcher.dispatchEvent(SCEvent.OnSessionStart, gameObject);
             SingletonMB<MiniGameManager>.Instance.OnSessionStart();
             foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
             {
@@ -98,6 +102,7 @@ namespace SubmarineConcierge.Session
         private void StopSession()
         {
             Debug.Log("Stop Session");
+            UEventDispatcher.dispatchEvent(SCEvent.OnSessionEnd, gameObject);
             startButton.gameObject.SetActive(true);
             stopButton.gameObject.SetActive(false);
             textPPControl.FadeIn();
@@ -111,8 +116,8 @@ namespace SubmarineConcierge.Session
 
         private void Start()
         {
-            startButton.onClick.AddListener(() => { SetStatus(SessionStatus.Prepare); });
-            stopButton.onClick.AddListener(() => { SetStatus(SessionStatus.Stop); });
+            startButton.onClick.AddListener(() => { SetStatus(SessionStatus.Prepare); buttonSound.Play(); });
+            stopButton.onClick.AddListener(() => { SetStatus(SessionStatus.Stop); buttonSound.Play(); });
         }
 
         private void FixedUpdate()

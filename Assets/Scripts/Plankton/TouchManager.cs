@@ -13,6 +13,7 @@
  *
  ******************************/
 
+using SubmarineConcierge.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,9 +26,15 @@ namespace SubmarineConcierge
     {
         public Transform target;
         private Session.SessionManager sessionManager;
+        private FishPanelManager fishPanelManager;
 
         public GameObject dragLog;
         public bool isDragging = false;
+
+        private void Awake()
+        {
+            fishPanelManager = SingletonMB<FishPanelManager>.Instance;
+        }
 
         private void Start()
         {
@@ -129,6 +136,8 @@ namespace SubmarineConcierge
             }
             else if (sessionManager.status == Session.SessionStatus.Stop)
             {
+                if (fishPanelManager.isOpen)
+                    return;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
                 if (Input.GetMouseButton(0))

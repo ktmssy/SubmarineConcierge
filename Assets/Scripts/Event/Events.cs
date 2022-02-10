@@ -24,5 +24,8 @@ namespace SubmarineConcierge.Event
         OnFishJoinTeam,
         OnFishLeaveTeam,
         OnFishNameChanged,
+        OnSessionPrepare,
+        OnSessionStart,
+        OnSessionEnd,
     }
 }

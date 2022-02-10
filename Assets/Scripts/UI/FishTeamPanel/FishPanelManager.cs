@@ -21,14 +21,16 @@ using UnityEngine.UI;
 
 namespace SubmarineConcierge.UI
 {
-    public class FishPanelManager : MonoBehaviour
+    public class FishPanelManager : SingletonMB<FishPanelManager>
     {
         public Button bOpen;
         public Button bClose;
         public FIshLeftManager flm;
         public FishRightManager frm;
+        public AudioSource buttonSound;
 
-        private bool isOpen = false;
+        public bool isOpen { get; private set; } = false;
+
 
         private void RefreshAll()
         {
@@ -53,6 +55,7 @@ namespace SubmarineConcierge.UI
             bOpen.gameObject.SetActive(false);
             flm.ReGenerate();
             frm.ReGenerate();
+            buttonSound.Play();
         }
 
         private void Close()
@@ -60,6 +63,7 @@ namespace SubmarineConcierge.UI
             isOpen = false;
             gameObject.SetActive(false);
             bOpen.gameObject.SetActive(true);
+            buttonSound.Play();
         }
 
         private void RefreshAll(UEvent e)
@@ -72,21 +76,39 @@ namespace SubmarineConcierge.UI
             RefreshLeft();
         }
 
+        private void OnSessionPrepare(UEvent e)
+        {
+            bOpen.gameObject.SetActive(false);
+        }
+
+        private void OnSessionEnd(UEvent e)
+        {
+            bOpen.gameObject.SetActive(true);
+        }
+
         private void Start()
         {
-            Close();
+            isOpen = false;
+            gameObject.SetActive(false);
+            bOpen.gameObject.SetActive(true);
+
             bOpen.onClick.AddListener(Open);
             bClose.onClick.AddListener(Close);
             UEventDispatcher.addEventListener(SCEvent.OnFishJoinTeam, RefreshAll);
             UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, RefreshAll);
             UEventDispatcher.addEventListener(SCEvent.OnFishNameChanged, OnFishNameChanged);
+            UEventDispatcher.addEventListener(SCEvent.OnSessionPrepare, OnSessionPrepare);
+            UEventDispatcher.addEventListener(SCEvent.OnSessionEnd, OnSessionEnd);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             UEventDispatcher.removeEventListener(SCEvent.OnFishJoinTeam, RefreshAll);
             UEventDispatcher.removeEventListener(SCEvent.OnFishLeaveTeam, RefreshAll);
-            UEventDispatcher.addEventListener(SCEvent.OnFishNameChanged, OnFishNameChanged);
+            UEventDispatcher.removeEventListener(SCEvent.OnFishNameChanged, OnFishNameChanged);
+            UEventDispatcher.removeEventListener(SCEvent.OnSessionPrepare, OnSessionPrepare);
+            UEventDispatcher.removeEventListener(SCEvent.OnSessionEnd, OnSessionEnd);
         }
 
         private void Update()
