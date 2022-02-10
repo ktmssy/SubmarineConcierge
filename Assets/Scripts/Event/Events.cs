@@ -27,5 +27,7 @@ namespace SubmarineConcierge.Event
         OnSessionPrepare,
         OnSessionStart,
         OnSessionEnd,
+        OnCurtainClosed,
+        OnCurtainOpened,
     }
 }

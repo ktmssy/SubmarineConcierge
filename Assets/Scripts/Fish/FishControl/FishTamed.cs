@@ -13,6 +13,7 @@
  *
  ******************************/
 
+using SubmarineConcierge.Event;
 using SubmarineConcierge.Session;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,11 +50,37 @@ namespace SubmarineConcierge.Fish
         private const float effectIntervalMin = 1.5f;
         private const float effectIntervalMax = 3f;
 
+        private GameObject fishStage;
+
         private Vector3 GetSessionPos()
         {
             Vector3 ret = SessionPositionManager.GetSessionPosition();
             ret.z = transform.position.z;
             return ret;
+        }
+
+        private void Start()
+        {
+            UEventDispatcher.addEventListener(SCEvent.OnCurtainClosed, OnCurtainClosed);
+            UEventDispatcher.addEventListener(SCEvent.OnSessionEnd, OnSessionEnd);
+        }
+
+        private void OnDestroy()
+        {
+            UEventDispatcher.removeEventListener(SCEvent.OnCurtainClosed, OnCurtainClosed);
+            UEventDispatcher.removeEventListener(SCEvent.OnSessionEnd, OnSessionEnd);
+        }
+
+        private void OnCurtainClosed(UEvent e)
+        {
+            transform.position = targetPos;
+            fishStage = Instantiate(SingletonMB<FishManager>.Instance.prefabFishStage, transform);
+        }
+
+        private void OnSessionEnd(UEvent e)
+        {
+            if (fishStage)
+                Destroy(fishStage);
         }
 
         public void PrepareSession(MusicData music)

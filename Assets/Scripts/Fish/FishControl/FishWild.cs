@@ -13,6 +13,7 @@
  *
  ******************************/
 
+using SubmarineConcierge.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,11 +41,23 @@ namespace SubmarineConcierge.Fish
 
         private void Start()
         {
+            UEventDispatcher.addEventListener(SCEvent.OnCurtainClosed, OnCurtainClosed);
             // 右向きならスプライトを逆転させる
             if (moveSpeed > 0)
             {
                 this.GetComponent<SpriteRenderer>().flipX = true;
             }
+        }
+
+        private void OnDestroy()
+        {
+            UEventDispatcher.removeEventListener(SCEvent.OnCurtainClosed, OnCurtainClosed);
+        }
+
+        private void OnCurtainClosed(UEvent e)
+        {
+            SingletonMB<FishManager>.Instance.RemoveWildFish(this);
+            Destroy(gameObject);
         }
 
         private void Update()

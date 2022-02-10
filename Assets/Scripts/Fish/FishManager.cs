@@ -45,6 +45,9 @@ namespace SubmarineConcierge.Fish
         [Header("Effect")]
         public GameObject tameEffectPrefab;
 
+        [Header("Resources")]
+        internal GameObject prefabFishStage;
+
         public void Tame(string id, FishTamed fish)
         {
             tamedFishes.Add(id, fish);
@@ -171,6 +174,8 @@ namespace SubmarineConcierge.Fish
             sessionManager = SingletonMB<SessionManager>.Instance;
             UEventDispatcher.addEventListener(SCEvent.OnFishJoinTeam, OnFishJoinTeam);
             UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, OnFishLeaveTeam);
+
+            prefabFishStage = Resources.Load<GameObject>("Effects/FishStage");
         }
 
         protected override void OnDestroy()

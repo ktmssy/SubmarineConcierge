@@ -37,7 +37,7 @@ namespace SubmarineConcierge.Session
 
         public SessionStatus status { get; private set; } = SessionStatus.Stop;
 
-        private float duration;
+        public float duration { get; private set; }
 
         //private bool isReady = false;
 
@@ -66,19 +66,22 @@ namespace SubmarineConcierge.Session
         private void PrepareSession()
         {
             Debug.Log("Prepare Session");
-            UEventDispatcher.dispatchEvent(SCEvent.OnSessionPrepare, gameObject);
-            startButton.gameObject.SetActive(false);
-            stopButton.gameObject.SetActive(true);
-            textPPControl.FadeOut();
-            planktonManager.PrepareSession();
+
             MusicData music = musicDatabase.GetRandom();
             var track = music.soundTracks[0];
             duration = track.clipFirst.length + track.clipLoop.length;
-            Debug.Log(track.clipFirst.length + " + " + track.clipLoop.length + " = " + duration);
+
+            UEventDispatcher.dispatchEvent(SCEvent.OnSessionPrepare, gameObject, music);
+
             foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
             {
                 fish.PrepareSession(music);
             }
+
+            startButton.gameObject.SetActive(false);
+            stopButton.gameObject.SetActive(true);
+            textPPControl.FadeOut();
+            planktonManager.PrepareSession();
         }
 
         private void StartSession()
@@ -118,27 +121,40 @@ namespace SubmarineConcierge.Session
         {
             startButton.onClick.AddListener(() => { SetStatus(SessionStatus.Prepare); buttonSound.Play(); });
             stopButton.onClick.AddListener(() => { SetStatus(SessionStatus.Stop); buttonSound.Play(); });
+            UEventDispatcher.addEventListener(SCEvent.OnCurtainOpened, OnCurtainOpened);
         }
 
-        private void FixedUpdate()
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            UEventDispatcher.removeEventListener(SCEvent.OnCurtainOpened, OnCurtainOpened);
+        }
+
+        private void OnCurtainOpened(UEvent e)
         {
             if (status == SessionStatus.Prepare)
-            {
-                bool __flag1 = true/*(fishManager.wildFishes.Count == 0)*/;
-
-                bool __flag2 = true;
-                foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
-                {
-                    __flag2 &= fish.isReadyForSession;
-                }
-
-                //Debug.Log("flag1 " + __flag1 + " ,flag2 " + __flag2);
-                if (__flag1 && __flag2)
-                {
-                    SetStatus(SessionStatus.Play);
-                }
-            }
-
+                SetStatus(SessionStatus.Play);
         }
+
+        /* private void FixedUpdate()
+         {
+             if (status == SessionStatus.Prepare)
+             {
+                 bool __flag1 = true*//*(fishManager.wildFishes.Count == 0)*//*;
+
+                 bool __flag2 = true;
+                 foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
+                 {
+                     __flag2 &= fish.isReadyForSession;
+                 }
+
+                 //Debug.Log("flag1 " + __flag1 + " ,flag2 " + __flag2);
+                 if (__flag1 && __flag2)
+                 {
+                     SetStatus(SessionStatus.Play);
+                 }
+             }
+
+         }*/
     }
 }
