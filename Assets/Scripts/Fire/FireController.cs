@@ -21,15 +21,35 @@ namespace SubmarineConcierge
 {
     public class FireController : MonoBehaviour
     {
-        private void OnTriggerStay2D(Collider2D collision)
+        private GameObject prefabFirePowder;
+        TouchManager tm;
+
+        private void Start()
+        {
+            prefabFirePowder = Resources.Load<GameObject>("Effects/FirePowder");
+            tm = SingletonMB<TouchManager>.Instance;
+        }
+
+        private void Process(Collider2D collision)
         {
             if (collision.CompareTag("LogDragging"))
             {
-                TouchManager tm = SingletonMB<TouchManager>.Instance;
                 tm.isDragging = false;
                 tm.dragLog = null;
+                Instantiate(prefabFirePowder, collision.transform.position, Quaternion.identity).transform.parent = transform;
                 Destroy(collision.gameObject);
             }
+        }
+
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            Process(collision);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            Process(collision);
         }
     }
 }
