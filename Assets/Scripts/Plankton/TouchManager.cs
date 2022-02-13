@@ -122,18 +122,37 @@ namespace SubmarineConcierge
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Moved)
-                {
-                    CheckPlankton(touch.position);
-                }
                 if (touch.phase == TouchPhase.Began)
                 {
-                    CheckDownFishWild(touch.position);
+                    Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                    RaycastHit2D hit = Physics2D.Raycast(new Vector2(ray.origin.x, ray.origin.y), Vector2.zero, Mathf.Infinity, 1 << 9);
+                    if (hit.collider != null)
+                    {
+                        isDragging = true;
+                        dragLog = hit.collider.gameObject;
+                        dragLog.gameObject.tag = "LogDragging";
+                    }
                 }
-                /*if (touch.phase == TouchPhase.Ended)
+                else if (touch.phase == TouchPhase.Ended)
                 {
-                    CheckUpFishWild(touch.position);
-                }*/
+                    isDragging = false;
+                    if (dragLog != null)
+                    {
+                        dragLog.gameObject.tag = "Log";
+                        dragLog = null;
+                    }
+                }
+                else if (isDragging)
+                {
+                    if (dragLog == null)
+                    {
+                        isDragging = false;
+                        return;
+                    }
+                    var pos = Camera.main.ScreenToWorldPoint(touch.position);
+                    pos.z = dragLog.transform.position.z;
+                    dragLog.transform.position = pos;
+                }
             }
 #endif
             }
