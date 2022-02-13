@@ -31,6 +31,8 @@ namespace SubmarineConcierge
         public GameObject dragLog;
         public bool isDragging = false;
 
+        public AudioSource planktonSound;
+
         private void Awake()
         {
             fishPanelManager = SingletonMB<FishPanelManager>.Instance;
@@ -54,6 +56,7 @@ namespace SubmarineConcierge
             if (hit.collider != null)
             {
                 hit.collider.gameObject.GetComponent<Plankton.Plankton>().Collect(target.position);
+                //planktonSound.Play();
             }
         }
 

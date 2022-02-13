@@ -49,8 +49,17 @@ namespace SubmarineConcierge.Fish
         private const float effectRadius = 2f;
         private const float effectIntervalMin = 1.5f;
         private const float effectIntervalMax = 3f;
+        private GameObject prefabRing;
+        private GameObject prefabCrash;
 
         private GameObject fishStage;
+
+        public void GenerateRing()
+        {
+            var obj = Instantiate(prefabRing, transform);
+            obj.transform.Translate(0f, 0f, 0.5f);
+            obj.GetComponent<RingControl>().fish = this;
+        }
 
         private Vector3 GetSessionPos()
         {
@@ -124,6 +133,8 @@ namespace SubmarineConcierge.Fish
 
             Invoke("DoLoop", loopDelay);
             Invoke("GenerateSessionEffect", Random.Range(effectIntervalMin, effectIntervalMax));
+            Invoke("GenerateRing", Random.Range(effectIntervalMin, effectIntervalMax));
+
         }
 
         private IEnumerator VolumnDown(AudioSource source)
@@ -190,6 +201,9 @@ namespace SubmarineConcierge.Fish
             if (!collision.CompareTag("Log"))
                 return;
             Damage();
+            Vector3 pos = collision.ClosestPoint(transform.position);
+            pos.z = transform.position.z - 0.5f;
+            Instantiate(prefabCrash, pos, Quaternion.identity).transform.parent = transform;
             Destroy(collision.gameObject);
         }
 
@@ -253,6 +267,8 @@ namespace SubmarineConcierge.Fish
             NewWaitTime();
             NewTargetPos();
             prefabSessionEffect = Resources.Load<GameObject>("Effects/SessionEffect");
+            prefabRing = Resources.Load<GameObject>("Effects/Ring");
+            prefabCrash = Resources.Load<GameObject>("Effects/Crash");
         }
 
         public void Init(FishIndividualData fish, FishData data, bool randomStart)

@@ -44,6 +44,8 @@ namespace SubmarineConcierge.Plankton
 
         public PlanktonManager manager;
 
+        public AudioSource sound;
+
         private Vector2 startPoint;
 
         private Vector2 endPoint;
@@ -152,6 +154,7 @@ namespace SubmarineConcierge.Plankton
             startPoint = transform.position;
             endPoint = target;
             clicked = true;
+            sound?.Play();
         }
 
         protected void Update()

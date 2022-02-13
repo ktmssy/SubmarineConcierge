@@ -29,5 +29,6 @@ namespace SubmarineConcierge.Event
         OnSessionEnd,
         OnCurtainClosed,
         OnCurtainOpened,
+        OnAwaDestroying,
     }
 }
