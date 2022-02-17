@@ -2,7 +2,7 @@
  *
  *　作成者：楊志庄
  *　作成日：2022年02月09日
- *　更新日：
+ *　更新日：2022年02月17日
  *
  ******************************
  *
@@ -30,5 +30,10 @@ namespace SubmarineConcierge.Event
         OnCurtainClosed,
         OnCurtainOpened,
         OnAwaDestroying,
+        OnAwaGroupDestroying,
+        OnLogDestroying,
+        OnMapChanged,
+        OnFireLevelUp,
+        OnFireExpChanged,
     }
 }

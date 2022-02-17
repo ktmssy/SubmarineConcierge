@@ -40,5 +40,7 @@ namespace SubmarineConcierge.Fire
         /// 1匹のプランクトンが持つPPの上限値
         /// </summary>
         public float planktonPointPerPlankton;
+
+        public int expToNextLevel;
     }
 }

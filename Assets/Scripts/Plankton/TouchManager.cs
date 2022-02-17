@@ -40,6 +40,7 @@ namespace SubmarineConcierge
 
         private void Start()
         {
+            base.Init();
             sessionManager = SingletonMB<Session.SessionManager>.Instance;
         }
 
@@ -162,35 +163,27 @@ namespace SubmarineConcierge
                     return;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-                if (Input.GetMouseButton(0))
-                {
-                    CheckPlankton(Input.mousePosition);
-                }
                 if (Input.GetMouseButtonDown(0))
                 {
                     CheckDownFishWild(Input.mousePosition);
                 }
-                /*if (Input.GetMouseButtonUp(0))
+                else if (Input.GetMouseButton(0))
                 {
-                    CheckUpFishWild(Input.mousePosition);
-                }*/
+                    CheckPlankton(Input.mousePosition);
+                }
 #endif
 #if UNITY_IOS || UNITY_ANDROID
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Moved)
-                {
-                    CheckPlankton(touch.position);
-                }
                 if (touch.phase == TouchPhase.Began)
                 {
                     CheckDownFishWild(touch.position);
                 }
-                /*if (touch.phase == TouchPhase.Ended)
+                else if (touch.phase == TouchPhase.Moved)
                 {
-                    CheckUpFishWild(touch.position);
-                }*/
+                    CheckPlankton(touch.position);
+                }
             }
 #endif
             }

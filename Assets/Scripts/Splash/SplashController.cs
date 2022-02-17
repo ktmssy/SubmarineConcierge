@@ -51,7 +51,19 @@ namespace SubmarineConcierge
 #endif
             SaveData.SaveDataManager.LoadOnce();
 
-            ao = SceneManager.LoadSceneAsync("MainScene");
+            switch (SaveData.SaveDataManager.mapSaveData.currentPlace)
+            {
+                case Fish.FishAppearPlace.Shoal:
+                default:
+                    ao = SceneManager.LoadSceneAsync("ShoalScene");
+                    break;
+                case Fish.FishAppearPlace.Middle:
+                    ao = SceneManager.LoadSceneAsync("MiddleScene");
+                    break;
+                case Fish.FishAppearPlace.Deep:
+                    ao = SceneManager.LoadSceneAsync("DeepScene");
+                    break;
+            }
             ao.allowSceneActivation = false;
 
             image = GetComponent<Image>();

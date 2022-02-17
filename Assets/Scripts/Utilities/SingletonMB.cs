@@ -1,3 +1,4 @@
+using SubmarineConcierge.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,8 @@ public abstract class SingletonMB<T> : MonoBehaviour where T : SingletonMB<T>
     {
         get
         {
-            if (applicationIsQuitting)
-                return null;
+            /*if (applicationIsQuitting)
+                return null;*/
             if (_instance == null)
             {
                 lock (_lock)
@@ -37,11 +38,17 @@ public abstract class SingletonMB<T> : MonoBehaviour where T : SingletonMB<T>
 
     protected virtual void Init()
     {
-
+        UEventDispatcher.addEventListener(SCEvent.OnMapChanged, OnMapChanged);
     }
 
     protected virtual void OnDestroy()
     {
         applicationIsQuitting = true;
+        UEventDispatcher.removeEventListener(SCEvent.OnMapChanged, OnMapChanged);
+    }
+
+    private void OnMapChanged(UEvent e)
+    {
+        applicationIsQuitting = false;
     }
 }

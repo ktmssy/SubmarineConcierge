@@ -13,54 +13,98 @@
  *
  ******************************/
 
+using SubmarineConcierge.Event;
+using SubmarineConcierge.Fire;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SubmarineConcierge.SaveData
 {
-    public class FireLevelSaveData
+    [System.Serializable]
+    public class FireLevelSaveData : SaveData
     {
-        private const string SAVE_KEY = "Firelevel";
+        [System.NonSerialized] private int _MAX_LEVEL = 0;
 
-        private const int MAX_LEVEL = 3;
-
-        private static int _level = 0;
-
-        public static int level
+        public int MAX_LEVEL
         {
             get
             {
-                if (_level == 0)
-                {
-                    _level = Load();
-                }
-                return _level;
+                if (_MAX_LEVEL == 0)
+                    _MAX_LEVEL = levelDatabase.levelDatas.Length;
+                return _MAX_LEVEL;
             }
-            set
+        }
+
+        private int _level = 1;
+        private int _exp = 0;
+
+        public int level { get { return _level; } }
+        public int exp { get { return _exp; } }
+
+        [System.NonSerialized] LevelDatabase _levelDatabase;
+        public LevelDatabase levelDatabase
+        {
+            get
             {
-                _level = value;
-                Save(value);
+                if (_levelDatabase == null)
+                    _levelDatabase = Resources.Load<LevelDatabase>("LevelDesign/FireData/FireLevelDatabase");
+                return _levelDatabase;
             }
         }
 
-        private static int Load()
+        public LevelData currentLevelData
         {
-            return PlayerPrefs.GetInt(SAVE_KEY, 1);
+            get
+            {
+                return levelDatabase.GetLevelData(_level);
+            }
         }
 
-        private static void Save(int value)
+
+        public override void Save()
         {
-            PlayerPrefs.SetInt(SAVE_KEY, value);
+            SaveDataManager.Save(SaveDataManager.fireLevelSaveData);
         }
 
-        public static int AddLevel(int value)
+        public void AddExp(int e)
         {
-            int ret = level + value;
-            if (ret > MAX_LEVEL || ret <= 0)
-                return level;
-            level = ret;
-            return ret;
+            _exp += e;
+            UEventDispatcher.dispatchEvent(SCEvent.OnFireExpChanged, null);
+
+            while (LevelUp()) ;
+            Save();
         }
+
+        public void SetLevel(int l)
+        {
+            _level = l;
+            Save();
+        }
+
+        public void SetExp(int e)
+        {
+            _exp = e;
+            UEventDispatcher.dispatchEvent(SCEvent.OnFireExpChanged, null);
+
+            while (LevelUp()) ;
+            Save();
+        }
+
+        private bool LevelUp()
+        {
+            if (_level >= MAX_LEVEL)
+                return false;
+
+            LevelData currentLevel = levelDatabase.GetLevelData(_level);
+            if (_exp < currentLevel.expToNextLevel)
+                return false;
+
+            _exp -= currentLevel.expToNextLevel;
+            _level++;
+            UEventDispatcher.dispatchEvent(SCEvent.OnFireLevelUp, null);
+            return true;
+        }
+
     }
 }

@@ -13,6 +13,7 @@
  *
  ******************************/
 
+using SubmarineConcierge.Event;
 using SubmarineConcierge.Fish;
 using System.Collections;
 using System.Collections.Generic;
@@ -59,6 +60,11 @@ namespace SubmarineConcierge.Session
         {
             if (manager.status != SessionStatus.Play)
                 Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            UEventDispatcher.dispatchEvent(SCEvent.OnLogDestroying, gameObject);
         }
     }
 }

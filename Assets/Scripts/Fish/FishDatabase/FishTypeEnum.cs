@@ -25,5 +25,8 @@ namespace SubmarineConcierge.Fish
         IwashiOld,
         Same,
         Anko,
+        Hugu,
+        Ishidai,
+        Manta,
     }
 }

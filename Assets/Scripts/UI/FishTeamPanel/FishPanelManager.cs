@@ -88,6 +88,7 @@ namespace SubmarineConcierge.UI
 
         private void Start()
         {
+            base.Init();
             isOpen = false;
             gameObject.SetActive(false);
             bOpen.gameObject.SetActive(true);
@@ -114,13 +115,28 @@ namespace SubmarineConcierge.UI
         private void Update()
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!RectTransformUtility.RectangleContainsScreenPoint(transform as RectTransform, Input.mousePosition))
-                {
-                    Close();
-                }
-            }
+            if (!Input.GetMouseButtonDown(0))
+                return;
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(
+                transform as RectTransform, Input.mousePosition))
+                return;
+
+            Close();
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+            if (Input.touchCount == 0)
+                return;
+
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase != TouchPhase.Began)
+                return;
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(
+            transform as RectTransform, Input.mousePosition))
+                return;
+
+            Close();
 #endif
         }
 

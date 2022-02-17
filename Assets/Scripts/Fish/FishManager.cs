@@ -28,6 +28,7 @@ namespace SubmarineConcierge.Fish
     public class FishManager : SingletonMB<FishManager>
     {
         [Header("Manage")]
+        public FishAppearPlace place;
         public FishDatabase database;
         [System.NonSerialized] public List<FishWild> wildFishes = new List<FishWild>();
         public int wildFishCount;
@@ -36,6 +37,8 @@ namespace SubmarineConcierge.Fish
         private SessionManager sessionManager;
         public FishNameList nameList;
         private Dictionary<FishSize, List<FishData>> sizeDic;
+        private List<FishSize> noSizeDataList = new List<FishSize>();
+        private int sizeTypeCount;
 
         [Header("Sound")]
         public AudioSource tameSound;
@@ -110,17 +113,21 @@ namespace SubmarineConcierge.Fish
 
             float random = UnityEngine.Random.Range(0f, 1f);
 
-            if (random < 0.6f)
+            if (!noSizeDataList.Contains(FishSize.Small) && random < 0.6f)
             {
                 targetSize = FishSize.Small;
             }
-            else if (random < 0.9f)
+            else if (!noSizeDataList.Contains(FishSize.Middle) && random < 0.9f)
             {
                 targetSize = FishSize.Middle;
             }
-            else
+            else if (!noSizeDataList.Contains(FishSize.Big))
             {
                 targetSize = FishSize.Big;
+            }
+            else
+            {
+                return;
             }
 
             if (!sizeDic.ContainsKey(targetSize))
@@ -128,7 +135,11 @@ namespace SubmarineConcierge.Fish
 
             var list = sizeDic[targetSize];
             if (list.Count == 0)
+            {
+                if (!noSizeDataList.Contains(targetSize))
+                    noSizeDataList.Add(targetSize);
                 return;
+            }
 
             FishType type = list[UnityEngine.Random.Range(0, list.Count)].type;
             GenerateWild(type);
@@ -137,6 +148,7 @@ namespace SubmarineConcierge.Fish
         private void Awake()
         {
             SaveDataManager.LoadOnce();
+            SaveDataManager.mapSaveData.SetCurrentPlace(place);
         }
 
         private void OnFishJoinTeam(UEvent e)
@@ -153,16 +165,31 @@ namespace SubmarineConcierge.Fish
 
         private void Start()
         {
+            base.Init();
+            UEventDispatcher.dispatchEvent(SCEvent.OnMapChanged, gameObject);
             sizeDic = new Dictionary<FishSize, List<FishData>>();
+            sizeTypeCount = 0;
             foreach (FishSize key in Enum.GetValues(typeof(FishSize)))
             {
                 sizeDic.Add(key, new List<FishData>());
+                sizeTypeCount++;
             }
 
-            foreach (FishData fish in database.fishDatas)
+            foreach (FishData fish in database.GetFishListByPlace(place))
             {
                 fishTypes.Add(fish.type);
                 sizeDic[fish.size]?.Add(fish);
+            }
+
+            foreach (FishSize key in sizeDic.Keys)
+            {
+                if (sizeDic[key].Count != 0)
+                    continue;
+
+                if (noSizeDataList.Contains(key))
+                    continue;
+
+                noSizeDataList.Add(key);
             }
 
             //セーブデータを使って、テイムされた魚を生成する
@@ -170,7 +197,6 @@ namespace SubmarineConcierge.Fish
             {
                 GenerateTamed(fish);
             }
-
             sessionManager = SingletonMB<SessionManager>.Instance;
             UEventDispatcher.addEventListener(SCEvent.OnFishJoinTeam, OnFishJoinTeam);
             UEventDispatcher.addEventListener(SCEvent.OnFishLeaveTeam, OnFishLeaveTeam);
@@ -189,6 +215,10 @@ namespace SubmarineConcierge.Fish
         {
             if (sessionManager.status != SessionStatus.Stop)
                 return;
+
+            if (noSizeDataList.Count >= sizeTypeCount)
+                return;
+
             while (wildFishes.Count < wildFishCount)
             {
                 GenerateWildRandom();

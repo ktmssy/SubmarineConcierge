@@ -21,6 +21,7 @@ namespace SubmarineConcierge
 {
     public class FireController : MonoBehaviour
     {
+        public int logExp = 1;
         private GameObject prefabFirePowder;
         TouchManager tm;
 
@@ -37,6 +38,7 @@ namespace SubmarineConcierge
                 tm.isDragging = false;
                 tm.dragLog = null;
                 Instantiate(prefabFirePowder, collision.transform.position, Quaternion.identity).transform.parent = transform;
+                SaveData.SaveDataManager.fireLevelSaveData.AddExp(logExp);
                 Destroy(collision.gameObject);
             }
         }

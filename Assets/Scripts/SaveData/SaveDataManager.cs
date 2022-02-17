@@ -29,23 +29,32 @@ namespace SubmarineConcierge.SaveData
 
         private static bool inited = false;
 
+        public static FireLevelSaveData fireLevelSaveData= new FireLevelSaveData();
+
         public static FishSaveData fishSaveData = new FishSaveData();
 
         public static FishTameProgressSaveData fishTameProgressSaveData = new FishTameProgressSaveData();
 
         public static FishFormationSaveData fishFormationSaveData = new FishFormationSaveData();
 
+        public static MapSaveData mapSaveData = new MapSaveData();
+
+
         public static T Load<T>() where T : new()
         {
             try
             {
+                //セーブデータの保存パスを構築
                 string filename = typeof(T).Name + Postfix;
                 string path = Application.persistentDataPath + "/" + filename;
                 Debug.Log("Load " + path);
+
+                //ファイルからバイナリデータを読み込む
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = File.Open(path, FileMode.OpenOrCreate);
                 T ret = (T)bf.Deserialize(fs);
                 fs.Close();
+
                 return ret;
             }
             catch (Exception ex)
@@ -63,17 +72,23 @@ namespace SubmarineConcierge.SaveData
 
         public static void Load()
         {
-            foreach (FieldInfo info in typeof(SaveDataManager).GetFields(BindingFlags.Static | BindingFlags.Public))
+            //SaveDataManagerのすべてのpublic static fieldを取得
+            foreach (FieldInfo info in typeof(SaveDataManager)
+                .GetFields(BindingFlags.Static | BindingFlags.Public))
             {
                 Type type = info.FieldType;
                 try
                 {
+                    //セーブデータの保存パスを構築
                     string filename = type.Name + Postfix;
                     string path = Application.persistentDataPath + "/" + filename;
                     Debug.Log("Load " + path);
+
+                    //ファイルからバイナリデータを読み込む
                     BinaryFormatter bf = new BinaryFormatter();
                     FileStream fs = File.Open(path, FileMode.OpenOrCreate);
                     info.SetValue(new SaveDataManager(), bf.Deserialize(fs));
+
                     fs.Close();
                 }
                 catch (Exception ex)
@@ -106,14 +121,18 @@ namespace SubmarineConcierge.SaveData
 
         public static void Save()
         {
+            //SaveDataManagerのすべてのpublic static fieldを取得
             foreach (FieldInfo info in typeof(SaveDataManager).GetFields(BindingFlags.Static | BindingFlags.Public))
             {
                 Type type = info.FieldType;
                 try
                 {
+                    //セーブデータの保存パスを構築
                     string filename = type.Name + Postfix;
                     string path = Application.persistentDataPath + "/" + filename;
                     Debug.Log("Save " + path);
+
+                    //バイナリデータをファイルに書き込む
                     BinaryFormatter bf = new BinaryFormatter();
                     FileStream fs = File.Create(path);
                     bf.Serialize(fs, info.GetValue(new SaveDataManager()));

@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SplashScene.unity
     guid: 5ab4249ae2b2d164b91f8cde7429d526
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/ShoalScene.unity
     guid: f7b2c58f737918c4088b1179062271a7
+  - enabled: 1
+    path: Assets/Scenes/MiddleScene.unity
+    guid: db12d04130162e649866792d3c09d2b3
+  - enabled: 1
+    path: Assets/Scenes/DeepScene.unity
+    guid: 741fddc57d966604eac8e278b4aaf9da
   m_configObjects: {}

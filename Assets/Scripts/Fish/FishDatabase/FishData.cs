@@ -35,5 +35,6 @@ namespace SubmarineConcierge.Fish
 		public int tamePP;
 		public float z;
 		public FishSize size;
+		public string typeName="名無し魚";
 	}
 }

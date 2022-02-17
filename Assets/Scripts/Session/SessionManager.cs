@@ -88,7 +88,6 @@ namespace SubmarineConcierge.Session
         {
             Debug.Log("Start Session ");
             UEventDispatcher.dispatchEvent(SCEvent.OnSessionStart, gameObject);
-            SingletonMB<MiniGameManager>.Instance.OnSessionStart();
             foreach (FishTamed fish in SingletonMB<FishManager>.Instance.tamedFishes.Values)
             {
                 fish.StartSession();
@@ -119,6 +118,7 @@ namespace SubmarineConcierge.Session
 
         private void Start()
         {
+            base.Init();
             startButton.onClick.AddListener(() => { SetStatus(SessionStatus.Prepare); buttonSound.Play(); });
             stopButton.onClick.AddListener(() => { SetStatus(SessionStatus.Stop); buttonSound.Play(); });
             UEventDispatcher.addEventListener(SCEvent.OnCurtainOpened, OnCurtainOpened);

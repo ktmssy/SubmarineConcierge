@@ -24,15 +24,17 @@ namespace SubmarineConcierge.Dbg
     {
 #if UNITY_EDITOR
         public int fireLevel;
+        public int fireExp;
         public int gainedPP;
         public int holdPP;
         [ReadOnly]
         public string lastTime;
 
-    
+
         private void Update()
         {
-            fireLevel = FireLevelSaveData.level;
+            fireLevel = SaveDataManager.fireLevelSaveData.level;
+            fireExp = SaveDataManager.fireLevelSaveData.exp;
             gainedPP = PPSaveData.gained;
             holdPP = PPSaveData.hold;
             lastTime = PPTimeSaveData.time.ToString();
@@ -40,7 +42,8 @@ namespace SubmarineConcierge.Dbg
 
         public void Save()
         {
-            FireLevelSaveData.level = fireLevel;
+            SaveDataManager.fireLevelSaveData.SetLevel(fireLevel);
+            SaveDataManager.fireLevelSaveData.SetExp(fireExp);
             PPSaveData.gained = gainedPP;
             PPSaveData.hold = holdPP;
         }

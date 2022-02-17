@@ -89,7 +89,7 @@ namespace SubmarineConcierge.Plankton
             double seconds = deltaSpan.TotalSeconds;
             //Debug.Log("deltaSeconds: " + seconds);
 
-            LevelData fireLevelData = fireLevelDatabase.GetLevelData(FireLevelSaveData.level);
+            LevelData fireLevelData = fireLevelDatabase.GetLevelData(SaveDataManager.fireLevelSaveData.level);
             //Debug.Log("FireLevel: " + FireLevelSaveData.Level);
 
             int delta = (int)(fireLevelData.planktonPointPerSecond * seconds);
@@ -151,7 +151,7 @@ namespace SubmarineConcierge.Plankton
         private int CalcPlanktonCount()
         {
             CalcPP();
-            LevelData fireLevelData = fireLevelDatabase.GetLevelData(FireLevelSaveData.level);
+            LevelData fireLevelData = fireLevelDatabase.GetLevelData(SaveDataManager.fireLevelSaveData.level);
             int ret = Mathf.CeilToInt(PPSaveData.gained / fireLevelData.planktonPointPerPlankton);
             ret = Mathf.Min(ret, maxPlanktonAmount);
             return ret;
