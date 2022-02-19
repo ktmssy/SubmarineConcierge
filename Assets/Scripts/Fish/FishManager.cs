@@ -84,8 +84,9 @@ namespace SubmarineConcierge.Fish
 
         private void GenerateWild(FishType type)
         {
-            FishIndividualData fish = new FishIndividualData(type, 0, nameList.GetRandom(), false);
+            //FishIndividualData fish = new FishIndividualData(type, 0, nameList.GetRandom(), false);
             FishData data = database.GetFishData(type);
+            FishIndividualData fish = new FishIndividualData(type, 0, data.typeName, false);
 
             // 魚の向きを決定
             int direction = UnityEngine.Random.Range(-1, 2);
