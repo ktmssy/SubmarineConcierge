@@ -26,6 +26,7 @@ namespace SubmarineConcierge
         private GameObject prefabFirePowder;
         TouchManager tm;
         private GameObject prefabLevelUpEffect;
+        public AudioSource soundLevelUp;
 
         private void Start()
         {
@@ -55,6 +56,7 @@ namespace SubmarineConcierge
         private void OnFireLevelUp(UEvent e)
         {
             Instantiate(prefabLevelUpEffect, transform).transform.Translate(0f, 0f, -0.5f);
+            soundLevelUp.Play();
         }
 
 

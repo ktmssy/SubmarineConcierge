@@ -32,6 +32,9 @@ namespace SubmarineConcierge
         public Image middleImage;
         public Image deepImage;
 
+        public AudioSource soundOpen;
+        public AudioSource soundClose;
+
         public bool isOpen { get; private set; } = false;
         public bool isAnimating { get; private set; } = false;
 
@@ -74,6 +77,7 @@ namespace SubmarineConcierge
             if (isOpen)
                 return;
             isOpen = true;
+            soundOpen.PlayDelayed(0.1f);
             anm.Play("Open");
         }
 
@@ -82,6 +86,7 @@ namespace SubmarineConcierge
             if (!isOpen)
                 return;
             isOpen = false;
+            soundClose.PlayDelayed(0.1f);
             anm.Play("Close");
         }
 

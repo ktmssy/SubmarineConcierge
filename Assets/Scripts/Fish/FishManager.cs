@@ -28,7 +28,7 @@ namespace SubmarineConcierge.Fish
     public class FishManager : SingletonMB<FishManager>
     {
         [Header("Manage")]
-        public FishAppearPlace place;
+        private FishAppearPlace place;
         public FishDatabase database;
         [System.NonSerialized] public List<FishWild> wildFishes = new List<FishWild>();
         public int wildFishCount;
@@ -149,6 +149,7 @@ namespace SubmarineConcierge.Fish
         private void Awake()
         {
             SaveDataManager.LoadOnce();
+            place = SingletonMB<SceneSetting>.Instance.PLACE;
             SaveDataManager.mapSaveData.SetCurrentPlace(place);
         }
 
