@@ -47,7 +47,8 @@ namespace SubmarineConcierge
         private void Start()
         {
 #if UNITY_STANDALONE
-            Screen.SetResolution(2778 / 2, 1284 / 2, false);
+            //Screen.SetResolution(2778 / 2, 1284 / 2, false);
+            Screen.SetResolution(1920, 1080, true);
 #endif
             SaveData.SaveDataManager.LoadOnce();
 
