@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  collectspeed: 3
+  collectspeed: 10
   data: {fileID: 11400000, guid: 05b941eed4816b24f92f22a36203d76f, type: 2}
   phase: 0
   manager: {fileID: 0}

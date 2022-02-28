@@ -29,7 +29,7 @@ namespace SubmarineConcierge.SaveData
 
         private static bool inited = false;
 
-        public static FireLevelSaveData fireLevelSaveData= new FireLevelSaveData();
+        public static FireLevelSaveData fireLevelSaveData = new FireLevelSaveData();
 
         public static FishSaveData fishSaveData = new FishSaveData();
 
@@ -64,6 +64,28 @@ namespace SubmarineConcierge.SaveData
             }
         }
 
+        public static void Reset()
+        {
+            foreach (FieldInfo info in typeof(SaveDataManager).GetFields(BindingFlags.Static | BindingFlags.Public))
+            {
+                Type type = info.FieldType;
+                try
+                {
+                    //セーブデータの保存パスを構築
+                    string filename = type.Name + Postfix;
+                    string path = Application.persistentDataPath + "/" + filename;
+                    Debug.Log("Delete " + path);
+
+                    File.Delete(path);
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log("Delete exception " + ex.Message);
+                }
+
+            }
+        }
+
         public static void LoadOnce()
         {
             if (!inited)
@@ -93,6 +115,7 @@ namespace SubmarineConcierge.SaveData
                 }
                 catch (Exception ex)
                 {
+                    info.SetValue(new SaveDataManager(), Activator.CreateInstance(type));
                     Debug.Log("Load exception " + ex.Message);
                 }
 

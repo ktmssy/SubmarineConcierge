@@ -149,8 +149,7 @@ namespace SubmarineConcierge.Fish
         private void Awake()
         {
             SaveDataManager.LoadOnce();
-            place = SingletonMB<SceneSetting>.Instance.PLACE;
-            SaveDataManager.mapSaveData.SetCurrentPlace(place);
+            
         }
 
         private void OnFishJoinTeam(UEvent e)
@@ -167,6 +166,8 @@ namespace SubmarineConcierge.Fish
 
         private void Start()
         {
+            place = SingletonMB<SceneSetting>.Instance.PLACE;
+            SaveDataManager.mapSaveData.SetCurrentPlace(place);
             base.Init();
             UEventDispatcher.dispatchEvent(SCEvent.OnMapChanged, gameObject);
             sizeDic = new Dictionary<FishSize, List<FishData>>();
